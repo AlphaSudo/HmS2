@@ -1,0 +1,44 @@
+# Development Profile Configuration for EHR Reports Service
+# This profile uses H2 in-memory database and embedded MongoDB for easy development setup
+
+spring:
+  # H2 Database Configuration for Development (for audit logs)
+  datasource:
+    url: jdbc:h2:mem:ehr_dev_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: # Empty password for H2
+    
+  # H2 Console for database inspection
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      
+  # JPA Configuration for H2
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Recreate schema on each restart for development
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  # MongoDB Configuration for Development (embedded or test container)
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hms_ehr_dev_db
+      auto-index-creation: true
+
+  # Disable Flyway for development (using create-drop)
+  flyway:
+    enabled: false
+
+# Development Logging - More verbose
+logging:
+  level:
+    com.pro.ehrreportsservice: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE 

@@ -1,0 +1,91 @@
+# ============================
+# Java
+# ============================
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.iml
+*.ipr
+*.iws
+target/
+bin/
+out/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse
+.settings/
+.project
+.classpath
+
+# Maven
+log/
+*.log
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# ============================
+# Python
+# ============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+
+# Pipenv
+Pipfile.lock
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# MyPy
+.mypy_cache/
+
+# ============================
+# React (Node.js)
+# ============================
+node_modules/
+build/
+dist/
+*.log
+*.env
+.env.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================
+# OS/System Files
+# ============================
+.DS_Store
+Thumbs.db

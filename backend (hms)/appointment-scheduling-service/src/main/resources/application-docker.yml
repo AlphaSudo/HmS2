@@ -1,0 +1,7 @@
+# Docker profile configuration for Appointment Scheduling Service
+spring:
+  application:
+    name: appointment-scheduling-service
+  config:
+    import:
+      - "optional:configserver:http://config-server-service:8888"

@@ -1,0 +1,9 @@
+# This bootstrap configuration is for local development.
+# It connects to the config server on localhost and specifies a fallback to a local .env file.
+spring:
+  application:
+    name: patient-management-service
+  config:
+    import:
+      - "optional:configserver:http://localhost:8888"
+      - "optional:file:C:/Users/CM/Downloads/Compressed/Hospital Management System/backend (hms)/.env[.properties]" 

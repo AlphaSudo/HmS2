@@ -1,0 +1,7 @@
+# Docker profile configuration for Doctor Management Service
+spring:
+  application:
+    name: doctor-management-service
+  config:
+    import:
+      - "optional:configserver:http://config-server-service:8888" 

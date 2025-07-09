@@ -1,0 +1,43 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: stroke-prediction-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server-service:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    hostname: stroke-prediction-service
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+
+# Custom application properties
+stroke:
+  model:
+    path: /app/model.joblib
+    reload-on-startup: true
+  prediction:
+    batch-size: 100
+    timeout-seconds: 30
+  
+logging:
+  level:
+    com.pro: INFO
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always 

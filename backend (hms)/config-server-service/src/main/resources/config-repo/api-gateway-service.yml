@@ -1,0 +1,105 @@
+# Server Configuration
+server:
+  port: ${GATEWAY_PORT:8080}
+
+# Spring Cloud Gateway Configuration
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      
+      # Global CORS Configuration
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5000,http://localhost:5000}
+            allowedMethods: ${CORS_ALLOWED_METHODS:GET,POST,PUT,DELETE,OPTIONS}
+            allowedHeaders: ${CORS_ALLOWED_HEADERS:*}
+            allowCredentials: ${CORS_ALLOW_CREDENTIALS:true}
+
+      # Route Configuration
+      routes:
+        - id: authentication-service
+          uri: lb://authentication-service
+          predicates:
+            - Path=/auth/**
+
+        - id: patient-management-service
+          uri: lb://patient-management-service
+          predicates:
+            - Path=/patients/**
+
+        - id: doctor-management-service
+          uri: lb://doctor-management-service
+          predicates:
+            - Path=/doctors/**
+
+        - id: appointment-scheduling-service
+          uri: lb://appointment-scheduling-service
+          predicates:
+            - Path=/appointments/**
+
+        - id: billing-invoicing-service
+          uri: lb://billing-invoicing-service
+          predicates:
+            - Path=/invoices/**
+
+        - id: ehr-reports-service
+          uri: lb://ehr-reports-service
+          predicates:
+            - Path=/reports/**
+
+        - id: preliminary-diagnosis-service
+          uri: lb://preliminary-diagnosis-service
+          predicates:
+            - Path=/preliminary-diagnosis/**
+        
+        - id: pharmacy-management-service
+          uri: lb://pharmacy-management-service
+          predicates:
+            - Path=/pharmacy/**
+
+        - id: stroke-prediction-service
+          uri: lb://stroke-prediction-service
+          predicates:
+            - Path=/stroke-prediction/**
+
+# ===================================================================
+# Security Configuration
+# ===================================================================
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+
+# Eureka Configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://discovery-server-service:8761/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: ${HOSTNAME:api-gateway}
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# Logging Configuration
+logging:
+  level:
+    org.springframework.cloud.gateway: ${LOG_LEVEL_GATEWAY:INFO}
+    reactor.netty.http.client: ${LOG_LEVEL_NETTY:INFO}
+    com.pro.apigatewayservice: ${LOG_LEVEL_APP:INFO}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

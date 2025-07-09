@@ -1,0 +1,1442 @@
+Menoufia University  
+Faculty of electronic engineering 
+Department of Computer Science 
+ & Engineering 
+ 
+ 
+ 
+ 
+ELEV5 
+Smart Elevators 
+ 
+Prepared by 
+Ahmed Gomaa Hamed Madkour 
+Hassan Mahmoud Hamed Madkour 
+Hossam Mustafa Labib Mohammed 
+Sarah Sobhi Abdel Fattah Metwally Othman 
+Mohamed Alaa El Deen Mohamed El Bahrawy  
+Supervised by 
+Dr. Marwa Abbas Radad 
+ 
+Academic Year 
+(2023 – 2024) 
+Signatures page 
+ 
+Project name: Smart elevator 
+ 
+Supervised by  : ...............................................  
+ 
+Judgment and discussion committee : 
+….……………………………………………………………………………………
+. 
+….……………………………………………………………………………………
+. 
+….……………………………………………………………………………………… 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Abstract  
+This thesis proposes a novel system designed to improve elevator functionality and communication between building owners, technicians, and the elevator itself. Traditional electric elevators use modern control cards for overall management, often displaying error codes on a seven-segment display. While these codes provide basic problem identification, the proposed system aims to revolutionize this approach. 
+The system captures these error codes in real-time and transmits them to both the elevator technician and building owner, including the code itself, its meaning, and potential solutions, enabling informed decision-making. Using mobile applications designed for the system, technicians can remotely control the elevator for troubleshooting or maintenance, streamlining the response process and minimizing downtime. 
+At the core of the proposed system is an Internet of Things (IoT) device connected to the seven wires associated with the seven-segment display. This device is programmed to decipher the error codes and transmit them to a central server. Technicians can access the transmitted error notifications through a secure online platform, which provides a centralized location for error data and potential solutions. 
+The system offers flexibility in terms of network connectivity, functioning effectively on either a local network confined to the building or a more expansive global network. Overall, this proposed system presents a comprehensive solution for enhanced elevator monitoring, improved communication regarding malfunctions, and remote control capabilities for efficient maintenance. 
+ 
+ELEV5, July 2024 
+ 
+ 
+ 
+ 
+ 
+TABLE OF CONTENTS 
+INTRODUCTION 
+1.1 Introduction………………………………………………………………………………… 6 
+1.1.1 The importance of elevators…………………………………………………………… 6 
+1.1.2 Safety in ordinary elevators……………………………………………………………. 7 
+1.1.3 Enhancing Elevator Maintenance Through Real-Time Error Notification System……. 8 
+1.1.4 Analysis of Elevator-Related Injuries…………………………………………….......... 8 
+1.2 Related Work………………………………………………………………………….......... 10 
+1.2.1 The ELSafe system……………………………………………………………….......... 10 
+1.2.2 KAS Fi…………………………………………………………………………………. 11 
+1.3 Proposed System…………………………………………………………………………… 11 
+1.4 Thesis Outline……………………………………………………………………………… 12 
+SYSTEM ANALYSIS 
+2.1 Introduction………………………………………………………………………………… 14 
+2.2 Elevator control card………………………………………………………………….......... 14 
+2.3 Proposed System……………………………………………………………………………. 20 
+2.4 UML diagrams……………………………………………………………………………… 22 
+2.4.1Use Case Diagram Analysis…………………………………………………………….. 22 
+2.4.1 Sequence diagram……………………………………………………………………… 23 
+HARDWAREIMPLEMENTATION                                                                                                 
+              3.1 Introduction……………………………………………………………………….. 29 
+3.2 Hardware components……………………………………………………………………… 30 
+3.2.1   ESP32……………………………………………………………………………......... 30 
+3.2.2 L7805 Voltage Regulator…………………………………………………………......... 32 
+3.2.3 7-Segment for Error Visualization……………………………………………………... 34 
+3.2.4 Voltage Regulation……………………………………………………………………... 34 
+3.2.5 Optocoupler (Opto-isolator)……………………………………………………………. 35 
+3.3 IOT component……………………………………………………………………………... 38 
+3.4 Circuit design……………………………………………………………………………….. 39 
+3.4 IOT programming…………………………………………………………………………... 41 
+3.4.1 Overview of use IOT………………………………………………………………........ 41 
+3.4.2 IOT device……………………………………………………………………………… 41 
+3.4.3 simulation of the project……………………………………………………………....... 41 
+3.4.4 use of IOT………………………………………………………………………………. 42 
+3.4.5 IOT is client and server at the same time………………………………………………. 43 
+3.4.6 IOT programming……………………………………………………………………… 43 
+3.4.7 Use of Sockets………………………………………………………………………...... 44 
+3.4.8 System Architecture……………………………………………………………………. 45 DATABASE AND BACKEND APIs 
+4. 1.1Overview of database and backend APIS……………………………………………… 46 
+4.1.2 Objectives of This Chapter……………………………………………………………... 47 
+4.2 Database Schema………………………………………………………………………….... 47 
+4.2.1 ERD diagram (Entity-Relationship Diagram)………………………………………….. 47 4.2.2 Tables and Attributes…………………………………………………………………... 49 
+1-Account Table…………………………………………………………………………… 49 
+2. Building Table…………………………………………………………………………... 50 
+3. IoTDevice Table………………………………………………………………………… 50 
+4. Account Building………………………………………………………………………... 51 
+5.Iot Status…………………………………………………………………………………. 51 
+6. Company Table…………………………………………………………………………. 52 
+7.Status Table……………………………………………………………………………… 53 
+8.post Table………………………………………………………………………………... 53 
+4.3 API Overview………………………………………………………………………………. 54 
+Why ASP.NET Core for API Development?........................................................................ 54 
+JWT Authentication and Authorization…………………………………………………… 54 
+User Roles and Permissions……………………………………………………………….. 56 API Endpoints……………………………………………………………………………... 57 
+API Workflow Examples………………………………………………………………….. 62 
+    Documentation and Further Reading……………………………………………………… 62 MOBILE AND WEB APPLICATION 
+Mobile Application Part………………………………………………………………………... 64 
+5.1.1 OVERVIEW…………………………………………………………………………… 64 
+5.1.2 WHY MOBILE APPLICATION?.................................................................................. 64 
+5. 1.3WHO CAN USE THE APPLICATION?........................................................................ 64 
+5.1.4APPLICATION SERVICES…………………………………………………………… 65 Services for Regular User (Residents)…………………………………………………….. 65 
+Services for Owner……………………………………………………………………….... 65 
+Services for Technician……………………………………………………………………. 66 
+Other Services……………………………………………………………………………… 66 Services For Administrator………………………………………………………………… 67 
+5.1.5 APPLICATION SERVICES INTERFACES………………………………………….. 68 Login page (SIGN IN)……………………………………………………………………... 69 Main Page (HOMEPAGE)………………………………………………………………… 70 Control Page……………………………………………………………………………….. 77 Community Page…………………………………………………………………………... 78 
+Admin Control Panel………………………………………………………………………. 85 
+5.1.6 Application Technologies................................................................................................ 87 What is Flutter and why?...................................................................................................... 88 
+Requirement components..................................................................................................... 89 
+Architecture and design pattern............................................................................................ 89 
+5.1.7 Integration with the rest of System…………………………………………………….. 91 Integrate with Back End…………………………………………………………………… 91 
+Integrate with ESP32………………………………………………………………………. 93 
+Web applications part…………………………………………………………………………... 96  
+    5.2.1 Overview……………………………………………………………………………….. 96 
+        5.2.1.1 Introduction………………………………………………………………………... 96 
+        5.2.1.2 Website Technology.………………………………………………………………. 97 
+        5.2.1.3 Tools used…………………………………………………………………………. 97 
+5.2.2 Website as a visitor……………………………….………………………………………. 98 
+        5.2.2.1 Homepage..………………………………………………………………………... 98 
+        5.2.2.2 Companies page………………………………………………………………….. 101 
+        5.2.2.3 Technicians page..………………………………………………………………... 102 
+        5.2.2.4 Login……………………………………………………………………………... 103 
+        5.2.2.5 Sign-up….………………………………………………………………………... 104 
+        5.2.2.6 Contact us.………………………………………………………………………... 107 
+        5.2.2.7 About us………………………………………………………………...………... 108 
+5.2.3 Website as a user & technician………………………………………………………….. 108 
+        5.2.3.1 Posts……….……………………………………………………………………... 108 
+        5.2.3.2 Edit profile……………………………………………………………………….. 110 
+5.2.4 Website as an administrator….………………………………………………………….. 111 
+        5.2.4.1 Control Center……………………………………………………………………. 111 FUTURE WORK 
+List of figures 
+Figure1.1:elevator injury statistics……………………………………………………………..….8 
+Figure 1.2: The ELSafe system……………………………………………………………….….10 
+Figure 1.3: KAS Fi system…………………………………………………………….…………10 
+Figure 1.4 :elev-5 system…………………………………………………………………………11 
+Figure 2.1 :elevator control card………………………………………………………………….15 
+Figure 2.2 :elevator door …………………………………………………………………………15 
+Figure 2.3 :door lock………………………………………………………………………………15 
+Figure 2.4 :elevator control card pins description(a)……………………………………………...16 
+Figure 2.4 :elevator control card pins description(b)……………………………………………...17 
+Figure 2.5 : real error on elevator control card………………………………………………..…...17 
+Figure 2.6 :elevator control card errors (a,b)………………………………………………………18 
+Figure 2.7 : Smart elevator system(elev5)…………………………………………………………29 
+Figure 2.8 : Use case diagram……………………………………………………………………...21 
+Figure 2.9: Sign in Sequence diagram……………………………………………………………..22 
+Figure 2.10 : Sin up Sequence diagram……………………………………………………………23 Figure 2.11 : Control Sequence diagram…………………………………………………………..24 
+Figure 2.12 : Local control Sequence diagram…………………………………………………….26 
+Figure 3.1 :IOT(esp32)……………………………………………………………………………..31 Figure 3.2: L7805 voltage regulator………………………………………………………………..32 
+Figure 3.3: 7-segmant………………………………………………………………………………33 
+Figure 3.4: Resistors………………………………………………………………………………..33 
+Figure 3.5: Opto-isolator………………………………………………………. …………………..35 
+Figure 3.6: Router……………………………………………………….  ………………………...36 
+Figure 3.7: Schematic design……………………………………………………………………….37 
+Figure 3.8: PCB layout……………………………………………………………………………..38 
+Figure 3.9: 3D design…………………………………………………………………………….…38 
+Figure 3.10: Practical circuit(test board)……………………………………………………………38 Figure 3. 11 : IOT (ESP32)…………………………………………………………………………39 
+Figure 3. 12: simulation on WOKWI…………………………………………………………….…40 
+Figure 4.1: ERD of the system………………………………………………………………………47 
+Figure 4.2: Account table …………………………………………………………………………...48 
+Figure 4.3: Building table……………………………………………………………………………49 
+Figure 4.4: building table…………………………………………………………………………….49 
+Figure 4.5: account building table……………………………………………………………………50 
+Figure 4.6: IOT status table…………………………………………………………………………..50 
+Figure 4.7 Company table……………………………………………………………….              …..51 
+Figure 4.8: Status table ……………………………………………………………..                     …..52 
+Figure 4.9: Post table……………………………………………………………………….        ……52 
+Figure 4.10: account management APIs……………………………………………..…………   …...56 
+Figure 4.11: Building Management APIs…………………………………………….…………  …...57 
+Figure 4 .12: Company Management APIs……………………………………………………  ……..58 
+Figure 4.13: Elevator Management APIs……………………………………………………… …….59 
+Figure 4.14: IoT Device Management AOIs………………………………………………………….59. 
+Figure 4.15: Post Management APIs………………………………………………………………….60 Figure 5.0: the logo……………………………………………………………………………………58 
+Figure 5.1: login page…………………………………………………………………………………60 
+Figure 5.2: Homepage screen…………………………………………………………………….. ….70 Figure 5.3: Homepage………………………………………………………………………………...71 
+Figure 5.4: Drawer…………………………………………………………………………….… …..71 
+Figure 5.5: company tab ……………………………………………………………………………..72 
+Figure 5.6: search page………………………………………………………………………..……...72 
+Figure 5.7: Tech tab…………………………………………………………………………….…….73 
+Figure 5.8: search……………………………………………………………………………….……73 
+Figure 5.9: posting tab and creating page…………………………………………………   ….…….74 
+Figure 5.10: control page………………………………………………………… …….…        ……74 
+Figure 5.11: scanning page……………………………………………………… …….………  …...75 
+Figure 5.12: account information………………………………………………… …….…….   ……75 Figure 5.13: status page…………………………………………………………… …….…… …….76 
+Figure 5.14: status details………………………………………………………… …….……   ….…77 
+Figure 5.15: technician keypad……………………………………………………… …….…   ……77 
+Figure 5.16: building card in building page………………………………………… …….….. .. .78 
+Figure 5.17: building action panel…………………………………………………… …….…. …79 Figure 5.18: Building profile……………………………………………………… …….……..  ..80 
+Figure 5.19: User profile…………………………………………………………… …….…….  ..81 
+Figure 5.20: admin control panel…………………………………………………… …….……   .82 
+Figure 5.21 : Create building……………………………………………………… …….………  .82 
+Figure 5.22: Add user into building…………………………………………………… …….….  ..82 
+Figure 5.23 : Link elevator with building……………………………………………… …….….  .83 
+Figure 5.24: upgrade panel…………………………………………………………… …….……  .83 
+Figure 5.25: types of account…………………………………………………………… …….…  .83 
+Figure 5.26: Flutter architecture………………………………………………………… …….…  .84 
+Figure 5.27: cross platform…………………………………………………………… …….…… ..85 
+Figure 5 .28: MVVM architecture …………………………………………………… …….……  .86 
+Figure 5.29: code explains model…………………………………………………… …….……..  .86 
+Figure 5 .30: code explains View…………………………………………………… …….……..   .87 
+Figure 5.31 : Rest APIs……………………………………………………………… …….……..   .88 
+Figure 5.32: code explain get method………………………………………………… …….…….  .89 
+Figure 5.33 : channel between mobile and esp 32…………………………………… …….……… .90 
+Figure 5.34: code explain connect method…………………………………………… …….……… 91 
+Figure 5.35: code explain send method………………………………………………… …….…… .91 Figure 5.36: code explain close method……………………………………………… …….……….91 
+Figure 5.37…………………………………………………………………………… …….………..92 
+Figure 5.38…………………………………………………………………………… …….………..92 
+Figure 5.39 html css java script……………………………………………………… …….……..    94. 
+Figure 5.40 react logo ………………………………………………………………… …….……..  94 Figure 5.41 : homepage………………………………………………………………… …….…….. 95 
+Figure 5. 12: homepage continue………………………………………………………… …….……96 Figure 5.23 : homepage continue…………………………………………………………… ……….97 
+Figure 5.53 : companies page………………………………………………………………. ……….98 Figure 5.54: technicians page……………………………………………………………… ……....100 
+Figure 5.55: login page………………………………………………………………………….     .101 
+Figure 5.56: personal information part……………………………………………………………...102 
+Figure 5.57: address information part……………………………………………………….………104 
+Figure 5.58: login info page……………………………………………………… ………….  ……105 
+Figure 5.59: contact us page………………………………………………………………….   …...106 
+Figure 5.60: About us page………………………………………………………………….………107 
+Figure 5.61 .1 : Posts page…………………………………………………………………………..108 
+Figure 5.62: edit profile page……………………………………………………………………….108 
+Figure 5.63 : create new user……………………………………………………………………….110 
+Figure 5.64: Centralizing account management…………………………………………………….111 
+Figure 5.65: Centralizing organization management………………………………………..………111 
+Figure 5.66: update user page……………………………………………………………………….112 Figure 5.67: Modify company page……………………………………………………………;;….113 
+Figure 5.68: Deleting item………………………………………………………………………  . . 114 
+ 
+ 
+ 
+ 
+
+
+1.1 INTRODUCTION 
+1.1.1 THE IMPORTANCE OF ELEVATORS 
+The Significance of Elevators in High-Rise Buildings 
+ Elevators play a critical role in facilitating vertical transportation within tall buildings and multi-story structures. Their importance stems from several key advantages: 
+• Enhanced Accessibility: Elevators provide convenient and swift access for all building occupants, including individuals with disabilities, seniors, and those carrying heavy objects. This ensures equitable use of the building for all users. 
+• Improved Efficiency: Compared to stairwells, elevators significantly reduce travel time and physical effort required to navigate through a building, enhancing overall efficiency and productivity. 
+• Elevated Building Functionality: Elevators enable the construction and utilization of higher floors in buildings, maximizing available space and facilitating the creation of diverse functional areas within a single structure. 
+• Increased Building Occupancy: By enabling easier access to upper floors, elevators contribute to increased building occupancy and economic viability, especially in densely populated areas. 
+ However, it is essential to acknowledge the potential safety concerns associated with elevator malfunctions: 
+• Entrapment Incidents: Malfunctions may lead to entrapment situations where individuals become temporarily confined within the elevator car. These incidents can cause anxiety and require prompt emergency response. 
+• Falling Accidents: In rare instances, severe malfunctions might result in elevator car movement issues, potentially leading to falling accidents and injuries. Rigorous maintenance procedures are crucial to mitigate this risk. 
+• Operational Disruptions: Electrical, mechanical, or software failures can disrupt elevator functionality, causing temporary transportation limitations. Regular inspections and preventive maintenance can minimize the likelihood of such occurrences. 
+• Fire Safety Considerations: Elevators pose specific challenges in fire emergencies. Their use during a fire may be unsafe, and fire damage to elevators can further impede building evacuation. Building codes and safety protocols should address these concerns. 
+ In conclusion, while elevators offer undeniable advantages in facilitating access and functionality within high-rise buildings, implementing robust safety protocols and regular maintenance are essential to ensure their safe and reliable operation. 
+  1.1.2  SAFETY IN ORDINARY ELEVATORS 
+Ensuring Safety in Ordinary Elevators 
+ The safe operation of elevators in everyday use relies on a multi-layered approach encompassing design features, rigorous maintenance practices, and established safety regulations. Several key safety elements are typically incorporated into ordinary elevators: 
+• Emergency Stop Button: Passengers can activate the emergency stop button to halt the elevator immediately in case of an unforeseen situation or a perceived threat. 
+• Overload Protection System: Elevators are equipped with sensors or mechanisms that prevent movement if the weight exceeds the designated capacity, safeguarding against overloading and potential malfunctions. 
+• Safety Interlocks: Elevator doors are outfitted with safety interlocks that prevent them from opening unless the car is precisely level with the designated floor. This significantly reduces the risk of falling exiting or entering the elevator. 
+• Emergency Communication Systems: Most elevators provide passengers with emergency communication tools like intercoms or phones. These systems facilitate communication with building personnel or emergency services during times of distress. 
+• Fire Safety Features: In multi-story buildings, elevators are often equipped with fire safety features such as fire-resistant doors, smoke detectors, and fire alarms. These features play a crucial role in ensuring passenger safety during fire emergencies. 
+• Regular Inspections and Maintenance: Qualified technicians perform routine inspections and maintenance on elevators to verify the proper functioning of all safety mechanisms and ensure compliance with established safety regulations. 
+• Adherence to Safety Standards: Regulatory authorities establish safety standards and codes governing the design, installation, and maintenance of elevators. Strict adherence to these standards helps guarantee safe operation. 
+• Passenger Safety Signage: Elevators typically display safety signage that instructs passengers on proper elevator usage. This signage includes information 
+on maximum capacity limits, emergency procedures, and evacuation instructions in case of emergencies. 
+1.1.3 ENHANCING ELEVATOR MAINTENANCE THROUGH REALTIME ERROR NOTIFICATION SYSTEM 
+ This thesis proposes a novel system designed to improve elevator maintenance efficiency by fostering real-time communication between the elevator, owner, and technician. Modern electric elevators employ sophisticated control boards that manage elevator operation and display error codes on seven-segment displays. Each unique code corresponds to a specific elevator issue. 
+ The core concept of this project revolves around the development of a system that retrieves these error codes and transmits them to both the elevator owner and technician. Additionally, the system will provide an explanation of the error code's meaning and propose potential solutions for troubleshooting. 
+ The proposed system empowers technicians with the ability to remotely monitor and control elevators using specially designed applications. Notably, the process of capturing the error code involves connecting an Internet of Things (IoT) device to the seven wires associated with the seven-segment display. Subsequently, the IoT device is programmed to recognize the displayed error codes and transmit them to a centralized server. Technicians can then access these notifications through their dedicated online accounts. This system provides flexibility as control can be facilitated through a local network within the building or remotely via a global network. 
+1.1.4 ANALYSIS OF ELEVATOR-RELATED INJURIES 
+While elevators are widely regarded as a safe and dependable mode of vertical transportation [1], preventable injuries continue to occur. Robson Forensic experts, with extensive experience in elevator accident investigation (over 1,000 cases), have identified three primary categories encompassing the majority of these incidents (Figure 1.1). 
+Errant Door Function (37%): This category encompasses malfunctions related to elevator door opening or closing. Incidents may involve passengers being struck by doors, losing balance, becoming trapped between doors, or confined within the elevator car. 
+Abrupt Starts/Stops (27%): These incidents involve unexpected and sudden movements of the elevator car, often causing passenger falls or collisions with other passengers or objects inside the car. Power outages, overspeed conditions, or safety system activation can contribute to such occurrences. 
+Misleveling (25%): In these incidents, the elevator car fails to stop precisely level with the floor. This commonly results in passenger trips and falls as they exit or enter the elevator. Misleveling can also lead to "entrapment," an industry term signifying an elevator car stalled between floors. 
+Other Incidents (11%): This category encompasses a broader range of issues that fall outside the previously mentioned categories. It may include injuries sustained by maintenance personnel, such as electrical shocks or falls into the elevator shaft. Additionally, it may involve non-mechanical issues causing passenger injuries, such as slips and falls due to slippery flooring or injuries caused by falling ceiling or wall panels resulting from erratic elevator operation. 
+ The data suggests a high probability that Robson Forensic experts have investigated a similar incident, regardless of the cause or severity of the injury in question. 
+
+Figure 1.1: elevator injury statistics 
+ 
+1.2 RELATED WORK  
+1.2.1  THE ELSAFE SYSTEM 
+   The ELSafe(Figure 1.2) system seems to offer a contactless way to call an elevator using a smartphone app instead of pressing buttons. This can potentially improve hygiene and reduce the spread of germs, especially in multi-tenant buildings[2] 
+
+Figure 1.2:  The ELSafe system 
+1.2.2 KAS FI 
+KAS Fi is an elevator remote access using its own WIFI to access its control panel to activate and deactivate it by your own mobile, produced by KAS company. 
+KAS Fi is an elevator remote access using its own WIFI to access its control panel to activate and deactivate it by your own mobile, it uses the WIFI connection of the KAS Fi (Figure 1.3)board which put near the elevator control panel, it also forces people to use the elevator by enter the password, this password will be saved on KAS Fi board with the admin account, the admin will be the owner of the elevator (maybe it will be a company).[3] 
+
+Figure 1.3: KAS Fi system 
+1.3 PROPOSED SYSTEM  
+This thesis proposes a novel system designed to revolutionize elevator maintenance by fostering real-time communication between the elevator, owner, and technician. Modern electric elevators utilize sophisticated control boards that manage all aspects of elevator operation. These control boards often display error codes on a seven-segment display, accompanied by additional status indicators potentially utilizing five LEDs. Each unique code corresponds to a specific elevator malfunction. 
+The core concept of this project centers around the development of a system that retrieves these error codes and transmits them to both the elevator owner and technician. Additionally, the system will provide an explanation of the error code's meaning, along with potential solutions for troubleshooting. 
+The proposed system empowers technicians with the ability to remotely monitor and control elevators using specially designed applications. Notably, the process of capturing the error code involves interfacing an Internet of Things (IoT) device with the wires connected to the seven-segment display. Subsequently, the IoT device is programmed to recognize the displayed error codes and transmit them to a centralized server. Technicians can then access these notifications through their dedicated online accounts. This system provides flexibility as control can be facilitated through a local network within the building or remotely via a global network (Figure 1.4). 
+ 
+Figure 1.4 :elev-5 system 
+1.4 THESIS OUTLINE  
+• Chapter 2: Elevator Control System Analysis and Live Monitoring Design (This clarifies the focus on both analysis and proposing a solution) 
+• Chapter 3: Hardware Design and Implementation (Combines "detailing" and "implementation" for a more concise title) 
+• Chapter 4: Database Design, Backend API Development, and Security 
+(Highlights the three key areas covered in the chapter) 
+• Chapter 5: User Interface Design for Real-Time Monitoring and Control ("Frontend" is replaced with "User Interface" for a more technical term) 
+• Chapter 6: Conclusion, Future Enhancements, and Integration with Emerging Technologies (Expands on "future work" by mentioning emerging technologies) 
+ 
+
+ 
+System Analysis 
+2.1 INTRODUCTION  
+The elevator control card serves as the central nervous system of the elevator, ensuring adherence to critical safety protocols before operation. Essential safety mechanisms, such as door cams and sensors at the elevator's travel limits, play a vital role in preventing accidents and guaranteeing smooth operation. These integrated safety features work in concert to establish a secure environment for elevator movement. Specifically, doors must remain closed for operation, and the elevator is confined to its designated travel path. 
+This paper proposes a system to further enhance elevator functionality by incorporating real-time monitoring and control capabilities accessible to both building owners and technicians. This approach leverages advanced control cards equipped with error display functionalities. The system captures these error codes, along with detailed explanations and potential troubleshooting solutions, and transmits them to both technicians and owners. The implementation process involves integrating Internet of Things (IoT) devices, establishing server communication protocols, and developing dedicated applications for remote management. 
+Visualizing System Architecture and Interactions 
+To effectively illustrate the system's architecture and the interaction between its components, various Unified Modeling Language (UML) diagrams, such as use case diagrams and sequence diagrams, will be employed. These diagrams will provide a comprehensive understanding of the proposed system's functionalities by depicting user interactions, system behavior during error handling, and the flow of control in diverse scenarios. 
+2.2 ELEVATOR CONTROL CARD  
+The Elevator Control Card: A Critical Component Ensuring Safety and Operation 
+The elevator control card (Figure 2.1) serves as the central processing unit (CPU) of the elevator system, responsible for making critical decisions and ensuring adherence to safety protocols before initiating movement. Several safety factors are paramount before operation, and the control card verifies their status. 
+ 
+ 
+ 
+Figure 2.1 :elevator control card 
+As elevators move vertically within a designated shaft, it's essential to prevent movement with open doors at any floor. To address this safety concern, a mechanism known as a "cam" is employed on each floor's door. When the cam is engaged( Figure 2.3), it activates a locking mechanism that secures the door and prevents accidental opening except on the designated floor at which the elevator stops. 
+These cam mechanisms on all elevator doors are interconnected. This ensures that all doors are securely closed before the elevator receives clearance to move. This safety interlock system plays a crucial role in preventing passenger injuries. 
+                       
+	                    Figure 2.2 :elevator door           	 	 	 	  Figure 2.3 :door lock 
+System Analysis 
+Additional Safety Mechanisms 
+Beyond the cam mechanism, several other safety features are integrated into the elevator system to ensure secure operation(Figure 2.4 (b)): 
+Door Lock Detectors (SHK): Each elevator door is equipped with a door lock detector, often referred to as a "door lock switch" or "door contact." This safety device, resembling a "plug and socket" mechanism (Figure 2.2), provides a signal to the control card confirming that all doors are securely closed. These door lock detectors are typically connected in series, meaning the control card only receives a "doors closed" signal if all the individual door locks are engaged. 
+Travel Limit Switches: To prevent the elevator car from overshooting its designated travel path, limit switches are installed at both the top and bottom of the elevator shaft. The switch at the bottom is called the "Down Limit Switch (DWL)" and the one at the top is the "Up Limit Switch (UPL)." These switches physically contact the elevator car at the extreme ends of its travel, sending a signal to the control card to halt movement. 
+Emergency Stop Button (STP): An emergency stop button, readily accessible to passengers inside the elevator car, is another critical safety feature. Pressing this button cuts power to the elevator's drive motor, bringing the car to an immediate halt regardless of any other control signals. 
+These additional safety mechanisms, working in conjunction with the cam system, contribute significantly to creating a safe and reliable elevator environment. 
+
+Figure 2.4 :elevator control card pins description(a) 
+
+Figure 2.4 :elevator control card pins description(b) 
+
+Figure 2.5 : real error on elevator control card 
+System Analysis 
+ 
+ 
+	Figure 2.6 :elevator control card errors (a)      	 	Figure 2.6 :elevator control card errors (b) 
+ 
+2.3 PROPOSED SYSTEM  
+This paper proposes a novel  system(Figure 2.7) designed to revolutionize elevator maintenance by fostering real-time communication between the elevator, owner, and technician. Modern electric elevators employ sophisticated control boards that manage all aspects of elevator operation.  These control boards often display error codes on a sevensegment display, accompanied by additional status indicators potentially utilizing five LEDs (Figure 2.5). Each unique code corresponds to a specific elevator malfunction. 
+ 
+
+The core concept of this project centers around the development of a system that retrieves these error codes and transmits them to both the elevator owner and technician. Additionally, the system will provide an explanation of the error code's meaning, along with potential solutions for troubleshooting. 
+The proposed system empowers technicians with the ability to remotely monitor and control elevators using specially designed applications. Notably, the process of capturing the error code involves interfacing an Internet of Things (IoT) device with the wires connected to the seven-segment display.  
+Subsequently, the IoT device is programmed to recognize the displayed error codes and transmit them to a centralized server. Technicians can then access these notifications through their dedicated online accounts. This system provides flexibility as control can be facilitated through a local network within the building or remotely via a global network. 
+ 
+Figure 2.7 : Smart elevator system(elev5) 
+ 
+2.4 UML DIAGRAMS  
+2.4.1USE CASE DIAGRAM ANALYSIS 
+The use case diagram depicts the interactions between various actors and the elevator system(Figure 2.8). The diagram should identify the following key elements: 
+• Actors: These represent entities that interact with the system, such as technicians, users (elevator passengers), and property owners. 
+• Use Cases: These represent functionalities offered by the system from the perspective of each actor. 
+Description of Actors and Use Cases: 
+1. Technician: 
+• Use Case 1: Monitor Elevator Conditions - The technician can remotely monitor real-time data on elevator health and performance. 
+• Use Case 2: Manage Elevator Operations - The technician can initiate commands to control elevator functions (e.g., restart operations, adjust speed). 
+• Use Case 3: Record Activity Logs - The technician can access, and record activity logs related to elevator operations and maintenance (both on-site and through the mobile app). 
+2. Users (Elevator Passengers): 
+• Use Case 1: Request Elevator - Users can initiate a call for the elevator from their designated floor. 
+• Use Case 2: Control Elevator (Optional) - Depending on system configuration, users might be able to control features like floor selection or door opening/closing. 
+3. Property Owner: 
+• Use Case 1: Oversee System - The property owner can monitor overall system health and access reports generated by the technician. 
+• Use Case 2: Manage User Access - The property owner can grant or revoke access permissions for users within the system. 
+ 
+Benefits of a Use Case Diagram: 
+• A well-defined use case diagram fosters clear communication between stakeholders by visually representing the system's functionalities and interactions with different user groups. 
+• It serves as a foundation for further system design and development by identifying key functionalities and user requirements. 
+ 
+Figure 2.8 : Use case diagram 
+ 
+2.4.1 SEQUENCE DIAGRAM 
+Sequence Diagram Analysis: User Login Process 
+The sequence diagram depicts the message flow between actors and the system during a user login process. Here's a breakdown of the interaction (Figure 2.9): 
+• Actor: User 
+• Action: Initiates Login (Mobile App/Card Reader) 
+• System: The system receives a login request from the user interface (GUI) which could be a mobile application or a card reader. 
+• Backend System: The backend system authenticates the user credentials by verifying them against a secured database. 
+• Conditional Branch: 
+o Valid Credentials: If the credentials match a valid user record in the database, the system grants access and sends a success message to the user interface.  
+o Invalid Credentials: If the credentials do not match a valid user record, the system transmits an error message to the user interface, indicating the login attempt was unsuccessful. 
+ 
+ 
+Figure 2.9: Sign in Sequence diagram 
+Sequence Diagram Analysis: User Registration Process 
+This sequence diagram illustrates the message flow between the user and the system during the user registration process(Figure 2.10): 
+• Actor: User 
+• Action: Initiates Registration (Website) 
+• System: The system receives a registration request from the user through the website interface. 
+• Data Validation: The system performs validation checks on the user-provided information to ensure it meets pre-defined criteria (e.g., password complexity, email format). 
+• Duplicate Check: The system verifies the database for any existing user records with matching unique identifiers (e.g., username, email address) to prevent duplicate registrations. 
+• Conditional Branch: 
+o Successful Registration: If the validation and duplicate checks pass, the system stores the user's information in the database and sends a confirmation message to the user interface, indicating successful registration. 
+o Registration Failure: If the validation or duplicate checks fail, the system sends an error message to the user interface, specifying the reason for the unsuccessful registration attempt. 
+ 
+Figure 2.10 : Sin up  Sequence diagram 
+Sequence Diagram Analysis: Elevator Status Update and Remote Management 
+This sequence diagram depicts the message flow between the elevator system and the backend server during elevator status updates and remote management by technicians (Figure 2.11): 
+• Actor: Elevator System 
+• Action: Transmits Status Update (API) 
+• System: The elevator system periodically transmits its operational status data to the backend server using an application programming interface (API). 
+• Data Storage: The backend server receives the data and stores it within a database for future access and analysis. 
+• Information Dissemination: The system then retrieves and processes the stored elevator data, making it accessible to authorized users such as technicians and property owners through appropriate user interfaces. 
+• Remote Management: Based on the retrieved status information, technicians can leverage the system's functionalities to remotely manage the elevator. This might involve actions such as monitoring performance metrics, initiating commands (e.g., restart operations), or modifying configurations. 
+ 
+Figure 2.11 : Control Sequence diagram 
+Sequence Diagram Analysis: Local Control via Mobile App 
+This sequence diagram illustrates the message flow between the user's mobile app, network infrastructure, and the elevator control system during local control operations (Figure 2.12): 
+• Actor: User 
+• Action: Selects Floor (Mobile App) 
+• Mobile App: The user interacts with the "elev5" mobile application and selects their desired floor using a designated button. The chosen floor number and a control signal (likely indicating a floor change request) are transmitted from the app. 
+• Router: The mobile app communicates wirelessly with the elevator control system through a router, which acts as a network intermediary device. 
+• ESP32 Microcontroller: The router forwards the received data packet containing the floor selection and control signal to the ESP32 microcontroller board. This microcontroller serves as the core processing unit of the "elev5" system. It is likely responsible for interpreting the received signals, managing communication with other devices (potentially including floor indicator displays within the elevator car), and potentially interacting with the building's central elevator control system. 
+• Conditional Branch (Optional): 
+o Standard Floor Request: If the user's floor selection is within the valid range and no access control restrictions are in place, the ESP32 processes the request and transmits a corresponding signal to the elevator control system to summon the car to the selected floor. 
+o Special Link Redirect (Optional): The text suggests a potential scenario where the system redirects the user to a specific web page based on certain conditions. This could be related to user authentication requirements or access control measures implemented within the system. 
+Additional Information: 
+• The sequence diagram would benefit from including a representation of the elevator control system and the potential interaction with its internal components (e.g., floor request queue management). 
+• Further details about the "Special Link Redirect" functionality would be helpful to fully understand potential user interactions and access control mechanisms. 
+
+ 
+Figure 2.12 : Local control Sequence diagram 
+
+
+3.1 INTRODUCTION  
+This chapter delves into the essential hardware components that constitute the proposed elevator system enhancement. These components play a critical role in enabling real-time monitoring, control, and communication functionalities within the system. 
+ Core Processing Unit: ESP32 Microcontroller 
+The system utilizes the ESP32, a versatile development board known for its robust features and capabilities. It integrates built-in Wi-Fi, Bluetooth, and Bluetooth Low Energy (BLE) functionalities. The ESP32 serves as the system's backbone, facilitating seamless wireless connectivity and data transmission between various components and the cloud server. 
+ Signal Isolation: Optocoupler 
+The system incorporates optocouplers, also known as opto-isolators. These electronic components play a vital role in ensuring safety by transferring electrical signals between isolated circuits using light pulses. This isolation prevents high voltages present in certain parts of the system from affecting sensitive low-voltage control circuitry. 
+ Display Unit: 7-Segment Display and Resistors 
+A common cathode 7-segment display is employed for visual output of error codes or other relevant information. This display requires various resistors (e.g., 1k?, 330?, 100?) for proper signal processing and current limiting to drive the individual segments of the display. 
+ Power Management: Voltage Regulator 
+A voltage regulator is included within the hardware design to ensure a stable power supply throughout the system. This component typically converts a higher voltage input (e.g., 12V) to a lower, regulated voltage (e.g., 5V) required by many electronic components. Maintaining a stable power supply is crucial for optimal system performance and protection against voltage fluctuations. 
+ Network Connectivity: Router 
+The system leverages a router to facilitate communication between the ESP32 microcontroller and mobile applications. The router enables functionalities such as remote control of the elevator system, transmission of status updates to a central server, and local monitoring capabilities via the mobile app. 
+
+ Hardware Implementation Details 
+This chapter will provide a comprehensive overview of the hardware implementation process. This includes detailed discussions on: 
+• Schematic Design: A detailed explanation of the electrical circuit diagrams outlining the connections between various components. 
+• PCB Layout: The physical arrangement of electronic components on a Printed Circuit Board (PCB). 
+• 3D Design: Three-dimensional computer-aided design (CAD) models for visualizing the physical layout of the hardware components. 
+• Practical Circuit Implementation (Test Board): A step-by-step explanation of the process for building and testing the hardware on a breadboard or prototype development board. 
+By providing this comprehensive exploration of the hardware design and implementation, this chapter aims to equip readers with a thorough understanding of the system's physical construction.  
+3.2 HARDWARE COMPONENTS  
+3.2.1   ESP32   
+The selection of an appropriate microcontroller unit (MCU) is a critical decision in embedded system design. While the ESP32 boasts impressive capabilities, it's essential to evaluate its suitability against project requirements and compare it to alternative options. This section provides a comparative analysis of the ESP32 with commonly used MCUs like the Arduino UNO and ESP8266. 
+ Enhanced Performance 
+The ESP32(Figure 3.1) excels in processing power, memory capacity, and peripheral integration compared to the Arduino UNO and ESP8266. This enhanced performance makes it well-suited for applications demanding high computational capabilities, real-time processing, or the ability to handle multiple tasks simultaneously (multitasking). 
+ Wireless Connectivity Integration 
+A key differentiator of the ESP32 is its built-in Wi-Fi and Bluetooth functionalities. This seamless integration simplifies development for Internet of Things (IoT) projects. Devices can readily connect wirelessly and establish communication with the internet, fostering data exchange and remote-control capabilities. 
+ Rich Peripheral Set 
+The ESP32 boasts a comprehensive suite of built-in peripherals like SPI (Serial Peripheral Interface), I2C (Inter-Integrated Circuit), UART (Universal Asynchronous 
+Receiver/Transmitter), ADC (Analog-to-Digital Converter), DAC (Digital-to-Analog Converter), PWM (Pulse Width Modulation), and more. This extensive peripheral set enhances the ESP32's versatility, enabling diverse functionalities without requiring additional external components, potentially reducing system complexity and cost. 
+ Dual-Core Architecture 
+Unlike the single-core architecture of the Arduino UNO and ESP8266, the ESP32 leverages a dual-core processor. This architecture facilitates parallel processing, leading to improved overall performance and efficiency, particularly for tasks that benefit from concurrent execution. This capability can be advantageous for applications involving realtime data acquisition, sensor fusion, or complex control algorithms. 
+ Low Power Consumption 
+The ESP32 incorporates power-saving modes, making it a compelling choice for batterypowered or energy-constrained applications. It can enter deep sleep modes, significantly reducing power consumption during periods of inactivity, ultimately extending battery life and promoting energy-efficient operation. 
+ Rich Development Environment 
+The ESP32 enjoys robust development ecosystem support, including the Arduino IDE, MicroPython, ESP-IDF (Espressif IoT Development Framework), and other development platforms. This variety empowers developers with a spectrum of options for programming and customization, catering to different programming preferences and project requirements. 
+ Cost Consideration 
+While the ESP32 offers advanced features, it's important to acknowledge that it might carry a slightly higher cost compared to the Arduino UNO and ESP8266. Project budget constraints and the specific functionalities required for the application should be carefully considered when selecting an appropriate MCU. 
+Conclusion 
+The ESP32 presents a compelling option for projects demanding high performance,  wireless connectivity, and diverse peripheral integration. However, a cost-benefit analysis and a clear understanding of project requirements are crucial for selecting the most suitable MCU for a particular application. 
+
+Figure 3.1 :IOT(esp32) 
+ 
+3.2.2 L7805 VOLTAGE REGULATOR 
+The system incorporates a voltage regulator, specifically the L7805(  Figure 3.2), to ensure consistent and stable power supply throughout the hardware components. The L7805 is a widely used three-terminal linear voltage regulator known for its simplicity and reliability. Key Features of the L7805: 
+• Fixed Output Voltage: The L7805 is a fixed-voltage regulator, providing a constant 5V output regardless of fluctuations in the input voltage (within its operational range). This ensures that sensitive electronic components within the system receive the appropriate and stable power supply they require for proper operation. 
+• Local Regulation: The L7805 offers localized voltage regulation, meaning it regulates the power supply within a specific circuit or sub-system, isolating it from potential variations in the main power supply. This approach helps maintain stable voltage levels for critical components. 
+• Internal Current Limiting: The L7805 incorporates an internal current limiting mechanism. This safety feature automatically limits the amount of current it can deliver, protecting the regulator from damage caused by excessive current draw. 
+• Thermal Shutdown Control: The L7805 integrates thermal shutdown control. If the operating temperature exceeds a predefined threshold due to overload or other factors, the regulator automatically shuts down to prevent overheating and potential component damage. 
+• Safe Area Protection: The L7805 provides built-in safe area protection. This feature safeguards the regulator against operating outside its safe operating limits, further enhancing overall system reliability. 
+• Output Current Capacity: The L7805 can deliver a maximum output current of 1.5 amperes (A), which is sufficient to power many electronic components within the elevator control system. 
+ 
+
+Figure 3.2: L7805 voltage regulator 
+ 
+3.2.3 7-SEGMENT FOR ERROR VISUALIZATION 
+The system incorporates a seven-segment(Figure 3.3) display for visual representation of error codes. This display allows technicians and potentially building occupants to readily identify any system malfunctions. The ESP microcontroller is connected to the sevensegment display to decode and interpret error signals received from the elevator control system. By displaying error codes, the system facilitates faster troubleshooting and rectification of issues.  
+3.2.4 VOLTAGE REGULATION  
+To ensure safe and reliable operation of the electronic components(Figure 3.4), the system utilizes voltage regulators. These regulators play a crucial role in distributing power and maintaining stable voltage levels throughout the system. They typically receive a higher input voltage (e.g., 12V) and convert it to a lower, regulated voltage (e.g., 3.3V) required by many electronic components, including the ESP microcontroller and potentially the seven-segment display. Exceeding the recommended voltage limit (e.g., 3.3V) for these components could lead to damage or malfunction. Therefore, voltage regulation is essential for safeguarding the system's integrity and functionality. 
+              
+	Figure 3.3: 7-segmant    	 	  	 	       Figure 3.4:  Resistors 
+ 
+ 
+3.2.5 OPTOCOUPLER (OPTO-ISOLATOR) 
+An optocoupler, also known as an opto-isolator, photocoupler, or optical isolator,(Figure 3.5) is a critical electronic component employed for isolated signal transmission between two electrical circuits. It leverages light as the coupling mechanism, providing a high degree of electrical isolation between the input and output sides. 
+Key Functionalities of Optocouplers: 
+• Electrical Isolation: The primary function of an optocoupler is to prevent high voltages present in one circuit from affecting the lower voltage, potentially more sensitive circuitry on the other side. This isolation is achieved by separating the input and output circuits entirely, with no direct electrical connection. Light serves as the intermediary, ensuring safe and reliable signal transfer. Commercially available optocouplers offer impressive isolation capabilities, withstanding input-to-output voltage differentials exceeding 10 kV and transient voltage spikes reaching 25 kV/?s [3]. 
+• Signal Transfer: While primarily used for digital signals (on/off), optocouplers can also facilitate the transmission of analog signals using appropriate modulation techniques. In the context of digital applications, optocouplers essentially function as electronically isolated switches. 
+Common Optocoupler Design: 
+A typical optocoupler configuration consists of a light-emitting diode (LED) on the input side and a phototransistor on the output side, both housed within a single opaque package. When a voltage is applied to the input LED, it illuminates, and the emitted light is channeled internally to the phototransistor. If the intensity of the light is sufficient, the phototransistor conducts current on the output side, effectively replicating the on/off state of the input signal. 
+Alternative Optocoupler Configurations: 
+Beyond the LED-phototransistor combination, other optocoupler designs exist, utilizing various source-sensor pairings such as LED-photodiode, LED-LASCR (Light-Activated Silicon Controlled Rectifier), or even lamp-photoresistor combinations. The specific choice of optocoupler configuration depends on the application's requirements and the desired signal characteristics [3].  
+
+Figure 3.5: Opto-isolator 
+3.2.6 Router: Network Connectivity and Communication Facilitation 
+The system leverages a router (Figure 3.6) to facilitate communication between various components within the enhanced elevator control system. The router serves as a central network hub, enabling the following functionalities: 
+• Internet Connectivity: The router provides a gateway to the internet, allowing authorized users to remotely control the elevator system via a mobile application. This remote-control capability empowers technicians or designated personnel to adjust operational parameters, initiate commands (e.g., restart operations), or monitor system health remotely. 
+• Status Updates: The router plays a crucial role in transmitting status updates from the elevator control system to a central server or cloud platform. This data can be accessed and visualized by authorized users, providing real-time insights into elevator performance, potential issues, or maintenance requirements. 
+• Local Control (Optional): Depending on the system design, the router could also facilitate local control functionalities. This might involve communication between the mobile application and the ESP32 microcontroller within the elevator system through the router network, enabling users to interact with the elevator locally (e.g., selecting floors) using their mobile devices 
+ 
+ 
+Figure 3.6: Router 
+ 
+3.3 IOT COMPONENT  
+ The ESP32 is a development board similar to Arduino, offering everything needed for various projects. Understanding its creator (Espressif Systems), functions, operation, and technical features is crucial. 
+While superior to Arduino UNO and ESP8266, the ESP32 isn't ideal for every project. This section explores its features and functionalities compared to other boards (if relevant to your audience). 
+ Creator: Espressif Systems created the ESP32, a series of System on Chip (SoC) modules known for low cost and power consumption. 
+ Successor with More Features: The ESP32 succeeds the popular ESP8266, adding builtin Bluetooth and Bluetooth Low Energy (BLE) alongside Wi-Fi connectivity. 
+ Architectural Block Diagram (Optional): A diagram (Figure 3.8) can be included to visually represent the ESP32's internal components (consider including a caption). 
+ Wireless Connectivity: The ESP32 boasts Wi-Fi connectivity compatible with 802.11 b/g/n standards in the 2.4 GHz band, reaching speeds of up to 150 Mbps. Bluetooth v4.2 and Bluetooth Low Energy (BLE) are also integrated. 
+7. Radio Block: This block acts as the bridge between the ESP32 and the wireless modules. It transmits and receives data, converting between digital information and electromagnetic signals for communication with devices like mobile phones or routers. 
+Dual Cores: The ESP32 features dual low-power Tensilica Xtensa 32-bit LX6 microprocessors. It also includes an ultra-low-power co-processor for tasks like analog-todigital conversions during deep sleep mode, promoting low power consumption. 
+ Core Advantages (Optional): These processors offer high performance with a 240 MHz operating frequency (15x faster than Arduino UNO) and efficient handling of real numbers and large number multiplications. 
+ Memory: Unlike most Arduino-based microcontrollers, the ESP32 has various internal and external memory options. Internal memory stores code and data, while external memory expands the system's capacity. Many ESP32 development boards include additional external memory for enhanced performance. 
+Encryption Hardware Accelerators: Security is crucial, and the ESP32 incorporates hardware accelerators for encryption algorithms like AES, SHA, and RSA. This improves operation speed, reduces software complexity, and safeguards the system against potential hacking attempts 
+3.4 CIRCUIT DESIGN  
+The circuit is created using Proteus software across multiple tasks like schematic design (in Figure 3.7), three-dimensional design(in Figure 3.8), and layout design(in Figure 3.9), suitable for printing on printed boards for circuit execution. Lastly, practical design is executed on a test board(in Figure 3.10). 
+
+Figure 3.7: Schematic design 
+
+Figure 3.8: PCB layout 
+ 
+
+Figure 3.9: 3D design 
+
+Figure 3.10: Practical circuit(test board) 
+3.4 IOT PROGRAMMING 
+3.4.1 OVERVIEW OF USE IOT 
+1. Control elevator by mobile application. 
+2. Send error message to technical and owner. 
+3. Make it easy for technical to know the error. 
+4. Access the elevator remotely. 
+3.4.2 IOT DEVICE 
+? IOT device name : ESP32 
+  
+Figure 3.11 : IOT (ESP32) 
+3.4.3 SIMULATION OF THE PROJECT 
+At start of our project, I use online tool for simulation called WOKWI and its link  https://wokwi.com/. 
+
+Figure 3.12: simulation on WOKWI 
+The component of the simulation : 
+1. Esp32 : It is the IOT device that we programmed. 
+2. Seven-Segment: It is like the one which is on the board of elevator that we use to know the error code. 
+3. LEDs : We used them as tools to receive commands from mobile application. 
+4. Resistors: to adjust the power in the circuit. 
+Function of simulation: 
+Here the seven segment is used to get the error code and send it to the database so mobile application will get that there is an error, the LEDS is used to get commands from mobile application, there is also five pins which should be on so the elevator can work. 
+3.4.4 USE OF IOT  
+Our IOT has two tasks first one is sending error code when it happens and second one is receiving commands from mobile application. 
+1. Send error code : 
+ When the IOT detect error from seven segment or from the other five bins it sends a message to the API which is used to receive it so it can insert it in the database then mobile application will read it from database and notify the owner and the technical about the problem so they can make actions to fix the problem.  
+2. Receive commands : 
+The mobile which sends a command to the IOT then the IOT see what this command is and according to it the IOT will enable one of the seven bins which they are used to receive data, and this work all the time to receive commands from the user of mobile application. 
+3.4.5 IOT IS CLIENT AND SERVER AT THE SAME TIME 
+• Server : when it sends error messages to the APIs so they will be inserted in database so mobile applications will get them and notify the technical and the owner about the problem. 
+ 
+• Client : when it receives commands from mobile application throw APIs so the mobile application can control the elevator. 
+What we send: 
+1) ID of IOT : In our project we give every IOT device a unique ID so when the mobile application goes to any account the IDs of IOTs that the account has joined will show to him only. 
+ 
+2) Five bins : The  five bins are (up, down, SK, lock, stop) they are in the elevator, and they must all to be on so the elevator can move so if any one of them is off or more than one the IOT will send an error message to the API to be stored in the database so mobile application will see it. 
+ 
+3) Seven segment code: The seven segment in the elevator is connected to IOT and when the seven-segment read one of the errors codes the IOT will read it too and send it to API to be stored in the database so mobile application will get it. 
+What we receive : 
+We receive seven commands according to what we receive, one of the seven bins in the IOT will work so we will control the elevator throw these commands and we receive them from mobile application throw some APIs. 
+3.4.6 IOT PROGRAMMING 
+In our project we used C programing language to program the IOT device. 
+Steps of programming IOT: 
+1. We programmed IOT to detect errors from 7-segment and display it in serial monitor. 
+2. We programmed IOT to get commands from a website called Hivmq to test that it can get commands to turn on the LEDs. 
+3. We upgrade IOT programming to send the error message to web site. 
+4. Then we upgrade it again to send the error message to APIs to be stored in database. 
+5. Then we change how we get commands from Website to mobile application. 
+6. At final we make the IOT controlled locally and remotely by mobile application. 
+3.4.7 USE OF SOCKETS 
+Goal of Using Sockets: 
+• Real-Time Communication: Enable real-time communication between the elevator system and the mobile application. 
+• Efficient Data Transfer: Provide a reliable and efficient method for sending and receiving data, such as error codes and control commands. 
+• Low Latency: Ensure minimal delay in communication to allow for instant control and monitoring. 
+• Secure Data Transmission: Maintain the security of data being transferred between the elevator system and the mobile application. 
+Introduction to Sockets: 
+  Sockets are a fundamental technology used in networking that allows communication between devices over a network. They provide an endpoint for sending and receiving data across a network connection. In our smart elevator project, we use sockets to facilitate real-time communication between the ESP32 IoT device and the mobile application. 
+Components of the Socket Communication: 
+  ESP32 (IoT Device) : Acts as both a client and a server in the communication process. Mobile Application : Serves as a client that sends commands to the ESP32 and receives real-time updates and error messages. 
+3.4.8 SYSTEM ARCHITECTURE 
+Overview: 
+  The system architecture of the smart elevator project integrates multiple components to ensure smooth operation, real-time monitoring, and remote control. These components include the IoT device (ESP32), the mobile application, the backend server, and cloud services. 
+Components: 
+• ESP32 (IoT Device): The primary controller for the elevator, responsible for detecting errors, executing commands, and facilitating real-time communication with other system components. 
+ 
+• Mobile Application: A user-friendly interface for users to control the elevator, receive notifications, and monitor its status remotely. 
+• Backend Server: Manages data storage, user authentication, and the communication bridge between the IoT device and the mobile application. 
+ 
+• Cloud Services: Provides additional functionalities such as data analytics, storage, remote monitoring, and integration with other services for enhanced system performance.   
+
+ 
+4.1.1 OVERVIEW OF DATABASE AND BACKEND APIS 
+Introduction 
+The Elevator Management System (EMS) integrates advanced IoT capabilities, a mobile application, and a robust web platform to provide seamless control and management of elevators. This chapter explores the core components that enable these functionalities: the database schema and the backend APIs developed using ASP.NET Core. We will delve into how these elements support the system’s operations, from user management to real-time elevator status monitoring and control. 
+System Overview 
+IoT Integration: 
+Elevator Status Monitoring: IoT devices installed on elevators collect real-time data such as operational status and performance metrics. These devices send the data to the EMS server, making it accessible via the mobile app for users to monitor and respond to elevator conditions. 
+Control via Mobile App: The mobile app interacts with IoT devices, allowing users to remotely control elevator functions, such as calling the elevator to specific floors or receiving alerts about its status. 
+Mobile Application: 
+• User Interaction and Control: The mobile application enables users to interact with elevators, check their status, and perform control actions like scheduling maintenance or calling the elevator. 
+• Role-based Access: Access and control within the mobile app are managed based on user roles, including administrators, building owners, regular users, and technicians. 
+Web Platform: 
+• Administration and Management: The web platform serves as an administrative hub where administrators can manage user accounts, buildings, and IoT devices. It supports functionalities like adding and removing users and assigning roles. 
+• Visualization and Reporting: The platform provides tools for visualizing elevator operations, including real-time status, historical logs, and performance reports, essential for building owners and technicians to monitor and manage elevator activities.  
+4.1.2 OBJECTIVES OF THIS CHAPTER 
+In this chapter, we aim to: 
+• Detail the Database Schema: Explore the design of the EMS database, focusing on the structure of tables and their relationships, which support various functionalities of the system. 
+• Document the Backend APIs: Provide comprehensive documentation of the APIs developed using ASP.NET Core, which facilitates interactions between the mobile app, IoT devices, and the web platform. 
+• Explain Security and Data Integrity: Discuss how JWT authentication and rolebased access control secure the APIs and ensure data integrity. 
+• Outline Error Handling and Validation: Describe the strategies employed to handle errors and validate data inputs to maintain system reliability and stability. 
+ 
+4.2 DATABASE SCHEMA 
+The EMS database is structured to support diverse functionalities, from user management to real-time IoT data processing. The database schema includes several key tables, each designed to store and manage specific data required by the system. 
+4.2.1 ERD DIAGRAM (ENTITY-RELATIONSHIP DIAGRAM) 
+ The ERD represents the database structure for the ELV5, highlighting the entities, their attributes, and relationships. Each entity corresponds to a table in the database. As shown in Figure 4.1 
+ 
+
+Figure 4.1: ERD of the  system 
+ 
+Description: Stores user account information which consist of 8 Attributes: 
+• accountId: Integer, unique identifier. 
+• username: String, unique, used for login. 
+• password: String, used for authentication. 
+• firstname: String, user’s first name. 
+• lastname: String, user’s last name. 
+• address: String, which has three column street, city and area. 
+• phone: String, user’s phone number. 
+• profilepicture: Binary data for the user's profile image. 
+ 
+Figure 4.3: Building table 
+Description: Contains details about the buildings in the system and consist of 4 Attributes: 
+• ID: Integer, unique identifier. 
+• name: String, name of the building. 
+• address: String, address of the building. 
+• image: string that show the path in database. 
+
+
+Figure 4.4: building table 
+Purpose: Associates users with buildings they have access to. Its attributes: 
+• BuildingId: The ID of the building foreign key to building table 
+• UserId: The ID of the user foreign key to account table 
+
+
+Figure 4.6: IOT status table 
+Description: Stores information about companies associated with the system. And its attributes is: 
+• name: String, name of the company. 
+• email: String, company email address. 
+• phone: String, company phone number. 
+• link: String, URL to the company’s website. 
+• location: String, location of the company. 
+• address: String, company’s address. 
+• logo: string store the path of the company logo. 
+• description: String, status description. 
+• recommendation: String, recommendations based on the status. 
+ 
+
+
+Figure 4.9: Post table 
+Attributes: 
+• id: Integer, unique identifier. 
+• Content: string take the content of post users. 
+ASP.NET Core was selected for API development in the EMS for several key reasons: 
+• Cross-Platform Compatibility: Runs seamlessly on Windows, Linux, and macOS, allowing flexible deployment options. 
+• High Performance: Optimized for speed and scalability, essential for handling real-time data from IoT devices. 
+• Modular and Lightweight: Allows developers to include only necessary components, enhancing performance and reducing the application footprint. 
+• Support for Modern Web Standards: Facilitates the creation of RESTful APIs that handle HTTP requests and responses effectively. 
+• Integrated Security Features: Offers built-in support for authentication, authorization, and data protection. 
+• Comprehensive Tooling and Community Support: Provides a rich set of tools and a large community for support and resources. 
+ 
+JWT AUTHENTICATION AND AUTHORIZATION 
+To ensure secure access to the EMS APIs, JWT (JSON Web Token) authentication is implemented. JWT provides a secure way to represent claims between the client and server. 
+JWT Authentication Process: 
+1. User Login: 
+• User submits credentials (username and password). 
+• Server verifies credentials and, if valid, generates a JWT.  
+2. Token Generation: 
+• The JWT contains user information and their role (Admin, Building Owner, User, Technician). 
+• The token is signed with a secret key, ensuring its integrity and authenticity. 
+3. Token Transmission: 
+• The token is returned to the client and stored locally (usually in local storage or cookies). 
+• For subsequent API requests, the token is included in the HTTP headers (Authorization: Bearer <token>). 
+4. Token Validation: 
+• The server validates the token for each request, checking its signature and expiry. 
+• Based on the user's role and permissions embedded in the token, the server authorizes or denies the request. 
+Advantages of JWT: 
+• Stateless: JWT enables a stateless authentication mechanism, where no session is stored on the server. 
+• Scalability: Suitable for distributed systems and microservices, as each service can independently validate the token. 
+• Security: Ensures secure communication and data integrity through token signing. 
+o System administration and high-level management. o Maintain system security and integrity. o Manage user roles and permissions. 
+2. Building Owner 
+• Permissions: 
+o Manage users within their buildings: Add or remove tenants. o Control building-specific settings. o Monitor and control elevators. 
+o Post announcements for building users. 
+• Responsibilities: 
+o Oversee building operations and user interactions. o Ensure efficient operation of elevators. o Communicate with tenants and technicians. 
+3. User 
+• Permissions: 
+o Access and control elevators in their buildings. o View building-specific posts and announcements. 
+o Manage personal account details. 
+• Responsibilities: 
+o Use building facilities and elevators. o Stay informed about building updates. 
+The following are key API endpoints categorized by their functionality. Each endpoint is designed to support the system's various operations and user interactions. 
+1. Account Management APIs 
+
+Figure 4.10: account management APIs 
+Login and Role Management: 
+• POST /api/Account/login: Authenticates users and returns JWT. 
+• POST /api/Account/addrole: Adds a new role to a user. 
+• POST /api/Account/updateRole: Updates a user's role. 
+• POST /api/Account/register: Registers a new user. 
+User Management:  
+• GET /api/Account/technicianUsers: Retrieves all technician users. 
+• GET /api/Account/GetByuserId: Retrieves a user by their ID. 
+• GET /api/Account/GetAllUsers: Retrieves all users. 
+• GET /api/Account/GetUsersInBuilding: Retrieves users in a specific building. 
+• PUT /api/Account/{userId}: Updates a user's details. 
+• DELETE /api/Account: Deletes a user. 
+• POST /api/Account/Change-Password: Changes a user's password. 
+2. Building Management APIs 
+
+Figure 4.11: Building Management APIs 
+Building CRUD Operations: 
+• GET /api/Building/GetByuserId: Retrieves buildings by user ID. 
+• GET /api/Building: Retrieves all buildings. 
+• POST /api/Building/CreateNewBuilding: Creates a new building. 
+
+• GET /api/Building/{id}: Retrieves a building by its ID. 
+• PUT /api/Building/{id}: Updates a building's details. 
+• DELETE /api/Building/users: Deletes users from a building. 
+User-Building Association: 
+• POST /api/Building/addUser: Adds a user to a building. 
+3. Company Management APIs 
+
+Figure 4.12: Company Management APIs 
+Company Information: 
+• GET /api/Company/GetCompanyById: Retrieves a company by its ID. 
+• GET /api/Company/GetAll: Retrieves all companies. 
+• POST /api/Company/Create: Creates a new company. 
+• PUT /api/Company/{id}: Updates a company's details. 
+• DELETE /api/Company/{id}: Deletes a company. 
+4. Elevator Management APIs 	 
+
+Figure 4.13: Elevator Management APIs 
+Elevator Operations: 
+• GET /api/Elevator/GetByBuildingId: Retrieves elevators by building ID. 
+• POST /api/Elevator/Create: Creates a new elevator. 
+• GET /api/Elevator/GetElevatorsWithStatusByBuildId: Retrieves elevators with status by building ID. 
+• GET /api/Elevator/GetLatestStatus: Retrieves the latest status of elevators. 
+• GET /api/Elevator/GetAllStatus: Retrieves all status records for elevators. 
+• GET /api/Elevator/GetElevatorWithLatest: Retrieves elevators with the latest status. 
+• GET /api/Elevator/{id}: Retrieves an elevator by its ID. 
+• POST /api/Elevator/CreateDevice: Registers a new IoT device for an elevator. 
+5. IoT Device Management APIs 	 
+
+Figure 4.14: IoT Device Management AOIs 
+Device and Status Management: 
+• GET /api/Post: Retrieves all IoT devices. 
+• POST /api/Post: Creates a new IoT device. 
+• GET /api/Post/{id}: Retrieves an IoT device by its ID. 
+• PUT /api/Post/{id}: Updates an IoT device's details. 
+• DELETE /api/Post/{id}: Deletes an IoT device. 
+• GET /api/Post/GetByUserId: Retrieves IoT devices by user ID.  
+6. Post Management APIs 
+
+Figure 4.15: Post Management APIs 
+Content Creation and Management: 
+• POST /api/Post: Creates a new post. 
+• GET /api/Post: Retrieves all posts. 
+• GET /api/Post/{id}: Retrieves a post by its ID. 
+• PUT /api/Post/{id}: Updates a post's content. 
+• DELETE /api/Post/{id}: Deletes a post. 
+API WORKFLOW EXAMPLES 
+Login Workflow: 
+1. User submits login credentials via POST /api/Account/login. 
+2. Server validates credentials and returns a JWT if valid. 
+3. Users use JWT to access protected endpoints. 
+Elevator Status Update Workflow: 
+1. IoT Device sends status data via POST /api/Elevator/CreateDevice. 
+2. Server stores the status update and associates it with the relevant elevator. 
+3. User or Technician retrieves the latest status via GET/api/Elevator/GetLatestStatus. 
+Building Management Workflow: 
+1. Admin creates a new building via POST /api/Building/CreateNewBuilding. 
+2. Building Owner adds users to the building via POST /api/Building/addUser. 
+3. Users associated with the building can access it and interact with its elevators. 
+These workflows and the detailed API descriptions provide a comprehensive understanding of how the system operates and how different components interact through the API endpoints. 
+DOCUMENTATION AND FURTHER READING 
+For a deeper dive into each API endpoint, their parameters, and example responses, refer to the detailed API documentation provided in the project repository. This documentation includes: 
+• Endpoint details. 
+• Request and response formats. 
+• Authentication and authorization mechanisms. 
+• Error handling and common responses. 
+  
+ 
+ 
+
+ 
+MOBILE APPLICATION PART 
+5.1.1 	OVERVIEW 
+  The mobile application is the interface for regular users (residents), owners of buildings, or technicians to control and handle the elevator. Everybody who deals with elevators can use the application with different functionalities. Services that the application produces depend on who uses it, meaning technician has ability to access some functionalities others can’t, and so on. For example, the owner of a building can adds or remove residents from its buildings, but residents or technicians don’t have ability to do it, in addition to many functionalities that we will discuss in this chapter. 
+  In this chapter we will cover two implicit main topics, the first topic is What are the application services and interfaces in detail, and second topic is How the application works and its technology.  
+Before delving into heart of matter, let's talk briefly about the introduction to this topic…. 
+5.1.2 	WHY MOBILE APPLICATION? 
+  The main goal of the project is to facilitate matters for users of electric elevators. Therebefore, when we look at the issue from this perspective, we will see that the most widely used device is the mobile phone, this is because its size is small, allowing us to take and use it everywhere (portable). Moreover, it has a camera and can connect to internet from anywhere. 
+5.1.3 	WHO CAN USE THE APPLICATION? 
+  In this sub-topic, demonstrating people who can use our application is the main purpose. The application targets a group of people who deal with electric elevators regularly. These users can use can categorized into three groups based on the role of each user: 
+1. Regular users:  By a regular user, we mean the person who resides within the building with the elevator. 
+2. Owners: this is the person responsible for the building and consequently the one in charge of the elevator, may be actual owner, building concierge, or others. 
+3. Technicians: the person who responsible for maintaining and fixing the elevator  
+4. Admin:  who belongs to  elev5. 
+5.1.4 	APPLICATION SERVICES  
+We can categorize the services and functions provided by the application based on the user into five categories. 
+SERVICES FOR REGULAR USER (RESIDENTS) 
+ The main service provided by the application to the regular user is the ability to control the elevator of the building to which user belongs, and this service is only available when the user is inside the elevator  or in front of it. The control of the elevator allows residents to select the desired floor for ascent or descent, as well as stopping the elevator or even activating alarm bell. 
+We can say that the residents have the elevator keypad in their application, allowing them to control various functions of the elevator. 
+
+ The owner, as the one who possesses the building, can do the same things that regular user can do, which is elevator controlling. In addition to some additional features, explained in the following: 
+• Building Information: Knowing Building information such as ID of it, name, image   and who has joined it …etc. 
+• Building Information Modification: The owner can also modify certain properties of the building, such as its name, image, and others.  
+• User Addition Privilege: the owner has the capability to include or add a user to his building. 
+• User Removing Privilege: the owner has the capability to remove or delete a user from his building. 
+• Elevator Status Monitoring: In case of malfunction in the elevator, the owner will receive an immediate notification indicating an issue with the elevator. 
+Users who join a building, or adding a user to the building, refers to individuals who have the ability to control the elevator within this building. So, when we say that the owner can add a user to the building, it means that this user now has the ability to use the elevator within that building. Consequently, removing a user from the building means that this user no longer has the ability to control the elevator. 
+SERVICES FOR TECHNICIAN 
+The technician responsible for a group of elevators in buildings can remotely control those elevators, in addition to receiving notifications in case of malfunction in any of them. 
+• Monitoring and Tracking the Elevator's Status: The technician can monitor the elevators and determine if there is currently a problem or if they are operating correctly. If there is a problem, the technician can identify the issue and assess whether it requires immediate attention. Depending on the severity of the problem, the technician may need to physically go to the elevator to resolve it, or it may be possible to fix it remotely. This is achieved by sending notifications to the technician and providing them with the status of the elevator. Additionally, technicians can view the elevator's previous status and history. 
+ 
+• Remote Elevator Control: Sometimes, the technician needs to remotely control the elevator to solve certain problems without the need to physically go to the elevator. For example, some errors and problems that occur with the electric elevator have simple solutions that do not require calling the elevator technician. For example, errors that only require moving the elevator or making it move to the upper or lower floors, among other simple solutions. Therefore, the remote-control feature provided by the application will save the technician from having to go specifically for such problems. 
+
+ Now that we've discussed the main services and functions provided by the application, let's talk about some additional features that the application offers in the world of smart elevators. These services are not limited to specific individuals but are available to all users to contribute to connecting the world of smart elevators together and to facilitate solutions to problems and assistance in anything related to the world of elevators. 
+I. The first feature is the ability for technicians to communicate with each other or with the owners, and even for owners to communicate with their users through sending messages, voice attachments, or files. This service is achieved through various methods, such as using in-app chat, or even communicating via WhatsApp. It may even involve making a voice call or other means of communication to facilitate interaction. 
+II. Another feature is that all users of the program can browse companies and contact them, either by their official website or by sending them messages through email or other means. This feature exists to provide an effective means of communication between users and specialized elevator companies. It assists individuals who want to purchase a new elevator, inquire about elevator prices, maintenance costs, spare parts, and other elevator-related information. Thus, this service facilitates communication with these companies, even if it is not among the core functions of the application. 
+III. The third feature is that owners or others can search for technicians, communicate with them, and chat with them through the application or through other methods. It is known that each elevator has its own dedicated technician. However, if this technician is unavailable for any reason, wouldn't the user need to find an alternative technician? Additionally, if the user wishes to install a new elevator, shouldn't they be able to locate a technician? This is precisely what this service offers.  Users can search using the address of the technician or his name.  
+IV. Owners and technicians can share and post their elevator-related issues, whether it's malfunctions, installing a new elevator, renovation, and more. The application allows users to post updates. So, if a user encounters a problem and wants to share it, they can post whatever they wish. 
+Consequently, others can communicate with them to resolve the issue or other elevator-related matters. 
+V. Application has two languages mode Arabic and English; you can switch between them. 
+VI. Anyone has a profile and can modify it. 
+VII. Finally, connect with Us to solve issues. 
+Services For Administrator  
+  The admins or individuals associated with Elev5 have certain privileges provided to them by the mobile application. However, these privileges do not encompass all available permissions; some are provided by the website. Here, we will outline the services offered by the mobile application. The services provided by the mobile application are specifically for the administrator during the process of converting the elevator to a smart elevator or, from another perspective, when adding IoT to the elevator for control purposes. Those services include: 
+• Creating a new Building Service: What is meant by creating a new building is adding this building to the system. This is done by entering information about this building, which may include its name, address, and perhaps adding a picture of the building. 
+• Linking an Elevator to a Building  Service: When the IoT device is installed on the elevator, the elevator becomes part of the system. However, it is not yet assigned to any specific building. Therefore, this service allows the administrator to link the elevators to the buildings they belong to. It's worth noting that a building may have multiple elevators. 
+• Adding a User to a Building  Service: After the building has been added to the system, the technician assigned to this building and the owner of this building need to be identified. Therefore, it is necessary to link the building to the individuals responsible for it, and this is what this service provides. 
+• Upgrade User Service: Simply put, here the user's type is being changed, either by upgrading to a higher type or vice versa. Here are the available upgrade options: 
+1. Regular User 
+2. Upgraded Regular User 
+3. Owner 
+4. Upgraded Owner 
+5. Technician  
+6. Upgraded Technician  
+ The difference between an upgraded account and a non- upgraded account lies mainly in the permissions available. For instance, an upgraded account might have higher posting limits per day, or it could have the ability to block advertisements within the app, while non-upgraded accounts may not have these privileges. 
+ In this case, when adding a new building and its owner still has a regular user account, this service can be used to upgrade their account to an owner account. This will grant them additional privileges to manage the building and its related information within the system. 
+And since the application's services have been detailed, it's time to clarify these services in another way, or in other words, link these services to the application's interfaces. 
+5.1.5 	APPLICATION SERVICES INTERFACES 
+In this section we will explain the services through review of the application’s interfaces in the form of pages. Through these pages, we will illustrate the available services and their intended users. 
+
+Figure 5.0: the logo 
+
+ At the beginning, all applications users must have an account on the system. They can then log in to the application through the Login page, which is shown below Figure 5.1.  
+
+Figure 5.1: login page 
+
+   After login, the user is directed to the homepage. This page, like its predecessor, is common to all users, and its display does not vary from one user to another. As illustrated in Figure 5.2, we can divide the homepage into two sections: an upper part and a lower part. We will now elaborate on them. 
+
+Figure 5.2: Homepage screen 
+ 
+
+
+Lower Part 
+  The bottom section provides an important feature, which is connecting the world and community of elevators together by knowing elevator companies in the market as well as technicians. You can also post updates. So, we see that it is divided into three pages, which are: 
+1. Companies Tab:  everybody can browse companies, communicate with them, and search for companies either by address or by their names. 
+
+                    Figure 5.5: company tab                                                      Figure 5.6: search page 
+2. Technicians: Like Companies everybody can browse Technicians, communicate with them, and search for Technicians either by address or by their names. 
+
+      As we can see here, we can browse technicians and search for them, in addition to knowing their information by clicking on a specific technician, which takes us to their profile page, where their details will be displayed later. 
+ 
+ 	 	 	 	Figure 5.9: posting tab and creating page 
+
+   This page is primarily designed for the service of regular users, namely the residents of the building . The subscriber may have more than one residential building, so they will appear in the upper part of the page with the buildings associated with this account select the building in which you are. Then, Select the elevator you want to control, as there may be more than one elevator in the same building. After that scan QR to ensure that the user is inside the elevator. 
+After scanning the keypad Appears 
+
+
+As we can see below the figure, there are three sub-pages: Status, Buildings, and Messages. Status sub-page 
+The elevator always has a status, whether it is normal or experiencing an issue. In this subpage, the status of your buildings is displayed. When you press the building card, then select your elevator, the details of the status appear as shown in figure 4.14, and with a long press, you can view the history of the 
+As we can see in Figure 5.14, it provides detailed information about the status of the elevator and describes this status. It also displays five indicators that represent the status and offers some suggested solutions to resolve the issue. 
+However, if we look closely, we will find a control button. This button is responsible for accessing the  technical control panel of this elevator, which is intended only for the technician. In other words, any user who is not a technician will not see this button. 
+Technical Control Panel Page 
+These pages are intended for the technician, as mentioned earlier. But the question here is: what is the difference between this page and the control page available to all users? In fact, this page does not have the confirmation processes present on the other page. Additionally, this page allows the technician to remotely control the elevator, unlike the other page. Moreover, it includes some buttons that assist the technician in repairing the elevator, such as CST and others. Lastly, this page displays the current status of the elevator so the technician can know whether the problem has been resolved or not as illustrated in Figure 4.15 
+
+Figure 5.15: technician keypad 
+My Buildings 
+This section is dedicated to the buildings to which the user belongs. It displays the buildings and their information, with the option to leave a building. As for the owner, it allows them to perform extra actions such as adding or removing a user.  
+
+Figure 5.16: building card in building page 
+As we saw in Figure 5.16, below it there is a bar with icons for editing the building. As detailed in Figure 5.17, it contains an add icon, which is designated for the owner only. Through this icon, a user can be added to the building using their ID number. The owner uses the search icon to verify who the user is. This means that when clicking on this icon, some information about the user will be displayed.  
+ The next icon is the user’s icon, which is responsible for displaying the users participating in the building and their types (owner , technician). Through this icon, the owner can delete users. 
+ 
+
+ 
+Figure 5.17: building action panel 
+The third icon is designated for displaying and editing building information such as its name, picture, description, and more. This icon navigate us to the building profile  shown in Figure 5.18 and last icon for leaving. 
+ 
+                       
+	Figure 5.18: Building profile 	 	 	 	 Figure 5.19: User profile 
+ And with this, we have completed the community section entirely and it's time to move on to the admin section. But before starting this section, it's natural for each account to have a profile page to allow the user to edit their information such as their picture, address, and other details. As we mentioned earlier, there is a dedicated page for this, which is illustrated in Figure 5.19 above 
+ 
+Messages sub-page 
+The messages page, as the name suggests, contains user messages through which they can send and receive messages. 
+ 
+
+In the admin control panel, there are four functions that can be performed through the application. Create , Join , Link , Upgrade  
+
+Figure 5.20: admin control panel 
+The first function is to create a new building and add it to the system. During the creation process and data entry, a picture of the building can be taken and added   as shown in Figure 5.21 . The second function is adding a user to a building using their ID numbers as shown in Figure 5.22 
+               
+ 	 Figure 5.21: Create building 	 	 	 	 Figure 5.22: Add user into building 
+The third function is linking a building to a specific elevator, also using their identification numbers. This is illustrated in Figure 5.23 below. 
+
+Figure 5.23: Link elevator with building 
+Finally, user upgrading, which means changing the account type from a regular user to a technician or an owner, depending on the person. This happens by entering the ID number of the user to be upgraded, then selecting the desired type from the list, and finally clicking on upgrade.  
+    
+ 	 	   Figure 5.24: upgrade panel 	 	 	Figure 5.25: types of account 
+5.1.6 	APPLICATION TECHNOLOGIES. 
+  To create the application interfaces, we used Flutter technology, which requires some specific components for its functionality. Let’s discuss first what Flutter is and why we used it. 
+
+  Flutter is an open-source User Interface (UI) software development kit created by Google. it is powered by Dart, a language optimized for fast apps on any platform 
+ 
+Figure 5.26: Flutter architecture 
+Dart App: Composes widgets into the desired UI. Implements business logic. Owned by an app developer. 
+Framework: Provides higher-level API to build high-quality apps (for example, widgets, hit-testing, gesture detection, accessibility, text input). 
+WHY? Because it is used to develop cross platform applications from a single codebase, meaning that the application can run on iOS and android. 
+
+Figure 5.27: cross platform 
+
+  Some components are required and others to help us. Now let’s review the main technologies and tools that are used in building the application.  
+• IDE (Visual Studio Code and Android Studio). 
+• Emulator to help in simulating phone. Android Studio provide it. 
+• Dart is dynamic programming language (Object Oriented) created by Google, which need to use flutter. 
+• Flutter User Interface (UI) software development kit 
+• Some Packages such as  
+Cubit Package: used to manage the code and also used to provide MVVM (Model View View Model) structure. 
+HTTP Package (Rest API): making http requests such as get and post …etc. 
+Socket Packages: package used to open channel  to send and receive stream of data  ex: (web_socket_channel) 
+Other Packages used for awesome GUI and grant permission to app  
+ARCHITECTURE AND DESIGN PATTERN. 
+   In our mobile app we used Model-View-ViewModel (MVVM) Architecture. Showen in Figure 5.28.It is a popular architectural pattern for building user interfaces, especially in the world of mobile app development. The Model-View-
+
+ViewModel (MVVM) pattern separates the user interface of an app into three distinct components: the Model, the View, and the ViewModel. Each element plays a specific role in the overall architecture of the application 
+ 
+Figure 5.28: MVVM architecture  
+The Model represents the data and business logic of the app. It is responsible for storing, retrieving, and manipulating the data that the app needs to function. The Model should be completely independent of the View and ViewModel and should only contain logic related to the data itself. For example,  elevator model is a class for handle data of elevator and get its info from database as shown in Figure 5.29 
+		 
+Figure 5.29: code explains model 
+The View represents the user interface of the app. It is responsible for displaying the data to the user and capturing user input. The View should be completely independent of the Model and ViewModel and should only contain logic related to the presentation of the data. Figure 5.30 shows code explains view. 
+
+Figure 5.30: code explains View 
+The ViewModel acts as a bridge between the Model and the View. It provides a clean and convenient way for the View to access and manipulate the Model. The ViewModel should be completely independent of the View and should only contain logic related to the transformation of the Model data for the View. 
+5.1.7 	INTEGRATION WITH THE REST OF SYSTEM 
+  The elev5 system consists of four main components: the mobile application, the web application, the back end, and the ESP32. In fact, the mobile app communicates with the other components, especially the back end and the ESP32. Here, we will discuss the method of connecting with each of them. 
+
+  The application needs to connect to the server to retrieve information and data from the database, such as user information, buildings they are members of, companies, technicians, posts, and other data stored on the server . 
+  The method used to connect the application to the server is REST 
+API(Representational State Transfer) 
+  REST is an architectural style for building web services that interact via an HTTP protocol,  the client sends an HTTP request. In return, the server generates an HTTP response with encoded data on the resource as shown in Figure 5.31 
+ 
+ 	 	 	 	 	Figure 5.31: Rest APIs 
+Any REST request includes four essential parts: an HTTP method, an endpoint, headers, and a body. 
+An endpoint contains a Uniform Resource Identifier (URI) indicating where and how to find the resource on the Internet 
+Headers store information relevant to both the client and server. Mainly, headers provide authentication data — such as an API key, the name or IP address. 
+A body is used to convey additional information to the server. For instance, it may be a piece of data you want to add or replace 
+The HTTP method describes what is to be done with a resource. There are four basic methods: 
+1. POST to Write into server,  
+2. GET to Retrieve data from server, 
+3. PUT to Update, 
+4. DELETE to Delete. 
+Flutter provides us with the HTTP package, which helps us make HTTP requests easily. The following example illustrates the code responsible for a GET request: 
+
+Figure 5.32: code explain get method 
+As we can see in the previous example, the GET function takes the server's URL, retrieves the data, and decodes it. And often, the data is in the form of JSON. 
+ 
+
+  All users have the ability to control the elevator through the control page, which allows the application to manage the elevator via the ESP32. And therefore, it is necessary for the application to connect with the ESP32. However, there are some issues, such as the floor number continuously changing during normal operation. In the case of technician control, other aspects also change continuously, such as the elevator status, illuminated and non-illuminated indicators, floor number, and more. These issues make the REST API method inefficient in this context. 
+  To solve these issues, we will use Socket instead of REST, which allows us to open a channel between the application and the ESP32 for transferring a stream of data. When using sockets, the ESP32 can continuously send the elevator's status to the application through this channel. Also, whenever the floor changes or any indicator lights change, it allows the technician or user to control and monitor the elevator in real-time. 
+Channel between mobile and esp32 shown in Figure 5.33 
+
+Figure 5.33: channel between mobile and 
+There are some packages available for opening channels or sockets in Flutter, such as web_socket_channel. And it should be noted that the ESP acts as the server, while the application acts as the client. 
+in flutter code  first import package and then create channel through connect function using URL of the ESP32 Server  
+
+  	 	 	 	Figure 5.34: code explain connect method 
+After the connection established the Esp and mobile can send and receive through the  channel using channel.sink.add() function and receive as shown in Figure 5.35. 
+ 
+
+Figure 5.35: code explain send method 
+When user or technician finished their tasks the mobile close the channel with 
+ESP using  channel.sink.close() function  as shown in figure 5.36 
+
+Figure 5.36: code explain close method 
+And now let's see some real-world examples after opening the socket. 
+
+                                             
+Figure 5.38 
+As we saw that when floor num change in ESP directly change in Mobile App 
+WEB APPLICATIONS PART 
+5.2.1 OVERVIEW 
+
+The primary objective of the website is to function as a comprehensive platform facilitating interactions among companies, technicians, and prospective as well as existing clients within the elevator industry. The core purpose of this platform is to streamline the process of connecting interested customers with elevator companies that align with their specific requirements and preferences. Through the website, customers can easily navigate and explore a variety of offers from different elevator companies, enabling them to make informed decisions about the services that best suit their needs. 
+Moreover, the website plays a crucial role in fostering connections between technicians and current clients. This feature proves invaluable especially when a building's designated technician is unavailable, as it provides a seamless communication channel for addressing issues and facilitating interactions between technicians and clients. This ensures that clients' concerns are promptly addressed, enhancing overall customer satisfaction and service efficiency. 
+In addition to facilitating these interactions, the website also manages user authentication processes, including login and registration. Below, we delve into the key components and functionalities that the website encompasses to provide a user-friendly and efficient experience for all stakeholders. 
+ 
+
+In developing modern web applications, React.js has become an indispensable tool due to its efficient, component-based architecture. React.js, developed and maintained by Facebook, is an open-source JavaScript library that allows developers to create interactive and dynamic user interfaces with ease. By breaking down the user interface into reusable components, React.js promotes modularity and maintainability, significantly enhancing the development process. 
+One of its key features is the virtual DOM, which optimizes rendering performance by updating only the parts of the DOM that have changed. This results in faster and more responsive applications. Additionally, React's ecosystem is rich with tools and libraries that further extend its capabilities, making it a versatile choice for both small projects and large-scale applications. 
+
+	Figure 5.39 	 	 	 
+Utilizing React.js in our project allowed us to create a seamless and engaging user experience while maintaining robust and scalable code 
+
+1. HTML5: Latest version of the web's core markup language. 
+2. CSS3: Advanced styling and layout language for the web. 
+3. JavaScript: Programming language for dynamic web content. 
+4. Bootstrap: Framework for responsive web design. 
+5. Font Awesome Library: Collection of customizable vector icons. 
+6. Google Fonts Library: Free web fonts for enhanced typography. 
+7. Axios: HTTP client for making web requests. 
+8. React JS: Library for building component-based UIs.React router dom. 
+• React Hooks. 
+• React awesome reveal. 
+• sweetalert2. 
+• React toastify. 
+• React hook form. 
+• React Spinner 
+• JWT Decode 
+5.2.2 WEBSITE AS A VISITOR 
+
+The landing page is designed with a prominent header bar that prominently displays our project logo and provides convenient buttons for navigating to the registration or login pages. Additionally, users can easily access essential pages such as the contact and about us pages through quick links featured in the header. 
+
+Figure 5.41: homepage 
+To enhance user experience and streamline navigation, a consistent and user-friendly navigation bar is present across all pages of the website. This navigation bar ensures effortless movement between the main page, companies page (where users can explore elevator service providers), and technicians page (dedicated to technical support). 
+By maintaining a cohesive design approach, we prioritize user engagement and accessibility, empowering visitors to efficiently explore our offerings and connect with relevant services and resources. 
+ 
+This dedicated space provides our partners with the opportunity to compete and present their offerings in a visually appealing and reader-friendly format, maximizing visibility and attracting potential clients. Additionally, we feature a dynamic slider that enhances user engagement by delivering supplementary information about our own offerings and services. 
+This slider serves as an interactive element, offering valuable insights and highlights to visitors as they navigate through the website. Together, these components create a compelling and informative platform that benefits both our partners and our audience, facilitating meaningful connections and informed decision-making. 
+ 
+The subsequent section of the website is dedicated to enhancing navigation and user experience. Here, we prioritize intuitive design elements that make it easier for visitors to navigate through our platform. This section includes user-friendly features such as clear menus, prominent search functionality, and organized content categories, ensuring that users can quickly find the information they need. As shown in Figure 5.43 
+
+Figure 5.23: homepage continue 
+Before reaching the footer of the homepage, we prominently showcase our most significant partners. This strategic placement on the homepage not only highlights our valued partnerships but also adds credibility and trustworthiness 
+
+to our brand. By featuring our key partners in this prominent position, we aim to reinforce our commitment to excellence and collaboration within the industry. 
+This approach contributes to a seamless and engaging browsing experience, where users can effortlessly explore our offerings, discover our partners, and access relevant information. We continuously strive to optimize our website's usability and visual appeal, ensuring that every visitor finds value and clarity when interacting with our platform. 
+
+
+Figure 5.53: companies page 
+This section features a comprehensive list of companies that have previously been contracted with, providing users with a valuable resource to browse through detailed information, pricing, offers, and other essential details. As shown in Figure 5.53. By organizing this information in an accessible format, users can make informed decisions and compare offerings based on their specific requirements and preferences. 
+Each company listing is designed to showcase key details such as services provided, service areas, customer reviews, and contact information, empowering users to gather all the necessary information they need in one place. 
+The goal of this section is to streamline the process of exploring and engaging with various service providers, ensuring transparency, and facilitating efficient communication between users and companies. Whether users are seeking elevator installation, maintenance, or repair services, they can leverage this resource to discover reputable companies and access comprehensive information to support their decision-making process. 
+This user-centric approach enhances the overall usability of the website, providing a valuable platform for users to connect with trusted service providers and meet their elevator-related needs effectively. 
+ 
+
+This section features a curated list of technicians who have been previously contracted, providing users with a convenient resource to browse and select a technician based on their specific needs. 
+Users can access detailed information about each technician, including their expertise, qualifications, availability, and contact details. This transparency empowers users to make informed decisions and quickly connect with the right technician to address their elevator-related issues efficiently. As shown in Figure 5.54 blew. 
+ 
+ 
+
+Figure 5.54: technicians page 
+By organizing technician profiles in an accessible format, users can navigate through the listings, view relevant details, and choose a technician who meets their requirements. Whether users need elevator maintenance, repairs, or troubleshooting services. 
+ This section serves as a valuable tool for connecting with experienced professionals in their area. The primary goal is to streamline the process of finding and engaging with technicians, ultimately ensuring prompt and effective solutions for elevator-related problems. 
+This user-centric approach enhances the overall usability of the website, facilitating seamless communication between users and technicians while providing a reliable platform for accessing trusted services. The comprehensive information available within this section enables users to solve their elevatorrelated issues promptly and with confidence. 
+
+The login page of our website features two input fields: one for the user's email address and the other for their password. This straightforward design allows users to securely enter their credentials for authentication. Upon submission, the website initiates a server-side verification process to validate the provided email and password against the information stored in the database.as shown in Figure 5.55 
+
+Figure 5.55: login page 
+If the credentials match an existing user account, the website proceeds to navigate the user to their personalized home page, granting access to exclusive features and personalized content based on their account privileges. 
+This login mechanism ensures security and privacy by verifying user identity before granting access to sensitive information or personalized services. By leveraging server-side validation, we maintain data integrity and protect user accounts from unauthorized access. Our goal is to provide a seamless and secure login experience that prioritizes user privacy and convenience while safeguarding against potential security threats. 
+ 
+ 
+ 
+
+When a user registers for an account on our website or service for the first time, they are directed to a dedicated registration page designed to facilitate a smooth and user-friendly registration process. This registration page is structured into several stages or steps, each aimed at simplifying and optimizing the user's experience during account creation. 
+Personal information: 
+
+Figure 5.56: personal information part 
+Figure 5.56 shows The personal information stage of the registration process features a form where users provide essential details to create their account. This includes entering their primary phone number, first name, and last name. Additionally, users have the option to provide an alternate phone number specifically for WhatsApp, though this field can be left empty if not applicable. 
+Before users can proceed to the next stage of registration, the entered data is subjected to validation checks to ensure accuracy and suitability. This validation process verifies that the phone numbers are in the correct format and that the provided names meet any specified criteria (e.g., minimum character length, valid characters). 
+By implementing these validation checks before advancing to subsequent stages, we maintain data integrity and improve the overall registration experience for users. Clear feedback is provided to users in case of any errors or discrepancies, guiding them to correct and resubmit the necessary information as needed. This attention to detail ensures that user-provided data is accurate and reliable, setting the foundation for a successful account setup process. 
+Address information: 
+
+Figure 5.57: address information part 
+During the registration process, users enter their address details—street address, city, and state or region—into a form. As shown if Figure 5.57 This stage is crucial for creating accurate user profiles and enabling location-based services and communications. 
+Users must input their address information accurately. Before users can proceed to the next registration stage, the entered address data undergoes validation checks to ensure accuracy and completeness. These checks verify that the street address, city, and state or region fields are correctly filled out according to specified formatting requirements. 
+Real-time feedback is provided to users, highlighting any errors or missing information that needs attention. This proactive approach allows users to correct and refine their address details before finalizing their account setup. 
+Implementing robust data validation at this stage enhances data accuracy, improves user experience, and ensures that user profiles are complete and reliable. This attention to detail contributes to a seamless registration process and supports personalized, location-specific interactions within the service. 
+Login information:  
+ 	
+ 
+Figure 5.58: login info page 
+Figure 5.85 shows The final stage of the process involves a form where users provide their login information. This information consists of three key components: 
+Email Address: Users enter their email address, which serves as their unique identifier for accessing the system. 
+Password: Next, users input their chosen password. This password should be secure and not easily guessable. It is essential for protecting their account. 
+Password Confirmation: To prevent errors, users are asked to re-enter their password. The system verifies that the two entries match before proceeding. 
+
+Before allowing users to proceed further, the entered data undergoes validation to ensure its suitability. This validation process helps maintain security and accuracy within the system. 
+Data collected is sent to the server after each step, undergoing comprehensive validation. This includes confirming email format, password strength, and consistency. Validated data is securely stored in a protected database. Once registered, accounts are activated for seamless and secure user interaction. 
+
+Figure 5.59: contact us page 
+ 
+Our team is readily available via email, phone, or direct message for any inquiries, making reaching out simple and hassle-free. Shown in Figure 5.59  
+Whether you have a quick question or need more detailed assistance, we're here to help promptly and effectively.  
+We value user feedback and use it to continuously improve our services. Our 
+Contact Us form is designed for seamless interaction, with clear instructions 
+ 
+ 
+This interactive environment promotes engagement and collaboration, allowing users to connect, share insights, and seek assistance conveniently. Join our community to leverage these features and connect with fellow users and industry professionals in a user-friendly and efficient manner. 
+Also, Users have the ability to share their questions, problems, or offers with the public by simply clicking the "add" button on our platform. As shown in Figure 5.61.2 
+ 
+ 
+Figure 5.61.2: create post panel  
+This feature enables users to post their inquiries, issues, or service offerings in a straightforward and intuitive manner. Whether seeking assistance, sharing expertise, or showcasing services, the "add" button allows users to contribute and engage with the community effectively. Join our platform and start sharing your posts with ease by utilizing the convenient "add" button to connect with others and make your voice heard. 
+
+Figure 5.62: edit profile page 
+After logging onto the website, users can easily and clearly edit their address, login information, and personal details through a dedicated page designed for data modification. This user-friendly interface allows users to make necessary updates or changes to their information with convenience and clarity. As shown in Figure 5.62 
+ 
+Key features of this data modification page include: 
+Address Editing: Users can modify their address details, including street address, city, and region/state, directly from the interface. Clear input fields and prompts guide users through the editing process. 
+Login Information Updates: Users have the option to update their login information, such as email address and password, ensuring account security and personalization. 
+Personal Information Modification: The page allows users to edit personal details such as first name, last name, and contact information as needed. This flexibility ensures that user profiles remain accurate and up to date. 
+By providing this dedicated data modification page, we prioritize user control and convenience, empowering users to manage their information effectively within our platform. This feature reflects our commitment to user-centric design and seamless user experience, enabling users to maintain their profiles with ease and confidence. 
+5.2.4 WEBSITE AS AN ADMINISTRATOR 
+An admin account can add and modify user types (technician, owner, 	user, 	admin) 	and contracted companies. 
+ They 	enter 	company information 	like 	name 	and services, which is displayed to users on the website and app. 
+ Admins also customize features and maintain data integrity and security. As shown in Figure 5.63 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 	     Figure 5.63: create new user 
+ 
+ 
+ 
+5.2.4.1.2 Read: 
+The administrator account is equipped with a management dashboard providing access to detailed user data of registered individuals. This dashboard empowers administrators to upgrade or modify account types (such as users, admins, technicians, or owners) as needed. This includes adjusting permissions, roles, and access levels to meet organizational requirements and user preferences. As shown in Figure 5.64 
+
+Figure 5.64: Centralizing account management 
+Centralizing account management, the dashboard ensures efficient oversight across different user roles, enhancing system functionality and user experience. Administrators leverage this capability to make informed decisions and uphold the platform's integrity and effectiveness. 
+
+Figure 5.65: Centralizing organization management 
+
+Furthermore, the management dashboard allows the administrator to list and explore organizations that have signed contracts to use the service. This feature provides visibility into the contracted companies and enables administrators to access detailed information about these organizations, such as services offered, contact details, and contractual terms. As shown in Figure 5.65 
+By having this comprehensive overview, administrators can effectively monitor and manage the relationships with contracted organizations, ensuring smooth operations and continued service delivery. This functionality enhances transparency and facilitates strategic decision-making within the administrative role. 
+5.2.4.1.3 Update: 
+The administrator has the ability to update any user's data upon request or as needed, similar to how a regular user modifies their own information. However, it is crucial to exercise caution and adhere to privacy and security protocols when making changes to user data. This includes ensuring that proper authorization and verification procedures are followed to protect user privacy and maintain data integrity. As shown in Figure 5.66 
+
+Figure 5.66: update user page 
+Administrators must uphold stringent security measures to prevent unauthorized access or misuse of user information while performing data alterations. By prioritizing privacy and security standards, administrators can effectively manage user data and maintain trust and confidence in the platform's operations. 
+Similarly, the administrator can modify company data within the system, including details such as services offered, contact information, and contractual terms for contracted companies. It is crucial for administrators to exercise caution and adhere to privacy and security protocols when making these updates, ensuring proper authorization and verification procedures are followed to protect sensitive business data. As shown in Figure 5.67 
+
+Figure 5.67: Modify company page 
+By upholding stringent security measures and privacy standards, administrators effectively manage and update company information while maintaining trust and integrity in the platform's operations. 
+5.2.4.1.4 Delete: 
+Finally, the administrator has the authority to terminate user accounts when no longer needed, discontinue service provision, or delete company data upon contract expiration. Safeguards on the website require confirmation before initiating these actions, ensuring deliberate and intentional decisions by the administrator. As shown in Figure 5.68 
+
+Figure 5.68: Deleting item 
+These verification steps minimize the risk of unintended consequences, maintaining data integrity, security, and compliance with established protocols in managing user and company records. 
+. 
+ 
+ 
+
+
+
+Future Work 
+ 
+ Building Upon Our Success: Mobile App-Enabled Elevator Control 
+We've made significant strides in fostering a more streamlined and secure elevator experience through mobile app integration. Secured communication and prevent  access for unauthorized users , enhancing building management and user convenience. 
+Envisioning the Future: Expanding Capabilities 
+1. Enhanced Data Acquisition and Management: 
+• ESP Pin Expansion: By increasing the number of pins on the Elevator Serial Protocol (ESP), we'll unlock the ability to collect a wider range of valuable data. 
+This includes: 
+• Real-time weight readings for potential overload prevention. 
+• Fire sensor status for improved emergency response. 
+• Mobile App Integration: Integrate this data seamlessly into the mobile app, providing building owners and technicians with a centralized platform for: 
+• Monitoring elevator health and performance. 
+• Identifying potential issues early for proactive maintenance. 
+• Streamlining maintenance scheduling and execution. 
+2. Advanced Automation and User Control: 
+• Automatic Door Control: Empower users to control elevator doors directly from the mobile app, enhancing accessibility and convenience (consider security implications and compliance requirements). 
+• Mobile-Based Maintenance: Facilitate maintenance activities through the mobile app, such as troubleshooting notifications, remote configuration adjustments (within authorized parameters), and status updates. 
+3. Universal Compatibility and Scalability: 
+• Broader Control Card Support: Extend compatibility to a wider range of elevator control card types, making the system more adaptable to diverse building infrastructures. 
+116 
+• We encourage continuous collaboration with elevator manufacturers, building management teams, and regulatory bodies to achieve these advancements. This partnership will ensure: 
+• Adherence to safety protocols and industry standards. 
+• Seamless integration with existing elevator systems. 
+• User-centric design and functionality. 
+• Moving Forward with Confidence 
+• We're confident that by building upon our current achievements and pursuing these expanded capabilities, we can revolutionize elevator control. This will lead to enhanced building management, improved user experiences, and ultimately, a safer and more efficient elevator environment for everyone. 
+ 
+117 
+ 
+???????   
+ ????? ??? ??????? ?????? ?????? ?????? ????? ??????? ???????? ??? ???? ??????? ???????? ??????? ????. ????? ??????? ????????? ??? ?????? ???? ????? ???? ???? ????? ??? ???? ??? ??? ???? ????? . ???? ?????? ??????? ??? ?????? ??? ?????? ?? ????? ?????? ???????? ??? ????? ????? ?????? ?? ????? ????? ????? ?????? .  ?????? ??????? ?? ??????? ??????? ???? ????? ?????? ?? ???? ?? ?????? ?????? ??????? ???????? ???????. ????? ?????? ??? ???? ?????? ??????? (IoT) ????? ???????? ?????? ????? ?????? ??????? ??? ???? ?????? ?????? ??? ???? ?????. ???? ??????? ?????? ??? ????????? ?? ???? ???? ???? ??? ????????? ??? ???? ???? ??????. ???? ?????? ????? ?? ??????? ???????? ???? ??? ???? ????? ?? ??????. ???? ???? ???? ?????? ???? ?????? ?????? ?????? ???? ??? ???????? ??? ??????? ?????? ?????? ?? ???? ??????? ???????.  
+ References: 
+[1] https://www.robsonforensic.com/articles/elevator-injury-investigations-expert 
+[2] https://www.youtube.com/watch?v=YQLzndM3L7Y 
+[3] https://apps.apple.com/us/app/kas-fi/id1584821223/ 
+[4] https://www.circuitschools.com/what-is-esp32-how-it-works-and-what-you-can-
+do-with-esp32/ 
+[5] Flutter architectural overview | Flutter 
+[6] Android MVVM — how to use MVVM in android example ? | by Dheeraj Singh Bhadoria | Medium 
+1 
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction 
+ 
+
+Introduction 
+ 
+
+6 
+
+7 
+
+Introduction 
+ 
+
+6 
+
+ 
+
+System Analysis 
+ 
+
+6 
+
+15 
+
+
+
+
+
+System Analysis 
+ 
+
+System Analysis 
+ 
+
+6 
+
+7 
+
+System Analysis 
+ 
+
+7 
+
+Hardware Implementation 
+ 
+
+
+
+15 
+
+
+
+System Analysis 
+ 
+
+15 
+
+Hardware Implementation 
+ 
+
+Hardware Implementation 
+ 
+
+6 
+
+7 
+
+Hardware Implementation 
+ 
+
+7 
+
+Database and Backend APIs 
+ 
+
+Database and Backend APIs 
+ 
+
+7 
+
+15 
+
+
+
+
+
+Database and Backend APIs 
+ 
+
+Database and Backend APIs 
+ 
+
+15 
+
+15 
+
+Database and Backend APIs 
+ 
+
+15 
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+15 
+
+15 
+
+
+
+
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+6 
+
+15 
+
+Mobile And Web Application 
+ 
+
+6 
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+15 
+
+15 
+
+Mobile And Web Application 
+ 
+
+15 
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+7 
+
+15 
+
+Mobile And Web Application 
+ 
+
+7 
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+7 
+
+6 
+
+Mobile And Web Application 
+ 
+
+6 
+
+Mobile And Web Application 
+ 
+
+Mobile And Web Application 
+ 
+
+15 
+
+6 
+
+Mobile And Web Application 
+ 
+
+15 
+
+
+
+
+
+
+
+
+
+
+
+
+

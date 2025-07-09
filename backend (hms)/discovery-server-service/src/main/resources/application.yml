@@ -1,0 +1,19 @@
+# Bootstrap Configuration - Only essential config needed before connecting to config server
+# Discovery server needs some local config as it's the foundation service
+spring:
+  application:
+    name: discovery-server-service
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+# Essential server config that must be local (discovery server is foundational)
+server:
+  port: 8761
+
+# Essential Eureka server config that must be local
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false

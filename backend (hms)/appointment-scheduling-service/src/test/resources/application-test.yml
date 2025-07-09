@@ -1,0 +1,45 @@
+# Test Configuration
+spring:
+  application:
+    name: appointment-scheduling-service
+
+  config:
+    import: []
+  cloud:
+    config:
+      enabled: false
+
+  # SQL initialization configuration
+  sql:
+    init:
+      mode: never
+
+  # H2 In-memory database for testing
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+# Disable Eureka client for tests
+eureka:
+  client:
+    enabled: false
+
+# Set test-specific properties
+server:
+  port: 8083
+
+# Test security configuration
+app:
+  jwt:
+    secret: dGVzdC1zZWNyZXQtdGhhdC1pcy1hdC1sZWFzdC0yNTYtYml0cy1sb25nLWZvci1obWFjLXNoYTI1Ng== 

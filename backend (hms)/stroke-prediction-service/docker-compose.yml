@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  stroke-prediction-service:
+    build: .
+    container_name: hms-stroke-prediction
+    ports:
+      - "8090:8090"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./app/models/model.joblib:/app/app/models/model.joblib:ro  # Mount model as read-only
+    networks:
+      - hms-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/stroke-prediction/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  hms-network:
+    external: true 

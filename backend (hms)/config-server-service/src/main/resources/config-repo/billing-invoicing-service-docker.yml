@@ -1,0 +1,102 @@
+# Docker Configuration for Billing Invoicing Service
+
+# Server Configuration
+server:
+  port: 8080
+
+# Spring Configuration
+spring:
+  # Database Configuration - Using Docker service names
+  datasource:
+    url: jdbc:postgresql://postgres:5432/hms_billing_db
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # MongoDB Configuration - Using Docker service names
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/hms_billing_db
+      auto-index-creation: true
+
+  # Kafka Configuration - Using Docker service names
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: billing-invoicing-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: com.pro.billinginvoicingservice.dto.events
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+# Billing Service Docker Configuration
+billing:
+  invoice:
+    auto-generate-number: true
+    default-due-days: 30
+    default-tax-rate: 0.08
+  payment:
+    gateway:
+      enabled: ${PAYMENT_GATEWAY_ENABLED:false}
+      api-key: ${PAYMENT_GATEWAY_API_KEY:}
+      webhook-secret: ${PAYMENT_GATEWAY_WEBHOOK_SECRET:}
+
+# Eureka Configuration - Using Docker service names
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: billing-invoicing-service
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# Logging Configuration
+logging:
+  level:
+    com.pro.billinginvoicingservice: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

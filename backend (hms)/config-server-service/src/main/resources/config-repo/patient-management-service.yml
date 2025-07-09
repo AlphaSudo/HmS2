@@ -1,0 +1,87 @@
+# Server Configuration
+server:
+  port: ${SERVER_PORT_PATIENT:8084}
+
+# Spring Configuration
+spring:
+  # PostgreSQL Database Configuration for Patient Data
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${PATIENT_DB_NAME:hms_patient_db}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      minimum-idle: ${DB_MIN_IDLE:5}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT:30000}
+  
+  # JPA Configuration for PostgreSQL
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: ${JPA_FORMAT_SQL:true}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # MongoDB Configuration for Medical Histories
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/hms_medical_history_db}
+      auto-index-creation: true
+
+  # Flyway Configuration - Disabled for local development
+  flyway:
+    enabled: false
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET}  # Must be provided via environment variable
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+# Stroke Prediction Service Configuration
+stroke:
+  prediction:
+    service:
+      url: ${STROKE_SERVICE_URL:http://localhost:8090}
+    use:
+      discovery: ${STROKE_USE_DISCOVERY:false}
+
+# Eureka Configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: ${HOSTNAME:localhost}
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  health:
+    db:
+      enabled: true
+    mongo:
+      enabled: true
+
+# Logging Configuration
+logging:
+  level:
+    com.pro.patientmanagementservice: ${LOG_LEVEL_APP:INFO}
+    org.springframework.security: ${LOG_LEVEL_SECURITY:INFO}
+    org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
+    org.springframework.data.mongodb: ${LOG_LEVEL_MONGODB:INFO}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

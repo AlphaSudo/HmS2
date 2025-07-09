@@ -1,0 +1,36 @@
+# Application Info
+info:
+  app:
+    name: ${spring.application.name}
+    description: Eureka Discovery Server
+    version: @project.version@
+
+# Eureka Server Configuration
+eureka:
+  server:
+    wait-time-in-ms-when-sync-empty: ${EUREKA_WAIT_TIME:0}
+    enable-self-preservation: ${EUREKA_SELF_PRESERVATION:true}
+    eviction-interval-timer-in-ms: ${EUREKA_EVICTION_INTERVAL:60000}
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,loggers,metrics,eureka
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+# Logging Configuration
+logging:
+  level:
+    com.netflix.eureka: ${LOG_LEVEL_EUREKA:INFO}
+    com.netflix.discovery: ${LOG_LEVEL_DISCOVERY:INFO}
+    org.springframework.cloud: ${LOG_LEVEL_CLOUD:INFO}
+    org.springframework.security: ${LOG_LEVEL_SECURITY:INFO}
+    com.pro.discoveryserverservice: ${LOG_LEVEL_APP:INFO}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

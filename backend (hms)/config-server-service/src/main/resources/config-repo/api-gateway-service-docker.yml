@@ -1,0 +1,87 @@
+# Docker-specific configuration for API Gateway Service
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      
+      # Global CORS Configuration
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173,http://frontend:80"
+            allowedMethods: "GET,POST,PUT,DELETE,OPTIONS"
+            allowedHeaders: "*"
+            allowCredentials: true
+
+      # Route Configuration for Docker
+      routes:
+        - id: authentication-service
+          uri: http://authentication-service:8081
+          predicates:
+            - Path=/auth/**
+
+        - id: appointment-scheduling-service
+          uri: http://appointment-scheduling-service:8083
+          predicates:
+            - Path=/appointments/**
+
+        - id: patient-management-service
+          uri: http://patient-management-service:8084
+          predicates:
+            - Path=/patients/**
+
+        - id: doctor-management-service
+          uri: http://doctor-management-service:8082
+          predicates:
+            - Path=/doctors/**
+
+        - id: ehr-reports-service
+          uri: http://ehr-reports-service:8088
+          predicates:
+            - Path=/reports/**
+
+        - id: billing-invoicing-service
+          uri: http://billing-invoicing-service:8089
+          predicates:
+            - Path=/invoices/**
+
+# Security Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+
+# Eureka Configuration for Docker
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server-service:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: api-gateway
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# Logging Configuration
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    reactor.netty.http.client: INFO
+    com.pro.apigatewayservice: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

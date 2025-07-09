@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  diabetes-prediction-service:
+    build: .
+    container_name: hms-diabetes-prediction
+    ports:
+      - "8088:8088"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./app/models/model.joblib:/app/app/models/model.joblib:ro
+      - ./app/models/scaler.joblib:/app/app/models/scaler.joblib:ro
+      - ./app/models/model_columns.joblib:/app/app/models/model_columns.joblib:ro
+    networks:
+      - hms-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/diabetes-prediction/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  hms-network:
+    external: true 

@@ -1,0 +1,143 @@
+# Server Configuration
+server:
+  port: ${SERVER_PORT_NOTIFICATION:8089}
+
+# Spring Configuration
+spring:
+  # Database Configuration - Use environment variables for credentials
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${NOTIFICATION_DB_NAME:hms_notification_db}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      minimum-idle: ${DB_MIN_IDLE:5}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT:30000}
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: ${JPA_FORMAT_SQL:true}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # MongoDB Configuration
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/hms_notification_db}
+      auto-index-creation: true
+
+  # Flyway Configuration - Disabled for local development
+  flyway:
+    enabled: false
+  
+  # Kafka Configuration
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: notification-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: "*"
+    topic:
+      appointment-events: appointment-events
+      patient-events: patient-events
+      doctor-events: doctor-events
+      billing-events: billing-events
+
+  # Mail Configuration
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: "*"
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET}  # Must be provided via environment variable
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+# Notification Service Specific Configuration
+notification:
+  email:
+    enabled: ${NOTIFICATION_EMAIL_ENABLED:true}
+    from: ${NOTIFICATION_EMAIL_FROM:noreply@hospital-management.com}
+    retry:
+      max-attempts: ${NOTIFICATION_EMAIL_RETRY_MAX:3}
+      delay: ${NOTIFICATION_EMAIL_RETRY_DELAY:5000}
+  sms:
+    enabled: ${NOTIFICATION_SMS_ENABLED:false}
+    provider: ${NOTIFICATION_SMS_PROVIDER:twilio}
+    api-key: ${NOTIFICATION_SMS_API_KEY:}
+    from-number: ${NOTIFICATION_SMS_FROM:}
+  push:
+    enabled: ${NOTIFICATION_PUSH_ENABLED:false}
+    fcm-key: ${NOTIFICATION_FCM_KEY:}
+  templates:
+    enabled: ${NOTIFICATION_TEMPLATES_ENABLED:true}
+    cache-ttl: ${NOTIFICATION_TEMPLATES_CACHE_TTL:3600}
+
+# Eureka Configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: ${HOSTNAME:localhost}
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  health:
+    db:
+      enabled: true
+    kafka:
+      enabled: true
+    mail:
+      enabled: true
+
+# Logging Configuration
+logging:
+  level:
+    com.pro.notificationservice: ${LOG_LEVEL_APP:INFO}
+    org.springframework.security: ${LOG_LEVEL_SECURITY:INFO}
+    org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
+    org.springframework.data.jpa: ${LOG_LEVEL_JPA:INFO}
+    org.springframework.kafka: ${LOG_LEVEL_KAFKA:INFO}
+    org.springframework.mail: ${LOG_LEVEL_MAIL:INFO}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

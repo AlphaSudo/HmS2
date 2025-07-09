@@ -1,0 +1,50 @@
+# Development Configuration for Billing Invoicing Service
+
+# Server Configuration
+server:
+  port: 8089
+
+# Spring Configuration
+spring:
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hms_billing_db
+    username: postgres
+    password: password
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # MongoDB Configuration
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hms_billing_db
+
+# JWT Configuration
+app:
+  jwt:
+    secret: aGVsbG93b3JsZGhlbGxvd29ybGRoZWxsb3dvcmxkaGVsbG93b3JsZGhlbGxvd29ybGRoZWxsb3dvcmxkaGVsbG93b3JsZGhlbGxvd29ybGQ=
+
+# Billing Service Development Configuration
+billing:
+  invoice:
+    auto-generate-number: true
+    default-due-days: 15  # Shorter for development
+    default-tax-rate: 0.05  # Lower tax rate for development
+  payment:
+    gateway:
+      enabled: false  # Disabled in development
+
+# Logging Configuration
+logging:
+  level:
+    com.pro.billinginvoicingservice: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    root: INFO 

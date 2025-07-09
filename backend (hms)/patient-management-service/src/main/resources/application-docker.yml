@@ -1,0 +1,8 @@
+# This bootstrap configuration is for the Docker environment.
+# It connects to the config server using the service name 'config-server-service'.
+spring:
+  application:
+    name: patient-management-service
+  config:
+    import:
+      - "optional:configserver:http://config-server-service:8888" 

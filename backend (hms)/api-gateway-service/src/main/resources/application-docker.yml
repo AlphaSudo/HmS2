@@ -1,0 +1,7 @@
+# Docker profile configuration for API Gateway Service
+spring:
+  application:
+    name: api-gateway-service
+  config:
+    import:
+      - "optional:configserver:http://config-server-service:8888" 

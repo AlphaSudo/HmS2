@@ -1,0 +1,7 @@
+# Docker profile configuration for Authentication Service
+spring:
+  application:
+    name: authentication-service
+  config:
+    import:
+      - "optional:configserver:http://config-server-service:8888" 

@@ -1,0 +1,12 @@
+package com.pro.patientmanagementservice.model;
+
+import lombok.Data;
+import java.time.Instant;
+import java.time.LocalDate;
+
+@Data
+public class Surgery {
+    private String surgery;
+    private Instant date;
+    private String notes;
+} 

@@ -1,0 +1,10 @@
+# Bootstrap Configuration - Only essential config needed before connecting to a config server
+spring:
+  application:
+    name: authentication-service
+  config:
+    import:
+      - "optional:configserver:http://localhost:8888"
+      - "optional:file:C:/Users/CM/Downloads/Compressed/Hospital Management System/backend (hms)/.env[.properties]"
+
+
