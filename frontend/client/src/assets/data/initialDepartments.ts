@@ -1,0 +1,68 @@
+import { Department } from "@/components/types/department";
+export const initialDepartments : Department[] = [
+  {
+    id: 1,
+    name: "Cardiology",
+    description: "Heart and blood vessels",
+    head: "Dr. John Doe",
+    status: "Active",
+    date: "2023-01-15",
+  },
+  {
+    id: 2,
+    name: "Neurology",
+    description: "Brain and nervous system",
+    head: "Dr. Jane Smith",
+    status: "Active",
+    date: "2023-02-20",
+  },
+
+  {
+    id: 3,
+    name: "Orthopedics",
+    description: "Bones and joints",
+    head: "Dr. Robert Brown",
+    status: "Active",
+    date: "2023-03-10",
+  },
+  {
+    id : 4,
+    name: "Pediatrics",
+    description: "Children's health",
+    head: "Dr. Linda Davis",
+    status: "Active",
+    date: "2023-04-05",
+  },
+  {
+    id: 5,
+    name: "Dermatology",
+    description: "Skin and hair",
+    head: "Dr. Michael Johnson",
+    status: "Active",
+    date: "2023-05-25",
+  },
+  {
+    id: 6,
+    name: "Psychiatry",
+    description: "Mental health",
+    head: "Dr. Sarah Wilson",
+    status: "Active",
+    date: "2023-06-15",
+  },
+  {
+    id: 7,
+    name: "Gastroenterology",
+    description: "Digestive system",
+    head: "Dr. David Lee",
+    status: "Inactive",
+    date: "2023-07-10",
+  },
+  {
+    id: 8,
+    name: "Oncology",
+    description: "Cancer treatment",
+    head: "Dr. Emily White",
+    status: "Active",
+    date: "2023-08-05",
+  },
+]

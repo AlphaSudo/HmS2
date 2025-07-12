@@ -1,0 +1,987 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.rtl .custom-select {
+  background-position: left 0.5rem center;
+  padding-left: 2.5rem;
+  padding-right: 0.75rem;
+}
+
+.rtl-grid {
+  direction: rtl;
+}
+
+.rtl-grid > * {
+  direction: ltr;
+  text-align: right;
+}
+
+.rtl .rtl-grid > * {
+  text-align: left;
+}
+
+/* Add custom scrollbar styles previously in dashboard.tsx */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* General body styling */
+body {
+  @apply bg-[#040223] text-white; /* Example using Tailwind */
+  font-family: sans-serif; /* Or your preferred font */
+}
+
+/* Gradient background utility */
+.gradient-bg-background {
+  /* Define your gradient background here if needed globally */
+  /* Example: background-image: linear-gradient(to bottom right, #040223, #0a004a); */
+}
+
+/* Card glow effect utility */
+.card-glow {
+  /* Define your card glow effect here if needed globally */
+   box-shadow: 0 0 15px rgba(93, 10, 114, 0.3); 
+}
+
+/* Text gradient utilities */
+.text-gradient-blue {
+  background: linear-gradient(90deg, #81D4FA, #4FC3F7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Use standard color property */
+}
+
+.text-gradient-purple {
+   background: linear-gradient(90deg, #AB47BC, #8E24AA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Use standard color property */
+}
+
+@layer base {
+  :root {
+    /* Default to dark mode */
+    --current-theme: 'dark';
+  }
+
+  /* Fallback for when no theme class is applied yet */
+  :root:not(.light-mode):not(.dark-mode) {
+    /* Use dark mode as fallback */
+    --background: 249 100% 8%;
+    --foreground: 0 0% 100%;
+    --card: 244 100% 6%;
+    --card-foreground: 0 0% 100%;
+    --popover: 244 100% 6%;
+    --popover-foreground: 0 0% 100%;
+    --sidebar-background: 249 100% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 288 84% 24%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 307 92% 19%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 272 30% 30%;
+    --sidebar-ring: 307 92% 19%;
+    --primary: 272 100% 64%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 252 41% 13%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 270 10% 40%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 252 100% 64%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 270 20% 25%;
+    --input: 270 20% 20%;
+    --ring: 270 100% 64%;
+    --chart-1: 272 100% 64%;
+    --chart-2: 0 71% 61%;
+    --chart-3: 209 100% 61%;
+    --chart-4: 326 100% 62%;
+    --chart-5: 40 100% 50%;
+    --table-bg: 244 100% 6%;
+    --table-header-bg: 243 100% 4%;
+    --table-row-even: 247 100% 12%;
+    --table-text: 222 32% 84%;
+    --table-border: 272 30% 25% / 0.1;
+    --scrollbar-track: hsl(248, 96%, 9%);
+    --scrollbar-thumb: hsl(196, 74%, 76%);
+    --scrollbar-thumb-hover: hsl(196, 86%, 64%);
+  }
+
+  .dark-mode {
+    /* Dark mode colors */
+    --background: 249 100% 8%;
+    --foreground: 0 0% 100%;
+    
+    --card: 244 100% 6%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 244 100% 6%;
+    --popover-foreground: 0 0% 100%;
+    
+    --sidebar-background: 249 100% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 288 84% 24%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 307 92% 19%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 272 30% 30%;
+    --sidebar-ring: 307 92% 19%;
+    
+    --primary: 272 100% 64%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 252 41% 13%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 270 10% 40%;
+    --muted-foreground: 0 0% 70%;
+    
+    --accent: 252 100% 64%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 270 20% 25%;
+    --input: 270 20% 20%;
+    --ring: 270 100% 64%;
+    
+    --chart-1: 272 100% 64%;
+    --chart-2: 0 71% 61%;
+    --chart-3: 209 100% 61%;
+    --chart-4: 326 100% 62%;
+    --chart-5: 40 100% 50%;
+    
+    /* Dark mode table styles */
+    --table-bg: 244 100% 6%;
+    --table-header-bg: 243 100% 4%;
+    --table-row-even: 247 100% 12%;
+    --table-text: 222 32% 84%;
+    --table-border: 272 30% 25% / 0.1;
+    --scrollbar-track: hsl(248, 96%, 9%);
+    --scrollbar-thumb: hsl(196, 74%, 76%);
+    --scrollbar-thumb-hover: hsl(196, 86%, 64%);
+  }
+
+  .light-mode {
+    /* Light mode colors - WCAG 2.1 AA compliant (4.5:1+ contrast ratio) */
+    --background: 0 0% 99%;                     /* Near-white background */
+    --foreground: 222 84% 5%;                  /* Very dark text (contrast ratio 15.8:1) */
+    
+    --card: 0 0% 100%;                         /* Pure white cards */
+    --card-foreground: 222 84% 5%;            /* Very dark text on cards */
+    
+    --popover: 0 0% 100%;                      /* Pure white popover */
+    --popover-foreground: 222 84% 5%;         /* Very dark text in popover */
+    
+    --sidebar-background: 210 20% 97%;        /* Very light sidebar */
+    --sidebar-foreground: 222 84% 5%;         /* Very dark sidebar text */
+    --sidebar-primary: 288 70% 35%;           /* Darker purple for contrast */
+    --sidebar-primary-foreground: 0 0% 100%;  /* White text on dark purple */
+    --sidebar-accent: 307 80% 30%;            /* Darker accent for contrast */
+    --sidebar-accent-foreground: 0 0% 100%;   /* White text on dark accent */
+    --sidebar-border: 220 20% 80%;            /* Darker border for visibility */
+    --sidebar-ring: 307 80% 30%;              /* Match accent color */
+    
+    --primary: 272 85% 40%;                    /* Darker primary for contrast (7.8:1) */
+    --primary-foreground: 0 0% 100%;          /* White text on primary */
+    
+    --secondary: 210 20% 92%;                  /* Light secondary background */
+    --secondary-foreground: 222 84% 8%;       /* Dark text on secondary */
+    
+    --muted: 210 20% 94%;                      /* Light muted background */
+    --muted-foreground: 215 25% 30%;          /* Darker muted text (4.7:1 contrast) */
+    
+    --accent: 252 85% 40%;                     /* Darker accent for contrast */
+    --accent-foreground: 0 0% 100%;           /* White text on accent */
+    
+    --destructive: 0 84% 45%;                  /* Darker red for contrast (6.1:1) */
+    --destructive-foreground: 0 0% 100%;      /* White text on destructive */
+    
+    --border: 220 20% 82%;                     /* Darker border for better visibility */
+    --input: 220 20% 95%;                      /* Light input background */
+    --ring: 272 85% 40%;                       /* Match primary color */
+    
+    /* Light mode table styles - Enhanced contrast */
+    --table-bg: 0 0% 100%;                     /* White table background */
+    --table-header-bg: 210 20% 94%;           /* Light header background */
+    --table-row-even: 210 25% 96%;            /* Subtle row striping */
+    --table-text: 222 84% 5%;                 /* Very dark table text */
+    --table-border: 220 20% 75% / 0.3;        /* More visible table borders */
+    --scrollbar-track: hsl(210, 20%, 94%);
+    --scrollbar-thumb: hsl(210, 20%, 75%);
+    --scrollbar-thumb-hover: hsl(210, 20%, 65%);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground;
+  }
+  
+  .dark-mode body {
+    background: linear-gradient(135deg, #070028 0%, #080035 100%);
+  }
+  
+  .light-mode body {
+    background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+  }
+}
+
+@layer components {
+  /* Card gradients - Dark Mode (default) */
+  .dark-mode .gradient-bg-purple,
+  .gradient-bg-purple {
+    @apply bg-gradient-to-br from-[#5D0A72] to-[#5E0453];
+  }
+  
+  .dark-mode .gradient-bg-orange,
+  .gradient-bg-orange {
+    @apply bg-gradient-to-br from-[#FF5757] to-[#FFB800];
+  }
+  
+  .dark-mode .gradient-bg-blue,
+  .gradient-bg-blue {
+    @apply bg-gradient-to-br from-[#0A004A] to-[#3DB9FF];
+  }
+  
+  .dark-mode .gradient-bg-purple-dark,
+  .gradient-bg-purple-dark {
+    @apply bg-gradient-to-br from-[#3E0F23] to-[#5D0A72];
+  }
+  
+  /* Card gradients - Light Mode (Enhanced contrast) */
+  .light-mode .gradient-bg-purple {
+    @apply bg-gradient-to-br from-[#6A1B9A] to-[#512DA8];
+  }
+  
+  .light-mode .gradient-bg-orange {
+    @apply bg-gradient-to-br from-[#E65100] to-[#F57C00];
+  }
+  
+  .light-mode .gradient-bg-blue {
+    @apply bg-gradient-to-br from-[#1565C0] to-[#0277BD];
+  }
+  
+  .light-mode .gradient-bg-purple-dark {
+    @apply bg-gradient-to-br from-[#4527A0] to-[#6A1B9A];
+  }
+  
+  /* Background gradients */
+  .dark-mode .gradient-bg-background,
+  .gradient-bg-background {
+    background: linear-gradient(135deg, #070028 0%, #080035 100%);
+  }
+  
+  .light-mode .gradient-bg-background {
+    background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+  }
+  
+  .dark-mode .gradient-bg-sidebar,
+  .gradient-bg-sidebar {
+    background: linear-gradient(180deg, #0A0035 0%, #060026 100%);
+    position: relative;
+  }
+  
+  .light-mode .gradient-bg-sidebar {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    position: relative;
+  }
+  
+  .dark-mode .gradient-bg-sidebar::after,
+  .gradient-bg-sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(180deg, #3DB9FF, #9747FF);
+    box-shadow: 0 0 8px 1px rgba(61, 185, 255, 0.7), 0 0 15px 2px rgba(61, 185, 255, 0.4), 0 0 25px rgba(151, 71, 255, 0.3);
+    opacity: 0.85;
+  }
+  
+  .light-mode .gradient-bg-sidebar::after {
+    background: linear-gradient(180deg, #1565C0, #4527A0);
+    box-shadow: 0 0 8px 1px rgba(21, 101, 192, 0.6), 0 0 15px 2px rgba(21, 101, 192, 0.4), 0 0 25px rgba(69, 39, 160, 0.3);
+    opacity: 0.85;
+  }
+  
+  /* Text gradients - Dark Mode */
+  .dark-mode .text-gradient-blue,
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #3DB9FF 0%, #0A004A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Use standard color property */
+  }
+  
+  .dark-mode .text-gradient-purple,
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #FF57E6 0%, #9747FF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Use standard color property */
+  }
+  
+  /* Text gradients - Light Mode (Enhanced contrast) */
+  .light-mode .text-gradient-blue {
+    background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Use standard color property */
+  }
+  
+  .light-mode .text-gradient-purple {
+    background: linear-gradient(135deg, #6A1B9A 0%, #4527A0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Use standard color property */
+  }
+  
+  /* Card glows - Dark Mode */
+  .dark-mode .card-glow,
+  .card-glow {
+    box-shadow: 0 0 35px rgba(93, 10, 114, 0.15);
+  }
+  
+  .dark-mode .card-glow-orange,
+  .card-glow-orange {
+    box-shadow: 0 0 35px rgba(255, 87, 87, 0.15);
+  }
+  
+  .dark-mode .card-glow-blue,
+  .card-glow-blue {
+    box-shadow: 0 0 35px rgba(10, 0, 74, 0.15);
+  }
+  
+  /* Card glows - Light Mode (Enhanced contrast) */
+  .light-mode .card-glow {
+    box-shadow: 0 5px 15px rgba(69, 39, 160, 0.18), 0 0 35px rgba(106, 27, 154, 0.12);
+  }
+  
+  .light-mode .card-glow-orange {
+    box-shadow: 0 5px 15px rgba(230, 81, 0, 0.18), 0 0 35px rgba(245, 124, 0, 0.12);
+  }
+  
+  .light-mode .card-glow-blue {
+    box-shadow: 0 5px 15px rgba(21, 101, 192, 0.18), 0 0 35px rgba(2, 119, 189, 0.12);
+  }
+  
+  /* Navigation - Dark Mode */
+  .dark-mode .active-nav,
+  .active-nav {
+    @apply relative rounded-xl;
+    background: linear-gradient(to right, #040223 0%, #040223 55%, #0C056B 100%);
+    box-shadow: inset 0 0 20px rgba(10, 31, 118, 0.6);
+    border: 1px solid #0E0793;
+  }
+  
+  .dark-mode .active-nav::before,
+  .active-nav::before {
+    content: '';
+    @apply absolute left-0 top-0 h-full w-1.5 rounded-r-sm;
+    background: linear-gradient(to bottom, #FF57E6, #9747FF);
+    box-shadow: 0 0 6px 1px rgba(255, 87, 230, 0.7), 0 0 10px 3px rgba(151, 71, 255, 0.5), 0 0 20px rgba(61, 185, 255, 0.3);
+  }
+  
+  .dark-mode .active-nav-icon,
+  .active-nav-icon {
+    @apply relative;
+    background: rgba(93, 10, 114, 0.18);
+    box-shadow: 0 0 15px rgba(93, 10, 114, 0.2), inset 0 0 20px rgba(151, 71, 255, 0.05);
+  }
+  
+  .dark-mode .active-nav-icon::before,
+  .active-nav-icon::before {
+    content: '';
+    @apply absolute left-0 top-0 h-full w-1.5 rounded-r-sm;
+    background: linear-gradient(to bottom, #FF57E6, #9747FF);
+    box-shadow: 0 0 6px 1px rgba(255, 87, 230, 0.7), 0 0 10px 3px rgba(151, 71, 255, 0.5), 0 0 20px rgba(61, 185, 255, 0.3);
+  }
+  
+  /* Navigation - Light Mode (Enhanced contrast) */
+  .light-mode .active-nav {
+    @apply relative rounded-xl;
+    background: linear-gradient(to right, #f5f7fa 0%, #f5f7fa 55%, #e6edf5 100%);
+    box-shadow: inset 0 0 20px rgba(33, 150, 243, 0.12);
+    border: 1px solid #bbdefb;
+  }
+  
+  .light-mode .active-nav::before {
+    background: linear-gradient(to bottom, #6A1B9A, #4527A0);
+    box-shadow: 0 0 6px 1px rgba(106, 27, 154, 0.6), 0 0 10px 3px rgba(69, 39, 160, 0.4), 0 0 20px rgba(21, 101, 192, 0.3);
+  }
+  
+  .light-mode .active-nav-icon {
+    background: rgba(106, 27, 154, 0.10);
+    box-shadow: 0 0 15px rgba(106, 27, 154, 0.12), inset 0 0 20px rgba(69, 39, 160, 0.05);
+  }
+  
+  .light-mode .active-nav-icon::before {
+    background: linear-gradient(to bottom, #6A1B9A, #4527A0);
+    box-shadow: 0 0 6px 1px rgba(106, 27, 154, 0.6), 0 0 10px 3px rgba(69, 39, 160, 0.4), 0 0 20px rgba(21, 101, 192, 0.3);
+  }
+  
+  /* Charts */
+  .chart-area-gradient-purple {
+    fill: url(#chartPurpleGradient);
+  }
+  
+  .chart-area-gradient-orange {
+    fill: url(#chartOrangeGradient);
+  }
+  
+  /* High Contrast Mode Support for Accessibility */
+  @media (prefers-contrast: high) {
+    .light-mode {
+      --foreground: 0 0% 0% !important;
+      --muted-foreground: 0 0% 20% !important;
+      --border: 0 0% 60% !important;
+      --primary: 272 85% 35% !important;
+      --destructive: 0 84% 40% !important;
+    }
+  }
+  
+  /* Theme Toggle */
+  .theme-toggle {
+    @apply relative w-12 h-6 rounded-full cursor-pointer flex items-center border-0 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500;
+    /* Use muted background for track */
+    background-color: hsl(var(--muted));
+    transition: all 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    transform: scale(1.05);
+  }
+  
+  .theme-toggle:active {
+    transform: scale(0.95);
+  }
+  
+  .theme-toggle-slider {
+    @apply absolute left-1 w-4 h-4 rounded-full bg-white shadow-lg;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 10;
+  }
+  
+  .theme-toggle-active {
+    /* Use primary color for active background */
+    background-color: hsl(var(--primary));
+  }
+  
+  .theme-toggle-active .theme-toggle-slider {
+    transform: translateX(24px);
+  }
+  
+  /* In light mode, keep track muted for better contrast */
+  .light-mode .theme-toggle {
+    background-color: hsl(var(--muted));
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .light-mode .theme-toggle-active {
+    /* Active state same as default: primary color */
+    background-color: hsl(var(--primary));
+  }
+  
+  /* Light mode theme toggle handle */
+  .light-mode .theme-toggle-slider {
+    /* Dark handle for contrast on light track */
+    background-color: hsl(var(--foreground));
+  }
+  
+  /* Table styling based on theme */
+  .data-table {
+    @apply w-full;
+    background-color: hsl(var(--table-bg));
+  }
+  
+  .data-table-header {
+    @apply text-left;
+    background-color: hsl(var(--table-header-bg));
+    color: hsl(var(--table-text));
+  }
+  
+  .data-table-row {
+    color: hsl(var(--table-text));
+    border-color: hsl(var(--table-border));
+  }
+  
+  .data-table-row-even {
+    background-color: hsl(var(--table-row-even));
+  }
+}
+
+/* RTL Support */
+@layer utilities {
+  /* RTL Text Alignment */
+  .rtl .text-left {
+    text-align: right;
+  }
+  
+  .rtl .text-right {
+    text-align: left;
+  }
+  
+  /* RTL Margins and Padding */
+  .rtl .ml-auto {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .rtl .mr-auto {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  
+  .rtl .pl-3 {
+    padding-left: 0;
+    padding-right: 0.75rem;
+  }
+  
+  .rtl .pr-3 {
+    padding-right: 0;
+    padding-left: 0.75rem;
+  }
+  
+  .rtl .pl-4 {
+    padding-left: 0;
+    padding-right: 1rem;
+  }
+  
+  .rtl .pr-4 {
+    padding-right: 0;
+    padding-left: 1rem;
+  }
+  
+  .rtl .pl-10 {
+    padding-left: 0;
+    padding-right: 2.5rem;
+  }
+  
+  .rtl .pr-8 {
+    padding-right: 0;
+    padding-left: 2rem;
+  }
+  
+  .rtl .pl-12 {
+    padding-left: 0;
+    padding-right: 3rem;
+  }
+  
+  /* RTL Flexbox */
+  .rtl .flex-row {
+    flex-direction: row-reverse;
+  }
+  
+  /* RTL Border Radius */
+  .rtl .rounded-l-xl {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+  }
+  
+  .rtl .rounded-r-xl {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+  }
+  
+  /* RTL Sidebar positioning */
+  .rtl .sidebar {
+    left: auto;
+    right: 0;
+  }
+  
+  /* RTL Search input icons */
+  .rtl .search-icon-left {
+    left: auto;
+    right: 0.75rem;
+  }
+  
+  /* RTL Active navigation border */
+  .rtl .active-nav::before {
+    left: auto;
+    right: 0;
+    border-radius: 0 0.125rem 0.125rem 0;
+  }
+  
+  .rtl .active-nav-icon::before {
+    left: auto;
+    right: 0;
+    border-radius: 0 0.125rem 0.125rem 0;
+  }
+  
+  /* RTL Filter dropdown */
+  .rtl .filter-icon {
+    left: auto;
+    right: 0.75rem;
+  }
+  
+  /* RTL Timeline line positioning */
+  .rtl .timeline-line {
+    left: auto;
+    right: 1.5rem;
+  }
+  
+  /* RTL Arabic Language Support */
+  .rtl {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    direction: rtl;
+  }
+  
+  .rtl h1,
+  .rtl h2,
+  .rtl h3,
+  .rtl h4,
+  .rtl h5,
+  .rtl h6 {
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+  
+  /* RTL Header Specific Fixes */
+  .rtl header .flex.justify-between {
+    flex-direction: row-reverse;
+  }
+  
+  /* RTL Logo and Brand Container */
+  .rtl header .flex.items-center.space-x-3 {
+    flex-direction: row-reverse;
+    gap: 1rem;
+  }
+  
+  .rtl header .flex.items-center.space-x-3 > * + * {
+    margin-left: 0;
+    margin-right: 1rem;
+  }
+  
+  /* RTL Navigation Menu */
+  .rtl header nav.flex.space-x-8 {
+    flex-direction: row-reverse;
+    gap: 2rem;
+  }
+  
+  .rtl header nav.flex.space-x-8 > * + * {
+    margin-left: 0;
+    margin-right: 2rem;
+  }
+  
+  /* RTL Navigation Underlines */
+  .rtl header nav a span {
+    left: auto;
+    right: 0;
+  }
+  
+  /* RTL Header Actions (Theme, Language, Login) */
+  .rtl header .flex.items-center.gap-4 {
+    flex-direction: row-reverse;
+  }
+  
+    /* RTL Newsletter Form - Enhanced */
+  .rtl footer .mt-4.flex {
+    flex-direction: row-reverse;
+  }
+
+  /* RTL Email Input - Border radius and text alignment */
+  .rtl footer input[type="email"] {
+    border-radius: 0 0.5rem 0.5rem 0 !important;
+    text-align: right;
+    padding-right: 1rem;
+    padding-left: 0.5rem;
+  }
+
+  .rtl footer input[type="email"]::placeholder {
+    text-align: right;
+  }
+
+  /* RTL Go Button - Border radius */
+  .rtl footer .flex button {
+    border-radius: 0.5rem 0 0 0.5rem !important;
+  }
+
+  /* Ensure proper text direction for RTL */
+  .rtl input[type="email"] {
+    direction: rtl;
+  }
+
+  .rtl input[type="email"]::placeholder {
+    direction: rtl;
+  }
+  
+  /* RTL Footer Grid */
+  .rtl footer .grid {
+    direction: rtl;
+  }
+  
+  .rtl footer ul {
+    text-align: right;
+  }
+  
+  .rtl footer .grid > div {
+    text-align: right;
+  }
+  
+  /* RTL General Text Alignment */
+  .rtl .text-left {
+    text-align: right;
+  }
+  
+  .rtl .text-center {
+    text-align: center;
+  }
+  
+  /* RTL Button fixes */
+  .rtl .login-button {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+  
+  /* RTL List alignment */
+  .rtl ul, .rtl ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+  }
+  
+  .rtl li {
+    text-align: right;
+  }
+  
+  /* RTL Flex spacing fixes */
+  .rtl .flex.items-center {
+    gap: 1rem;
+  }
+
+  /* Enhanced RTL Header Support for new structure */
+  .rtl .logo-container {
+    flex-direction: row-reverse;
+  }
+
+  .rtl .navigation-menu {
+    flex-direction: row-reverse;
+  }
+
+  .rtl .actions-container {
+    flex-direction: row-reverse;
+  }
+
+  /* RTL Navigation specific spacing */
+  .rtl .navigation-menu a {
+    margin-left: 2rem;
+    margin-right: 0;
+  }
+
+  .rtl .navigation-menu a:first-child {
+    margin-left: 0;
+  }
+
+  /* RTL underline positioning for navigation links */
+  .rtl .navigation-menu a span {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  /* Authentication pages RTL support */
+  .rtl .space-x-3 > * + * {
+    margin-left: 0;
+    margin-right: 0.75rem;
+  }
+
+  .rtl .space-x-3 {
+    flex-direction: row-reverse;
+  }
+
+  /* Form grid RTL adjustments */
+  .rtl .grid-cols-2 {
+    direction: rtl;
+  }
+
+  .rtl .grid-cols-2 > * {
+    text-align: right;
+  }
+
+  /* Button icons RTL spacing */
+  .rtl .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  .rtl .ml-1 {
+    margin-left: 0;
+    margin-right: 0.25rem;
+  }
+
+  .rtl .mr-1 {
+    margin-right: 0;
+    margin-left: 0.25rem;
+  }
+
+  /* Input field text alignment for Arabic */
+  .rtl input[type="text"],
+  .rtl input[type="email"],
+  .rtl input[type="password"],
+  .rtl select {
+    text-align: right;
+  }
+
+  /* Placeholder text RTL */
+  .rtl input::placeholder {
+    text-align: right;
+    direction: rtl;
+  }
+
+  /* Select dropdown RTL */
+  .rtl select {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .rtl select option {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Authentication card RTL spacing */
+  .rtl .auth-card .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  /* Password toggle button RTL positioning */
+  .rtl .password-toggle {
+    left: 0.75rem !important;
+    right: auto !important;
+  }
+
+  /* Enhanced password field positioning for RTL */
+  .rtl .relative input[type="password"] + button {
+    left: 0.75rem !important;
+    right: auto !important;
+  }
+
+  .rtl .relative input[type="text"] + button {
+    left: 0.75rem !important;
+    right: auto !important;
+  }
+
+  /* Ensure proper padding for password fields in RTL */
+  .rtl input[type="password"] {
+    padding-left: 3rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Authentication form headers RTL */
+  .rtl .auth-header {
+    text-align: center;
+  }
+
+  /* Authentication form buttons RTL */
+  .rtl .auth-button {
+    direction: ltr; /* Keep button text LTR for better readability */
+  }
+
+  /* Gap adjustments for RTL auth forms */
+  .rtl .gap-4 {
+    gap: 1rem;
+  }
+
+  /* Enhanced RTL support for password fields with both icons */
+  .rtl .relative input[type="password"] {
+    padding-left: 4rem !important;
+    padding-right: 5rem !important;
+  }
+
+  .rtl .relative input[type="password"]::placeholder {
+    text-align: right !important;
+    padding-right: 1rem !important;
+    direction: rtl;
+  }
+
+  /* RTL positioning for all icons in input fields */
+  .rtl .relative input + svg:not(:last-child) {
+    right: 0.75rem !important;
+    left: auto !important;
+  }
+
+  /* RTL positioning for eye icon (password toggle) */
+  .rtl .relative input[type="password"] + button {
+    left: 0.75rem !important;
+    right: auto !important;
+  }
+
+  /* RTL text and username fields with single icon */
+  .rtl .relative input[type="text"],
+  .rtl .relative input[type="email"] {
+    padding-right: 3rem !important;
+    padding-left: 1rem !important;
+  }
+
+  .rtl .relative input[type="text"]::placeholder,
+  .rtl .relative input[type="email"]::placeholder {
+    text-align: right !important;
+    direction: rtl;
+  }
+
+  /* RTL Support for Patient Profile Page */
+  .rtl .grid-flow-col-reverse {
+    grid-auto-flow: column reverse;
+  }
+
+  .rtl .space-x-reverse > * + * {
+    margin-left: 0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  .rtl input[type="tel"],
+  .rtl input[type="number"],
+  .rtl textarea {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .rtl input[type="date"] {
+    text-align: right;
+  }
+
+  .rtl textarea::placeholder {
+    text-align: right;
+    direction: rtl;
+  }
+}

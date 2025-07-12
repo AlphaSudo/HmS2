@@ -1,0 +1,1252 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "download": "Download",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "refresh": "Refresh",
+    "export": "Export",
+    "import": "Import",
+    "print": "Print",
+    "add": "Add",
+    "update": "Update",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "lastThreeMonths": "Last 3 Months",
+    "thisYear": "This Year",
+    "older": "Older",
+    "now": "Now",
+    "oneWeekAgo": "One week ago",
+    "twoWeeksAgo": "Two weeks ago",
+    "select": "Select",
+    "selectGender": "Select Gender",
+    "selectResidence": "Select Residence",
+    "selectSmokingStatus": "Select Smoking Status",
+    "private": "Private",
+    "selfEmployed": "Self-employed",
+    "govtJob": "Government Job",
+    "children": "Children",
+    "neverWorked": "Never Worked",
+    "urban": "Urban",
+    "rural": "Rural",
+    "male": "Male",
+    "female": "Female",
+    "currentlySmokes": "Currently Smokes",
+    "formerlySmoked": "Formerly Smoked",
+    "neverSmoked": "Never Smoked",
+    "unknown": "Unknown",
+    "error": "Error",
+    "remove": "Remove"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "doctors": "Doctors",
+    "staff": "Staff",
+    "rooms": "Rooms",
+    "calendar": "Calendar",
+    "tasks": "Tasks",
+    "records": "Records",
+    "billing": "Billing",
+    "reports": "Reports",
+    "settings": "Settings",
+    "logout": "Logout",
+    "profile": "Profile",
+    "prescriptions": "Prescriptions",
+    "medicalRecords": "Medical Records",
+    "support": "Support"
+  },
+  "medicalRecords": {
+    "title": "Medical Records",
+    "subtitle": "View and manage your complete medical history.",
+    "overviewTitle": "Your Health Overview",
+    "overviewSubtitle": "A summary of your recent medical activities.",
+    "consultations": "Consultations",
+    "prescriptions": "Prescriptions",
+    "operations": "Operations",
+    "xrays": "X-Rays",
+    "searchPlaceholder": "Search records by title, doctor...",
+    "allTypes": "All Types",
+    "consultation": "Consultation",
+    "prescription": "Prescription",
+    "operation": "Operation",
+    "xray": "X-Ray",
+    "medication": "Medication",
+    "viewMode": "View mode",
+    "timeline": "Timeline",
+    "list": "List",
+    "clearFilter": "Clear filter",
+    "timelineNavigation": "Timeline Navigation",
+    "timelineDescription": "Click on any time period to view records from that period.",
+    "record": "record",
+    "recordsFound": "records found",
+    "recordsFound_one": "{{count}} record found",
+    "recordsFound_other": "{{count}} records found",
+    "noRecords": "No records",
+    "availablePeriod": "Available period",
+    "selectedPeriod": "Selected period",
+    "viewing": "Viewing: {{range}}",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "attachments_one": "{{count}} attachment",
+    "attachments_other": "{{count}} attachments",
+    "downloadAll": "Download all",
+    "viewImages": "View images",
+    "noRecordsFound": "No medical records found",
+    "adjustFilters": "Try adjusting your search or filter criteria",
+    "recordsAppearHere": "Your medical records will appear here",
+    "activityTypeTitle_one": "{{count}} {{type}}",
+    "activityTypeTitle_other": "{{count}} {{type}}s"
+  },
+  "header": {
+    "search": "Search",
+    "fullscreen": "Fullscreen",
+    "notifications": "Notifications",
+    "themeToggle": "Toggle Theme",
+    "languageToggle": "Toggle Language",
+    "dashboard": "Dashboard",
+    "landing": "Home",
+    "searchPlaceholder": "Search..."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to continue to your account.",
+      "username": "Username",
+      "usernamePlaceholder": "Your Username",
+      "password": "Password",
+      "passwordPlaceholder": "Your Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "roleSelection": "Or, select your role to login",
+      "loginAsPatient": "Login as Patient",
+      "loginAsAdmin": "Login as Admin",
+      "loginAsDoctor": "Login as Doctor",
+      "signingIn": "Signing in...",
+      "backToHome": "← Back to Home",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?"
+    },
+    "signup": {
+      "title": "Create an Account",
+      "subtitle": "Join our healthcare community as a patient.",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "e.g. John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "e.g. Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "Your Email",
+      "username": "Username",
+      "usernamePlaceholder": "Choose a username",
+      "password": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "passwordMismatch": "Passwords do not match.",
+      "createAccount": "Create Account",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "backToLogin": "← Back to Login"
+    },
+    "errors": {
+      "missingCredentials": "Missing Credentials",
+      "missingCredentialsDesc": "Username and password are required",
+      "loginFailed": "Login Failed",
+      "loginFailedDesc": "Invalid username or password. Please try again.",
+      "loginError": "Login Error",
+      "loginErrorDesc": "An error occurred during login. Please try again.",
+      "signupFailed": "Signup Failed",
+      "signupError": "Could not create account. Please try again later."
+    },
+    "success": {
+      "loginSuccess": "Login Successful!",
+      "loginSuccessDesc": "Welcome back! Redirecting to your {{role}} dashboard...",
+      "signupSuccess": "Account created successfully!",
+      "signupSuccessDesc": "Your account has been created. You can now log in."
+    },
+    "landing": {
+      "brandName": "Sirona"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": {
+      "good": "Good",
+      "morning": "Morning",
+      "user": "{{name}}"
+    },
+    "stats": {
+      "appointments": "Appointments",
+      "operations": "Operations",
+      "newPatients": "New Patients",
+      "earnings": "Earnings"
+    },
+    "charts": {
+      "hospitalSurvey": "Hospital Survey",
+      "newPatients": "New Patients",
+      "allPatients": "All Patients",
+      "revenue": "Revenue",
+      "totalEarnings": "Total Earnings",
+      "lastMonth": "Last Month"
+    },
+    "calendar": {
+      "months": {
+        "Jan": "Jan",
+        "Feb": "Feb",
+        "Mar": "Mar",
+        "Apr": "Apr",
+        "May": "May",
+        "Jun": "Jun"
+      }
+    },
+    "welcome": "Welcome to Hospital Management System",
+    "totalPatients": "Total Patients",
+    "totalDoctors": "Total Doctors",
+    "totalAppointments": "Total Appointments",
+    "revenue": "Revenue",
+    "recentActivities": "Recent Activities",
+    "upcomingAppointments": "Upcoming Appointments",
+    "quickActions": "Quick Actions",
+    "viewAll": "View All",
+    "doctorStatus": "Doctor Status"
+  },
+  "sidebar": {
+    "logout": "Logout",
+    "role": {
+      "admin": "Admin"
+    }
+  },
+  "pagination": {
+    "rowsPerPage": "Rows per page:",
+    "showingEntries": "Showing {{from}} to {{to}} of {{total}} entries"
+  },
+  "patientProfile": {
+    "title": "Complete Your Patient Profile",
+    "subtitle": "Provide your details to set up your patient record.",
+    "steps": {
+      "personalInfo": "Personal Info",
+      "medicalInfo": "Medical Info",
+      "contactInfo": "Contact Info",
+      "admissionDetails": "Admission Details"
+    },
+    "personalInfo": {
+      "title": "Personal Information",
+      "doctorName": "Assign a Doctor",
+      "doctorNamePlaceholder": "Enter doctor's name",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "e.g. John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "e.g. Doe",
+      "dateOfBirth": "Date of Birth",
+      "dateOfBirthPlaceholder": "Select your date of birth",
+      "sex": "Gender",
+      "pleaseSelect": "Please select...",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "preferNotToSay": "Prefer not to say",
+      "maritalStatus": "Marital Status",
+      "single": "Single",
+      "married": "Married",
+      "divorced": "Divorced",
+      "separated": "Separated",
+      "widowed": "Widowed",
+      "bloodGroup": "Blood Group",
+      "bloodGroupPlaceholder": "e.g. O+",
+      "height": "Height (cm)",
+      "heightPlaceholder": "e.g. 170",
+      "weight": "Weight (kg)",
+      "weightPlaceholder": "e.g. 70"
+    },
+    "medicalInfo": {
+      "title": "Medical Information",
+      "allergies": "Allergies",
+      "allergiesPlaceholder": "List any allergies, comma-separated",
+      "pastConditions": "Past Medical Conditions",
+      "pastConditionsPlaceholder": "List any past conditions, comma-separated",
+      "surgeries": "Surgeries",
+      "surgeriesPlaceholder": "List any past surgeries, comma-separated",
+      "medications": "Current Medications",
+      "medicationsPlaceholder": "List any current medications, comma-separated",
+      "medicationName": "Medication Name",
+      "medicationNamePlaceholder": "e.g., Aspirin",
+      "dosage": "Dosage",
+      "dosagePlaceholder": "e.g., 100mg",
+      "frequency": "Frequency",
+      "frequencyPlaceholder": "e.g., Once daily",
+      "startDate": "Start Date",
+      "startDatePlaceholder": "Select start date",
+      "endDate": "End Date",
+      "endDatePlaceholder": "Select end date (if applicable)",
+      "notes": "Notes",
+      "notesPlaceholder": "Additional notes (optional)",
+      "addMedication": "Add Medication",
+      "surgeryName": "Surgery Name",
+      "surgeryNamePlaceholder": "e.g., Appendectomy",
+      "surgeryDate": "Surgery Date",
+      "surgeryDatePlaceholder": "Select surgery date",
+      "surgeon": "Surgeon",
+      "surgeonPlaceholder": "e.g., Dr. Smith",
+      "hospital": "Hospital",
+      "hospitalPlaceholder": "e.g., General Hospital",
+      "addSurgery": "Add Surgery",
+      "noMedications": "No medications added yet",
+      "noSurgeries": "No surgeries added yet"
+    },
+    "contactInfo": {
+      "title": "Contact Information",
+      "phoneNumber": "Phone Number",
+      "phoneNumberPlaceholder": "(123) 456-7890",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "streetAddress": "Address",
+      "streetAddressPlaceholder": "Enter your full address"
+    },
+    "admissionDetails": {
+      "title": "Admission Details",
+      "treatment": "Treatment Plan",
+      "treatmentPlaceholder": "Describe the treatment plan",
+      "status": "Patient Status",
+      "statusPlaceholder": "e.g. Admitted, Under Observation",
+      "admissionDate": "Admission Date",
+      "admissionDatePlaceholder": "Select admission date",
+      "dischargeDate": "Discharge Date",
+      "dischargeDatePlaceholder": "Select discharge date"
+    },
+    "completeEnrollment": "Complete Enrollment"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "newAppointment": "New Appointment",
+    "patientName": "Patient Name",
+    "doctorName": "Doctor Name",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "reason": "Reason",
+    "upcoming": "Upcoming",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "pending": "Pending",
+    "viewAppointments": "View Appointments",
+    "columns": {
+      "select": "Select",
+      "name": "Name",
+      "doctor": "Doctor",
+      "gender": "Gender",
+      "date": "Date",
+      "time": "Time",
+      "mobile": "Mobile",
+      "injury": "Injury",
+      "email": "Email",
+      "status": "Status",
+      "visitType": "Visit Type",
+      "actions": "Actions"
+    },
+    "columnConfig": {
+      "patientName": "Patient Name",
+      "doctor": "Doctor",
+      "gender": "Gender",
+      "date": "Date",
+      "time": "Time",
+      "mobile": "Mobile",
+      "injury": "Injury",
+      "email": "Email",
+      "appointmentStatus": "Status",
+      "visitType": "Visit Type"
+    },
+    "formFields": {
+      "patientName": "Patient Name",
+      "email": "Email",
+      "gender": "Gender",
+      "selectGender": "Select Gender",
+      "male": "Male",
+      "female": "Female",
+      "admissionDate": "Admission Date",
+      "time": "Time",
+      "mobile": "Mobile",
+      "doctor": "Doctor",
+      "injuryCondition": "Injury / Condition",
+      "appointmentStatus": "Appointment Status",
+      "selectStatus": "Select Status",
+      "scheduled": "Scheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "visitType": "Visit Type",
+      "selectVisitType": "Select Visit Type",
+      "newPatient": "New Patient",
+      "followUp": "Follow-Up"
+    },
+    "toast": {
+      "invalidPhone": {
+        "title": "Invalid Phone Number",
+        "description": "Please enter a valid phone number in international format (+12345678901) or 123-456-7890."
+      },
+      "appointmentUpdated": {
+        "title": "Appointment Updated",
+        "description": "{{patientName}}'s appointment has been updated successfully."
+      },
+      "appointmentAdded": {
+        "title": "Appointment Added",
+        "description": "A new appointment for {{patientName}} has been added successfully."
+      },
+      "appointmentDeleted": {
+        "title": "Appointment Deleted",
+        "description": "{{patientName}}'s appointment has been deleted successfully."
+      }
+    },
+    "entityName": "Appointment",
+    "exportFileName": "appointments",
+    "export": {
+      "name": "Patient Name",
+      "doctor": "Doctor",
+      "gender": "Gender",
+      "date": "Date",
+      "time": "Time",
+      "phone": "Phone",
+      "issue": "Issue / Condition",
+      "email": "Email",
+      "status": "Status",
+      "visitType": "Visit Type"
+    },
+    "formTitle": "Appointment Form"
+  },
+  "patients": {
+    "title": "Patients",
+    "addPatient": "Add Patient",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfBirth": "Date of Birth",
+    "dateOfBirthPlaceholder": "MM/DD/YYYY",
+    "gender": "Gender",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "emergencyContact": "Emergency Contact",
+    "medicalHistory": "Medical History",
+    "searchPlaceholder": "Search patients...",
+    "viewPatients": "View Patients",
+    "entityName": "Patient",
+    "exportFileName": "Cliniva_Patients.xlsx",
+    "formTitle": "Patient",
+    "columns": {
+      "name": "Name",
+      "treatment": "Treatment",
+      "gender": "Gender",
+      "mobile": "Mobile",
+      "admissionDate": "Admission Date",
+      "doctorAssigned": "Doctor Assigned",
+      "address": "Address",
+      "bloodGroup": "Blood Group",
+      "dischargeDate": "Discharge Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "columnConfig": {
+      "name": "Name",
+      "treatment": "Treatment",
+      "gender": "Gender",
+      "mobile": "Mobile",
+      "admissionDate": "Admission Date",
+      "doctorAssigned": "Doctor Assigned",
+      "address": "Address",
+      "bloodGroup": "Blood Group",
+      "dischargeDate": "Discharge Date",
+      "status": "Status"
+    },
+    "formFields": {
+      "name": "Name",
+      "treatment": "Treatment",
+      "gender": "Gender",
+      "selectGender": "Select Gender",
+      "male": "Male",
+      "female": "Female",
+      "mobile": "Mobile",
+      "admissionDate": "Admission Date",
+      "doctorAssigned": "Doctor Assigned",
+      "address": "Address",
+      "bloodGroup": "Blood Group",
+      "selectBloodType": "Select Blood Type",
+      "dischargeDate": "Discharge Date",
+      "status": "Status",
+      "selectStatus": "Select Status",
+      "admitted": "Admitted",
+      "discharged": "Discharged",
+      "underObservation": "Under Observation"
+    },
+    "toast": {
+      "invalidPhone": {
+        "title": "Invalid Phone Number",
+        "description": "Please enter a valid phone number in the format XXX-XXX-XXXX."
+      },
+      "patientUpdated": {
+        "title": "Patient Updated",
+        "description": "{{name}}'s information has been updated successfully."
+      },
+      "patientAdded": {
+        "title": "Patient Added",
+        "description": "{{name}} has been added successfully."
+      },
+      "patientDeleted": {
+        "title": "Patient Deleted",
+        "description": "{{name}} has been removed successfully."
+      }
+    }
+  },
+ 
+
+  "errors": {
+    "genericError": "Something went wrong. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "invalidCredentials": "Invalid email or password.",
+    "requiredField": "This field is required.",
+    "invalidEmail": "Please enter a valid email address.",
+    "passwordTooShort": "Password must be at least 8 characters long.",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "success": {
+    "saved": "Successfully saved!",
+    "updated": "Successfully updated!",
+    "deleted": "Successfully deleted!",
+    "created": "Successfully created!"
+  },
+  "landing": {
+    "brandName": "Sirona",
+    "navigation": {
+      "home": "Home",
+      "about": "About",
+      "departments": "Departments",
+      "doctors": "Doctors",
+      "contact": "Contact",
+      "login": "LOGIN"
+    },
+    "hero": {
+      "title": "Your Health is our",
+      "titleHighlight": "Priority.",
+      "subtitle": "We are the best in the field of medical service, we are always ready to help you with cutting-edge technology and compassionate care.",
+      "servicesButton": "Our Services",
+      "aboutButton": "About Sirona"
+    },
+    "welcome": {
+      "welcomeTo": "Welcome to Sirona",
+      "title": "Best Medical & Health care Needs to Our Patients.",
+      "description": "Sirona Hospital is a leading healthcare provider committed to delivering exceptional medical services. Our state-of-the-art facility is equipped with the latest technology, and our team of highly skilled professionals is dedicated to ensuring your well-being.",
+      "features": {
+        "emergency": "24/7 Emergency Services",
+        "doctors": "Expert and Professional Doctors",
+        "staff": "Friendly and Supportive Staff"
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Our Medical Services",
+      "cardiology": {
+        "name": "Cardiology",
+        "description": "Our cardiology department provides expert care for heart-related conditions."
+      },
+      "diagnostics": {
+        "name": "Diagnostics", 
+        "description": "State-of-the-art diagnostic services to accurately identify health issues."
+      },
+      "orthopedic": {
+        "name": "Orthopedic",
+        "description": "Specialized treatment for bone, joint, and muscle disorders."
+      },
+      "dental": {
+        "name": "Dental Care",
+        "description": "Comprehensive dental services for a healthy and beautiful smile."
+      },
+      "surgery": {
+        "name": "General Surgery",
+        "description": "Advanced surgical procedures performed by experienced surgeons."
+      },
+      "neurology": {
+        "name": "Neurology",
+        "description": "Expert diagnosis and treatment of nervous system disorders."
+      }
+    },
+    "doctors": {
+      "title": "Our Doctors",
+      "subtitle": "Meet Our Medical Team",
+      "specialties": {
+        "cardiologist": "Cardiologist",
+        "neurologist": "Neurologist", 
+        "orthopedicSurgeon": "Orthopedic Surgeon"
+      }
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "subtitle": "What our Patients Say",
+      "testimonial1": "The care I received was exceptional. The staff was professional and compassionate.",
+      "testimonial2": "I am grateful for the expertise and dedication of the medical team.",
+      "patient": "Patient"
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "subtitle": "We Offer Specialized Services.",
+      "mission": {
+        "title": "Our Mission",
+        "description": "To provide the highest quality healthcare services to our community, driven by compassion, innovation, and a commitment to excellence."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To be the regional leader in healthcare, recognized for our exceptional patient care, advanced medical research, and commitment to community health."
+      },
+      "value": {
+        "title": "Our Value",
+        "description": "Integrity, Compassion, Teamwork, and a relentless pursuit of medical excellence form the core of our values."
+      }
+    },
+    "doctorsSection": {
+      "title": "Our Team",
+      "subtitle": "Our Expert Doctors"
+    },
+    "footer": {
+      "aboutTitle": "About Sirona",
+      "aboutDescription": "Leading the way in medical excellence, we are dedicated to providing compassionate and comprehensive healthcare.",
+      "quickLinksTitle": "Quick Links",
+      "contactTitle": "Contact Info",
+      "newsletterTitle": "Newsletter",
+      "newsletterDescription": "Subscribe to our newsletter for the latest updates.",
+      "emailPlaceholder": "Your Email",
+      "goButton": "Go",
+      "copyright": "All Rights Reserved."
+    }
+  },
+  "tableActions": {
+    "deleteSelected": "Delete {{count}} Selected",
+    "refresh": "Refresh Table",
+    "exportExcel": "Export to Excel",
+    "showHideColumns": "Show/Hide Columns",
+    "addNew": "Add New {{entity}}"
+  },
+  "toast": {
+    "deletedTitle": "{{count}} item deleted",
+    "deletedTitle_other": "{{count}} items deleted",
+    "deletedDescription": "{{count}} item successfully removed",
+    "deletedDescription_other": "{{count}} items successfully removed",
+    "refreshTitle": "Table Refreshed",
+    "refreshDescription": "{{entity}} data has been refreshed.",
+    "exportSuccessTitle": "Export Successful",
+    "exportSuccessDescription": "Data has been exported to Excel.",
+    "exportFailTitle": "Export Failed",
+    "exportFailDescription": "There was an error exporting the data."
+  },
+  "deleteDialog": {
+    "title": "Delete Appointment",
+    "message": "Are you sure you want to delete this appointment? This action cannot be undone."
+  },
+  "columnSelector": {
+    "title": "Show/Hide Column"
+  },
+  "dir": "ltr",
+  "table": {
+    "noMatch": "No items matching your search",
+    "noItems": "No items available"
+  },
+  "doctors": {
+    "title": "Doctors",
+    "viewDoctors": "View Doctors",
+    "entityName": "Doctor",
+    "exportFileName": "Cliniva_Doctors.xlsx",
+    "formTitle": "Doctor",
+    "columns": {
+      "name": "Name",
+      "department": "Department",
+      "specialization": "Specialization",
+      "availability": "Availability",
+      "mobile": "Mobile",
+      "degree": "Degree",
+      "experience": "Experience",
+      "consultationFee": "Consultation Fee",
+      "email": "Email",
+      "actions": "Actions",
+      "addDoctor": "Add Doctor",
+      "phone": "Phone",
+      "qualification": "Qualification"
+    },
+    "columnConfig": {
+      "name": "Name",
+      "department": "Department",
+      "specialization": "Specialization",
+      "availability": "Availability",
+      "mobile": "Mobile",
+      "degree": "Degree",
+      "experience": "Experience",
+      "consultationFee": "Consultation Fee",
+      "email": "Email"
+    },
+    "formFields": {
+      "name": "Name",
+      "department": "Department",
+      "specialization": "Specialization",
+      "availability": "Availability",
+      "mobile": "Mobile",
+      "degree": "Degree",
+      "experience": "Experience",
+      "consultationFee": "Consultation Fee",
+      "email": "Email"
+    },
+    "toast": {
+      "invalidPhone": {
+        "title": "Invalid Phone Number",
+        "description": "Please enter a valid phone number in the format XXX-XXX-XXXX."
+      },
+      "doctorUpdated": {
+        "title": "Doctor Updated",
+        "description": "{{name}}'s information has been updated successfully."
+      },
+      "doctorAdded": {
+        "title": "Doctor Added",
+        "description": "{{name}} has been added successfully."
+      },
+      "doctorDeleted": {
+        "title": "Doctor Deleted",
+        "description": "{{name}} has been removed successfully."
+      }
+    }
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "addEvent": "Add Event",
+    "today": "Today",
+    "weekOf": "Week of",
+    "events": "Events",
+    "previousPeriod": "Previous",
+    "nextPeriod": "Next",
+    "view": {
+      "month": "Month",
+      "week": "Week",
+      "day": "Day",
+      "list": "List"
+    },
+    "categories": {
+      "all": "All",
+      "personal": "Personal",
+      "work": "Work",
+      "friends": "Friends",
+      "important": "Important",
+      "travel": "Travel",
+      "other": "Other"
+    },
+    "eventModal": {
+      "editTitle": "Edit Event",
+      "addTitle": "Add New Event",
+      "dayOf": "Day of {{month}} {{year}}",
+      "eventTitle": "Event Title",
+      "startTime": "Start Time (Optional)",
+      "endTime": "End Time (Optional)",
+      "durationDays": "Duration (Days)",
+      "category": "Category",
+      "emoji": "Emoji",
+      "colorTheme": "Color Theme",
+      "saveChanges": "Save Changes",
+      "addEvent": "Add Event",
+      "colors": {
+        "greenTeal": "Green/Teal",
+        "orangeRed": "Orange/Red",
+        "redPink": "Red/Pink",
+        "cyanBlue": "Cyan/Blue",
+        "purplePink": "Purple/Pink",
+        "yellowAmber": "Yellow/Amber",
+        "blueIndigo": "Blue/Indigo"
+      }
+    }
+  },
+  "tasks": {
+    "title": "Tasks",
+    "addTask": "Add Task",
+    "totalTasks_one": "{{count}} Total task",
+    "totalTasks_other": "{{count}} Total tasks",
+    "filters": {
+      "all": "All",
+      "done": "Done",
+      "undone": "Undone"
+    },
+    "priority": {
+      "normal": "Normal",
+      "high": "High",
+      "low": "Low"
+    },
+    "form": {
+      "newTask": "New Task",
+      "editTask": "Edit Task",
+      "titlePlaceholder": "Title",
+      "assigneePlaceholder": "Assignee image URL (optional)",
+      "markComplete": "Mark as complete",
+      "add": "Add Task",
+      "update": "Update Task",
+      "cancel": "Cancel",
+      "detailsPlaceholder": "Task Details",
+      "datePlaceholder": "MM/DD/YYYY"
+    },
+    "table": {
+      "task": "Task",
+      "priority": "Priority",
+      "assignee": "Assignee",
+      "dueDate": "Due Date",
+      "actions": "Actions",
+      "edit": "Edit Task",
+      "moveUp": "Move Up",
+      "moveDown": "Move Down",
+      "delete": "Delete Task"
+    }
+  },
+  "patientMedicalProfile": {
+    "title": "Medical Profile",
+    "subtitle": "Personal and medical details overview",
+    "noData": "No profile data found. Please complete your profile.",
+    "labels": {
+      "doctorName": "Doctor Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dateOfBirth": "Date of Birth",
+      "sex": "Sex",
+      "height": "Height (cm)",
+      "weight": "Weight (kg)",
+      "maritalStatus": "Marital Status",
+      "contactNumber": "Contact Number",
+      "email": "Email",
+      "address": "Address",
+      "city": "City",
+      "state": "State",
+      "zipCode": "ZIP Code",
+      "takingMedications": "Taking Medications",
+      "medicationsList": "Medications List",
+      "emergencyContactFirstName": "Emergency Contact First Name",
+      "emergencyContactLastName": "Emergency Contact Last Name",
+      "emergencyRelationship": "Emergency Relationship",
+      "emergencyContactNumber": "Emergency Contact Number"
+    }
+  },
+  "patientBilling": {
+    "title": "Billing & Invoices",
+    "subtitle": "Track your medical expenses and payment history",
+    "stats": {
+      "totalBilled": "Total Billed",
+      "invoices": "{{count}} invoices",
+      "totalPaid": "Total Paid",
+      "paidLabel": "{{count}} paid",
+      "pending": "Pending",
+      "pendingLabel": "{{count}} pending",
+      "overdue": "Overdue",
+      "overdueLabel": "{{count}} overdue"
+    },
+    "searchPlaceholder": "Search by invoice number or doctor name...",
+    "filter": {
+      "all": "All Status",
+      "paid": "Paid",
+      "pending": "Pending",
+      "overdue": "Overdue"
+    },
+    "sort": {
+      "label": "Sort by:",
+      "date": "Date",
+      "amount": "Amount",
+      "doctor": "Doctor"
+    },
+    "buttons": {
+      "export": "Export",
+      "clearFilters": "Clear Filters"
+    },
+    "table": {
+      "invoiceNo": "Invoice No",
+      "doctorName": "Doctor Name",
+      "date": "Date",
+      "amount": "Amount",
+      "tax": "Tax",
+      "discount": "Discount",
+      "total": "Total",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "pagination": {
+      "showing": "Showing {{from}} to {{to}} of {{total}} results"
+    },
+    "empty": {
+      "noRecords": "No billing records found",
+      "searchAdjust": "Try adjusting your search criteria or filters",
+      "noRecordsYet": "Your billing history will appear here once you have appointments"
+    }
+  },
+  "patientPrescriptions": {
+    "title": "My Prescriptions",
+    "subtitle": "View and manage your medical prescriptions",
+    "greeting": {
+      "title": "Welcome back, {{name}}! 👋",
+      "desc": "Here are all your medical prescriptions and medication history."
+    },
+    "stats": {
+      "active": "Active",
+      "completed": "Completed",
+      "expired": "Expired"
+    },
+    "tabs": {
+      "upcoming": "Upcoming Prescriptions",
+      "past": "Past Prescriptions",
+      "all": "All Prescriptions"
+    },
+    "searchPlaceholder": "Search prescriptions, doctors, or diseases...",
+    "filter": {
+      "all": "All Status",
+      "active": "Active",
+      "completed": "Completed",
+      "expired": "Expired"
+    },
+    "table": {
+      "title": "Title",
+      "createdBy": "Created by",
+      "date": "Date",
+      "diseases": "Diseases",
+      "status": "Status",
+      "actions": "Actions",
+      "view": "View",
+      "download": "Download"
+    },
+    "pagination": {
+      "showing": "Showing {{from}} to {{to}} of {{total}} prescriptions"
+    },
+    "empty": {
+      "noPrescriptions": "No prescriptions found",
+      "searchAdjust": "Try adjusting your search or filter criteria",
+      "noPrescriptionsYet": "You don't have any prescriptions yet"
+    }
+  },
+  "patientAppointments": {
+    "title": "My Appointments",
+    "subtitle": "View and manage your appointments",
+    "chooseDoctor": "Choose a doctor"
+  },
+  "strokeAssessment": {
+    "title": "Stroke Risk Assessment",
+    "subtitle": "AI-powered stroke risk prediction",
+    "heading": "Stroke Risk Assessment",
+    "subheading": "AI-powered stroke risk prediction",
+    "gender": "Gender",
+    "age": "Age",
+    "hypertension": "Hypertension",
+    "heartDisease": "Heart Disease",
+    "everMarried": "Ever Married",
+    "workType": "Work Type",
+    "residenceType": "Residence Type",
+    "avgGlucoseLevel": "Average Glucose Level (mg/dL)",
+    "bmi": "BMI (Body Mass Index)",
+    "smokingStatus": "Smoking Status",
+    "assessmentComplete": "Assessment Complete",
+    "riskLevel": "Stroke risk assessment completed. Risk level:",
+    "assessmentFailed": "Failed to complete stroke risk assessment. Please try again.",
+    "selectWorkType": "Select Work Type",
+    "patientInfo": "Patient Information",
+    "assessmentResults": "Assessment Results",
+    "probability": "Probability",
+    "assessmentCompleted": "Assessment completed",
+    "immediateActionRequired": "⚠️ Immediate Action Required",
+    "highStrokeRiskDetected": "High stroke risk detected. Please consult with a physician immediately.",
+    "completeFormToSeeResults": "Complete the assessment form to see results",
+    "analyzing": "Analyzing...",
+    "assessStrokeRisk": "Assess Stroke Risk",
+    "processing": "Processing...",
+    "startNewAssessment": "Start New Assessment",
+    "patientAssessment": "Patient Assessment",
+    "enterPatientInfo": "Enter patient information to assess stroke risk",
+    "latestPrediction": "Latest stroke risk prediction",
+    "patientId": "Patient ID"
+  },
+  "patientDashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your health data",
+    "overallPerformance": "Overall Performance",
+    "status": {
+      "perfect": "Perfect"
+    },
+    "healthierThan": "You are healthier than {{percent}}% of people your age.",
+    "checkReport": "Check Full Report",
+    "analytics": "Analytics",
+    "tabs": {
+      "labReports": "Lab Reports",
+      "prescription": "Prescription",
+      "medication": "Medication"
+    },
+    "profileTab": "My Profile",
+    "historyTab": "History",
+    "myAppointments": "My Appointments",
+    "lastAppointment": "Last Appointment: {{date}}"
+  },
+  "patientSidebar": {
+    "dashboard": "Dashboard",
+    "myAppointments": "My Appointments",
+    "myPrescriptions": "My Prescriptions",
+    "billing": "Billing & Invoices",
+    "healthAssessment": "Health Assessment",
+    "liverPrediction": "Liver Disease Prediction",
+    "diabetesPrediction": "Diabetes Prediction",
+    "medicalProfile": "Medical Profile"
+  },
+  "doctorSidebar": {
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "prescriptions": "Prescriptions",
+    "profile": "Profile",
+    "calendar": "Calendar",
+    "tasks": "Tasks"
+  },
+  "doctorAppointments": {
+    "title": "Appointments",
+    "subtitle": "Manage your patient appointments"
+  },
+  "doctorDashboard": {
+    "title": "Doctor Dashboard",
+    "subtitle": "Your central hub for patient management"
+  },
+  "doctorPatients": {
+    "title": "Patients",
+    "subtitle": "Overview of your current patients",
+    "noPatients": "No patients assigned",
+    "noPatientsDescription": "You don't have any patients assigned to you yet.",
+    "patientId": "Patient ID",
+    "admitted": "Admitted",
+    "bloodGroup": "Blood Group"
+  },
+  "prescriptions": {
+    "title": "Prescriptions",
+    "viewPrescriptions": "View Prescriptions",
+    "entityName": "Prescription",
+    "exportFileName": "Cliniva_Prescriptions.xlsx",
+    "formTitle": "Prescription",
+    "refresh": "Refresh",
+    "dataSource": {
+      "api": "Live Data",
+      "fallback": "Sample Data",
+      "loading": "Loading..."
+    },
+    "toast": {
+      "apiSuccess": {
+        "title": "Data Loaded",
+        "description": "Successfully loaded {{count}} prescriptions from server."
+      },
+      "fallbackData": {
+        "title": "Using Sample Data",
+        "description": "API returned no prescriptions, showing sample data for demonstration."
+      },
+      "apiError": {
+        "title": "API Connection Failed",
+        "description": "Could not connect to prescription service: {{error}}. Showing sample data for demonstration."
+      },
+      "prescriptionAdded": {
+        "title": "Prescription Added",
+        "description": "Successfully added prescription for {{patientName}}."
+      },
+      "prescriptionUpdated": {
+        "title": "Prescription Updated",
+        "description": "Successfully updated prescription for {{patientName}}."
+      },
+      "prescriptionDeleted": {
+        "title": "Prescription Deleted",
+        "description": "Successfully deleted prescription for {{patientName}}."
+      }
+    },
+    "apiError": {
+      "title": "API Connection Issue",
+      "description": "Unable to connect to the prescription service. Showing sample data for demonstration purposes."
+    },
+    "columns": {
+      "select": "Select",
+      "prescriptionNumber": "Prescription #",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "prescribedDate": "Prescribed Date",
+      "dispensedDate": "Dispensed Date",
+      "status": "Status",
+      "totalAmount": "Total Amount",
+      "notes": "Notes",
+      "actions": "Actions"
+    },
+    "columnConfig": {
+      "prescriptionNumber": "Prescription #",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "prescribedDate": "Prescribed Date",
+      "dispensedDate": "Dispensed Date",
+      "status": "Status",
+      "totalAmount": "Total Amount",
+      "notes": "Notes"
+    },
+    "formFields": {
+      "prescriptionNumber": "Prescription Number",
+      "patientId": "Patient ID",
+      "patientName": "Patient Name",
+      "doctorId": "Doctor ID",
+      "doctorName": "Doctor Name",
+      "selectDoctor": "Select a Doctor",
+      "prescribedDate": "Prescribed Date",
+      "dispensedDate": "Dispensed Date",
+      "status": "Status",
+      "selectStatus": "Select Status",
+      "pending": "Pending",
+      "dispensed": "Dispensed",
+      "partiallyDispensed": "Partially Dispensed",
+      "cancelled": "Cancelled",
+      "totalAmount": "Total Amount",
+      "notes": "Notes"
+    },
+    "export": {
+      "prescriptionNumber": "Prescription Number",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "prescribedDate": "Prescribed Date",
+      "dispensedDate": "Dispensed Date",
+      "status": "Status",
+      "totalAmount": "Total Amount",
+      "notes": "Notes"
+    }
+  },
+  "billing": {
+    "title": "Billing & Invoices",
+    "viewInvoices": "View Invoices",
+    "entityName": "Invoice",
+    "exportFileName": "Cliniva_Invoices.xlsx",
+    "formTitle": "Invoice",
+    "refresh": "Refresh",
+    "dataSource": {
+      "api": "Live Data",
+      "fallback": "Sample Data",
+      "loading": "Loading..."
+    },
+    "toast": {
+      "apiSuccess": {
+        "title": "Data Loaded",
+        "description": "Successfully loaded {{count}} invoices from server."
+      },
+      "fallbackData": {
+        "title": "Using Sample Data",
+        "description": "API returned no invoices, showing sample data for demonstration."
+      },
+      "apiError": {
+        "title": "API Connection Failed",
+        "description": "Could not connect to billing service: {{error}}. Showing sample data for demonstration."
+      },
+      "invoiceAdded": {
+        "title": "Invoice Created",
+        "description": "Successfully created invoice {{invoiceNumber}}."
+      },
+      "invoiceUpdated": {
+        "title": "Invoice Updated",
+        "description": "Successfully updated invoice {{invoiceNumber}}."
+      },
+      "invoiceDeleted": {
+        "title": "Invoice Deleted",
+        "description": "Successfully deleted invoice {{invoiceNumber}}."
+      },
+      "downloadSuccess": {
+        "title": "Download Successful",
+        "description": "Invoice PDF downloaded successfully."
+      },
+      "downloadError": {
+        "title": "Download Failed",
+        "description": "Failed to download invoice PDF."
+      }
+    },
+    "apiError": {
+      "title": "API Connection Issue",
+      "description": "Unable to connect to the billing service. Showing sample data for demonstration purposes."
+    },
+    "columns": {
+      "select": "Select",
+      "invoiceNumber": "Invoice #",
+      "patientId": "Patient ID",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "totalAmount": "Total Amount",
+      "paidAmount": "Paid Amount",
+      "outstandingAmount": "Outstanding",
+      "status": "Status",
+      "notes": "Notes",
+      "actions": "Actions"
+    },
+    "columnConfig": {
+      "invoiceNumber": "Invoice Number",
+      "patientId": "Patient ID",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "totalAmount": "Total Amount",
+      "paidAmount": "Paid Amount",
+      "outstandingAmount": "Outstanding Amount",
+      "status": "Status",
+      "notes": "Notes",
+      "actions": "Actions"
+    },
+    "formFields": {
+      "invoiceNumber": "Invoice Number",
+      "patientId": "Patient ID",
+      "doctorId": "Doctor ID",
+      "doctorName": "Doctor Name",
+      "selectDoctor": "Select a Doctor",
+      "appointmentId": "Appointment ID",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "status": "Status",
+      "selectStatus": "Select Status",
+      "draft": "Draft",
+      "sent": "Sent",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "cancelled": "Cancelled",
+      "subtotal": "Subtotal",
+      "taxAmount": "Tax Amount",
+      "discountAmount": "Discount Amount",
+      "notes": "Notes"
+    },
+    "export": {
+      "invoiceNumber": "Invoice Number",
+      "patientId": "Patient ID",
+      "patientName": "Patient Name",
+      "doctorName": "Doctor Name",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "totalAmount": "Total Amount",
+      "paidAmount": "Paid Amount",
+      "outstandingAmount": "Outstanding Amount",
+      "status": "Status",
+      "notes": "Notes"
+    }
+  }
+} 
