@@ -18,6 +18,7 @@ public class PatientDTO {
     private String mobile;
     private LocalDate admissionDate;
     private String doctorAssigned;
+    private Long doctorId;
     private String address;
     private String bloodGroup;
     private LocalDate dischargeDate;

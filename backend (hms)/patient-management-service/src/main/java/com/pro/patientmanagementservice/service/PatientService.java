@@ -43,6 +43,7 @@ public class PatientService {
                 });
 
         return PatientProfileDTO.builder()
+                .userId(patient.getUserId())
                 .firstName(patient.getFirstName())
                 .lastName(patient.getLastName())
                 .email(patient.getEmail())
@@ -51,8 +52,13 @@ public class PatientService {
                 .gender(patient.getGender())
                 .mobile(patient.getMobile())
                 .doctorAssigned(patient.getDoctorAssigned())
+                .doctorId(patient.getDoctorId())
                 .address(patient.getAddress())
                 .bloodGroup(patient.getBloodGroup())
+                .treatment(patient.getTreatment())
+                .admissionDate(patient.getAdmissionDate())
+                .status(patient.getStatus())
+                .dischargeDate(patient.getDischargeDate())
                 .height(medicalHistory.getHeight())
                 .weight(medicalHistory.getWeight())
                 .allergies(medicalHistory.getAllergies())
@@ -78,6 +84,7 @@ public class PatientService {
                 .gender(patientProfileDTO.getGender())
                 .mobile(patientProfileDTO.getMobile())
                 .doctorAssigned(patientProfileDTO.getDoctorAssigned())
+                .doctorId(patientProfileDTO.getDoctorId())
                 .address(patientProfileDTO.getAddress())
                 .bloodGroup(patientProfileDTO.getBloodGroup())
                 .treatment(patientProfileDTO.getTreatment())
@@ -149,8 +156,8 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public List<PatientProfileDTO> getPatientsByDoctor(String doctorAssigned) {
-        return patientRepository.findByDoctorAssigned(doctorAssigned).stream()
+    public List<PatientProfileDTO> getPatientsByDoctor(Long doctorId) {
+        return patientRepository.findByDoctorId(doctorId).stream()
                 .map(patient -> getPatientProfile(patient.getId()))
                 .collect(Collectors.toList());
     }
@@ -197,6 +204,7 @@ public class PatientService {
         patient.setGender(patientProfileDTO.getGender());
         patient.setMobile(patientProfileDTO.getMobile());
         patient.setDoctorAssigned(patientProfileDTO.getDoctorAssigned());
+        patient.setDoctorId(patientProfileDTO.getDoctorId());
         patient.setAddress(patientProfileDTO.getAddress());
         patient.setBloodGroup(patientProfileDTO.getBloodGroup());
         patient.setTreatment(patientProfileDTO.getTreatment());
@@ -229,6 +237,26 @@ public class PatientService {
         patientRepository.deleteById(patientId);
 
         return patientProfile;
+    }
+
+    @Transactional
+    public PatientProfileDTO updatePatientProfileByUserId(Long userId, PatientProfileDTO patientProfileDTO) {
+        // Find patient by userId first
+        Patient patient = patientRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with user id: " + userId));
+        
+        // Use the existing updatePatientProfile method with the table primary key
+        return updatePatientProfile(patient.getId(), patientProfileDTO);
+    }
+
+    @Transactional
+    public PatientProfileDTO deletePatientByUserId(Long userId) {
+        // Find patient by userId first
+        Patient patient = patientRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with user id: " + userId));
+        
+        // Use the existing deletePatient method with the table primary key
+        return deletePatient(patient.getId());
     }
 
     public MedicalHistoryDTO getMedicalHistory(Long patientId) {

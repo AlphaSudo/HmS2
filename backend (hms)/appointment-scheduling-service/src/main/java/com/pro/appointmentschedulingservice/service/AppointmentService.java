@@ -94,11 +94,21 @@ public class AppointmentService {
                 .collect(Collectors.toList());
     }
 
+    public List<AppointmentDTO> getAppointmentsByDoctorId(Long doctorId) {
+        return appointmentRepository.findByDoctorId(doctorId)
+                .stream()
+                .map(appointmentMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     private Map<String, Object[]> getChangedFields(UpdateAppointmentDTO dto, Appointment entity) {
         Map<String, Object[]> changes = new HashMap<>();
 
         if (dto.getPatientName() != null && !dto.getPatientName().equals(entity.getPatientName())) {
             changes.put("patientName", new Object[]{entity.getPatientName(), dto.getPatientName()});
+        }
+        if (dto.getDoctorId() != null && !dto.getDoctorId().equals(entity.getDoctorId())) {
+            changes.put("doctorId", new Object[]{entity.getDoctorId(), dto.getDoctorId()});
         }
         if (dto.getDoctor() != null && !dto.getDoctor().equals(entity.getDoctor())) {
             changes.put("doctor", new Object[]{entity.getDoctor(), dto.getDoctor()});

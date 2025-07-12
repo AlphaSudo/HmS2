@@ -11,6 +11,7 @@ public interface InvoiceService {
     InvoiceDTO getInvoiceById(String id);
     InvoiceDTO getInvoiceByNumber(String invoiceNumber);
     List<InvoiceDTO> getInvoicesByPatientId(Long patientId);
+    List<InvoiceDTO> getInvoicesByUserId(Long userId);
     List<InvoiceDTO> getInvoicesByDoctorId(Long doctorId);
     List<InvoiceDTO> getInvoicesByStatus(String status);
     InvoiceDTO updateInvoice(String id, InvoiceDTO invoiceDTO);
@@ -18,5 +19,6 @@ public interface InvoiceService {
     InvoiceDTO addPayment(String invoiceId, Payment payment);
     void deleteInvoice(String id);
     BillingStatsDTO getBillingStats(Long patientId);
+    BillingStatsDTO getBillingStatsByUserId(Long userId);
     byte[] generateInvoicePdf(String invoiceId);
 } 

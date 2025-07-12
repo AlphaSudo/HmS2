@@ -1,0 +1,10 @@
+# Docker environment configuration for Pharmacy Management Service
+spring:
+  application:
+    name: pharmacy-management-service
+  config:
+    import:
+      - "optional:configserver:http://config-server:8888"
+      - "optional:file:.env[.properties]" 
+  profiles:
+    active: docker 

@@ -32,13 +32,15 @@ public class SecurityConfig {
                 // Public endpoints - no authentication required
                 .requestMatchers(
                     "/actuator/health",
-                    "/actuator/info"
+                    "/actuator/info",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml"
                 ).permitAll()
                 
-                // Security rules for report endpoints
-                .requestMatchers("/reports/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_DOCTOR")
-
-                // Any other request requires authentication
+                // All other requests require authentication
+                // Security rules are handled by @PreAuthorize annotations on controllers
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

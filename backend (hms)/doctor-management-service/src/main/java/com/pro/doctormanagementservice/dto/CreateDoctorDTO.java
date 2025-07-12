@@ -1,6 +1,7 @@
 package com.pro.doctormanagementservice.dto;
 
 import com.pro.doctormanagementservice.model.DoctorStatus;
+import com.pro.doctormanagementservice.model.Gender;
 import com.pro.doctormanagementservice.model.Specialization;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -44,8 +46,8 @@ public class CreateDoctorDTO {
     @PastOrPresent(message = "Date of birth must be in the past or present")
     private LocalDate dateOfBirth;
 
-    @NotEmpty(message = "Gender cannot be empty")
-    private String gender;
+    @NotNull(message = "Gender cannot be null")
+    private Gender gender;
 
     @NotNull(message = "Hire date cannot be null")
     @PastOrPresent(message = "Hire date must be in the past or present")
@@ -56,7 +58,7 @@ public class CreateDoctorDTO {
 
     @NotNull(message = "Consultation fee cannot be null")
     @Positive(message = "Consultation fee must be positive")
-    private Double consultationFee;
+    private BigDecimal consultationFee;
 
     private String bio;
 } 

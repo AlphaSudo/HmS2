@@ -11,6 +11,7 @@ import java.time.LocalTime;
 public class AppointmentDTO {
     private Long id;
     private String patientName;
+    private Long doctorId;
     private String doctor;
     private String gender;
     private LocalDate date;

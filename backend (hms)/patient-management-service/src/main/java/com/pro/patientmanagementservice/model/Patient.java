@@ -55,6 +55,9 @@ public class Patient {
     @Column(name = "doctor_assigned", nullable = false)
     private String doctorAssigned;
 
+    @Column(name = "doctor_id", nullable = false)
+    private Long doctorId;
+    
     @Column(nullable = false)
     private String address;
 

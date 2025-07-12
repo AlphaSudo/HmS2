@@ -29,20 +29,18 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless API
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints for documentation and health checks
+                // Public endpoints - no authentication required
                 .requestMatchers(
                     "/actuator/health",
                     "/actuator/info",
-                    "/v3/api-docs/**",
                     "/swagger-ui/**",
-                    "/swagger-ui.html"
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml"
                 ).permitAll()
                 
-                // Security rules for billing endpoints
-                .requestMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_DOCTOR", "ROLE_BILLING_CLERK")
-                .requestMatchers("/invoices/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_DOCTOR", "ROLE_BILLING_CLERK", "ROLE_PATIENT")
-
-                // Any other request requires authentication
+                // All other requests require authentication
+                // Security rules are handled by @PreAuthorize annotations on controllers
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

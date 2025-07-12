@@ -127,6 +127,26 @@ INSERT INTO payment_methods (method_name, description, processing_fee_percentage
 ('CHECK', 'Check Payment', 0.0000)
 ON CONFLICT (method_name) DO NOTHING;
 
+-- Insert sample patient insurance data for our 8 patients
+INSERT INTO patient_insurance (patient_id, insurance_company_id, policy_number, coverage_percentage, copay_amount, deductible, max_coverage, policy_start_date, policy_end_date, is_active) VALUES
+-- Patient 1: John Doe
+(1, 1, 'BCBS-JD-20240001', 80.00, 25.00, 500.00, 100000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 2: Jane Smith  
+(2, 2, 'AETNA-JS-20240002', 75.00, 30.00, 750.00, 150000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 3: Mike Wilson
+(3, 3, 'UHG-MW-20240003', 85.00, 20.00, 400.00, 200000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 4: Sarah Johnson
+(4, 4, 'CIGNA-SJ-20240004', 70.00, 35.00, 800.00, 120000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 5: David Brown
+(5, 5, 'HUMANA-DB-20240005', 80.00, 25.00, 600.00, 175000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 6: Emily Davis
+(6, 6, 'KAISER-ED-20240006', 90.00, 15.00, 300.00, 250000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 7: Robert Clark
+(7, 1, 'BCBS-RC-20240007', 80.00, 25.00, 500.00, 100000.00, '2024-01-01', '2024-12-31', true),
+-- Patient 8: Lisa Martinez
+(8, 3, 'UHG-LM-20240008', 85.00, 20.00, 400.00, 200000.00, '2024-01-01', '2024-12-31', true)
+ON CONFLICT (patient_id, policy_number) DO NOTHING;
+
 -- ================================================================
 -- 3. Create Indexes for Performance
 -- ================================================================

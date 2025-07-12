@@ -16,6 +16,9 @@ public class CreateAppointmentDTO {
     @NotEmpty(message = "Patient name cannot be empty")
     private String patientName;
 
+    @NotNull(message = "Doctor ID cannot be null")
+    private Long doctorId;
+
     @NotEmpty(message = "Doctor name cannot be empty")
     private String doctor;
 

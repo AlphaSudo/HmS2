@@ -61,8 +61,8 @@ docker-compose up --build
 
 ### 3. Access the API
 
-- **API Documentation**: http://localhost:9000/stroke-prediction/docs
-- **Health Check**: http://localhost:9000/stroke-prediction/health
+- **API Documentation**: http://localhost:9000/docs
+- **Health Check**: http://localhost:9000/health
 
 ## 📡 API Endpoints
 

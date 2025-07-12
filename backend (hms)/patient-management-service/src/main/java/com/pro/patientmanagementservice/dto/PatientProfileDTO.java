@@ -25,6 +25,7 @@ public class PatientProfileDTO {
     private String gender;
     private String mobile;
     private String doctorAssigned;
+    private Long doctorId;
     private String address;
     private String bloodGroup;
 

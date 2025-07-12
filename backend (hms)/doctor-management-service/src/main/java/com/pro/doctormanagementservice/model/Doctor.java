@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
@@ -51,8 +52,9 @@ public class Doctor {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String gender;
+    private Gender gender;
 
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
@@ -61,8 +63,8 @@ public class Doctor {
     @Column(name = "status", nullable = false)
     private DoctorStatus status;
 
-    @Column(name = "consultation_fee", nullable = false)
-    private Double consultationFee;
+    @Column(name = "consultation_fee", nullable = false, precision = 10, scale = 2)
+    private BigDecimal consultationFee;
 
     @Column(columnDefinition = "TEXT")
     private String bio;

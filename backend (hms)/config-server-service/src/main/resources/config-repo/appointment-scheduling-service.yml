@@ -29,27 +29,27 @@ spring:
   flyway:
     enabled: false
   
-  # Kafka Configuration
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all
-      retries: 3
-      properties:
-        spring.json.add.type.headers: false
-    consumer:
-      group-id: appointment-service-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      auto-offset-reset: earliest
-      properties:
-        spring.json.trusted.packages: com.pro.appointmentschedulingservice.dto.events
-    topic:
-      appointment-events: appointment-events
-      patient-events: patient-events
-      doctor-events: doctor-events
+  # Kafka Configuration - Disabled for now
+  # kafka:
+  #   bootstrap-servers: localhost:9092
+  #   producer:
+  #     key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #     value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  #     acks: all
+  #     retries: 3
+  #     properties:
+  #       spring.json.add.type.headers: false
+  #   consumer:
+  #     group-id: appointment-service-group
+  #     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  #     value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  #     auto-offset-reset: earliest
+  #     properties:
+  #       spring.json.trusted.packages: com.pro.appointmentschedulingservice.dto.events
+  #   topic:
+  #     appointment-events: appointment-events
+  #     patient-events: patient-events
+  #     doctor-events: doctor-events
 
 # JWT Configuration
 app:
@@ -90,4 +90,17 @@ logging:
     org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
     org.flywaydb: ${LOG_LEVEL_FLYWAY:INFO}
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+  show-actuator: false 

@@ -35,6 +35,9 @@ public class CreatePatientDTO {
     @NotBlank(message = "Doctor assigned is mandatory")
     private String doctorAssigned;
 
+    @NotNull(message = "Doctor ID is mandatory")
+    private Long doctorId;
+    
     @NotBlank(message = "Address is mandatory")
     private String address;
 

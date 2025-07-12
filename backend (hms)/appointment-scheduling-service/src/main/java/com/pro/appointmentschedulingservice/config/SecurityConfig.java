@@ -20,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Value("${app.jwt.secret}")
+    @Value("${app.jwt.secret:bXlTZWNyZXRKV1RLZXlGb3JEZXZlbG9wbWVudFB1cnBvc2VzT25seQ==}")
     private String jwtSecret;
 
     @Bean
@@ -32,7 +32,11 @@ public class SecurityConfig {
                 // Public endpoints - no authentication required
                 .requestMatchers(
                     "/actuator/health",
-                    "/actuator/info"
+                    "/actuator/info",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml"
                 ).permitAll()
                 
                 // TODO: Add security rules for appointment endpoints here
@@ -50,7 +54,7 @@ public class SecurityConfig {
                 )
             )
             .headers(headers -> headers
-                .frameOptions().deny()
+                .frameOptions(options -> options.deny())
                 .contentTypeOptions(contentType -> {})
                 .httpStrictTransportSecurity(hstsConfig -> hstsConfig
                     .maxAgeInSeconds(31536000)

@@ -78,6 +78,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public List<InvoiceDTO> getInvoicesByUserId(Long userId) {
+        // Convert user ID to patient ID based on the database mapping
+        // Based on the pattern: patient_id = user_id - 7
+        Long patientId = userId - 7;
+        return getInvoicesByPatientId(patientId);
+    }
+
+    @Override
     public List<InvoiceDTO> getInvoicesByDoctorId(Long doctorId) {
         List<Invoice> invoices = invoiceRepository.findByDoctorId(doctorId);
         return invoiceMapper.toDtoList(invoices);
@@ -178,6 +186,14 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .reduce(Money.zero(currency), Money::add);
 
         return new BillingStatsDTO(patientId, totalBilled, totalPaid, totalOutstanding);
+    }
+
+    @Override
+    public BillingStatsDTO getBillingStatsByUserId(Long userId) {
+        // Convert user ID to patient ID based on the database mapping
+        // Based on the pattern: patient_id = user_id - 7
+        Long patientId = userId - 7;
+        return getBillingStats(patientId);
     }
 
     @Override

@@ -11,8 +11,9 @@ DROP TABLE IF EXISTS appointments CASCADE;
 -- Create appointments table
 CREATE TABLE appointments (
     id BIGSERIAL PRIMARY KEY,
-    patient_id BIGINT NOT NULL,
+    patient_id BIGINT NOT NULL, -- References patient table ID (1-8)
     patient_name VARCHAR(255) NOT NULL,
+    doctor_id BIGINT NOT NULL, -- References doctor table ID (2-7)
     doctor VARCHAR(255) NOT NULL,
     gender VARCHAR(10) NOT NULL CHECK (gender IN ('MALE', 'FEMALE', 'OTHER')),
     appointment_date DATE NOT NULL,
@@ -28,47 +29,49 @@ CREATE TABLE appointments (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert comprehensive sample appointments
-INSERT INTO appointments (patient_id, patient_name, doctor, gender, appointment_date, appointment_time, mobile, injury, email, appointment_status, visit_type) VALUES
+-- Insert comprehensive sample appointments with consistent IDs
+INSERT INTO appointments (patient_id, patient_name, doctor_id, doctor, gender, appointment_date, appointment_time, mobile, injury, email, appointment_status, visit_type) VALUES
 -- Current and upcoming appointments
-(1, 'John Doe', 'Dr. Anderson', 'MALE', CURRENT_DATE + INTERVAL '1 day', '09:00:00', '+1-555-0101', 'Annual physical examination', 'john.doe@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'),
-(1, 'Jane Smith', 'Dr. Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '2 days', '10:30:00', '+1-555-0102', 'First-time visit for general consultation', 'jane.smith@email.com', 'CONFIRMED', 'NEW_PATIENT_VISIT'),
-(1, 'Mike Wilson', 'Dr. Martinez', 'MALE', CURRENT_DATE + INTERVAL '3 days', '14:00:00', '+1-555-0103', 'Follow-up for diabetes management', 'mike.wilson@email.com', 'SCHEDULED', 'FOLLOW_UP'),
-(1, 'Sarah Johnson', 'Dr. Taylor', 'FEMALE', CURRENT_DATE + INTERVAL '4 days', '11:15:00', '+1-555-0104', 'Chest pain and shortness of breath', 'sarah.johnson@email.com', 'CONFIRMED', 'URGENT_CARE'),
-(1, 'David Brown', 'Dr. Anderson', 'MALE', CURRENT_DATE + INTERVAL '5 days', '15:30:00', '+1-555-0105', 'Routine checkup and blood pressure monitoring', 'david.brown@email.com', 'PENDING', 'ROUTINE_CHECKUP'),
+(1, 'John Doe', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE + INTERVAL '1 day', '09:00:00', '123-456-7890', 'Annual physical examination', 'john.doe@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'),
+(2, 'Jane Smith', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE + INTERVAL '2 days', '10:30:00', '234-567-8901', 'Stroke recovery follow-up', 'jane.smith@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(3, 'Mike Wilson', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE + INTERVAL '3 days', '14:00:00', '345-678-9012', 'Neurological consultation', 'mike.wilson@email.com', 'SCHEDULED', 'CONSULTATION'),
+(4, 'Sarah Johnson', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE + INTERVAL '4 days', '11:15:00', '456-789-0123', 'Fever observation follow-up', 'sarah.johnson@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(5, 'David Brown', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '5 days', '15:30:00', '567-890-1234', 'Orthopedic consultation', 'david.brown@email.com', 'PENDING', 'CONSULTATION'),
 
 -- Today's appointments
-(1, 'Emily Davis', 'Dr. Garcia', 'FEMALE', CURRENT_DATE, '08:30:00', '+1-555-0106', 'Consultation for skin rash', 'emily.davis@email.com', 'CONFIRMED', 'CONSULTATION'),
-(1, 'Robert Clark', 'Dr. Martinez', 'MALE', CURRENT_DATE, '13:45:00', '+1-555-0107', 'Back injury from sports activity', 'robert.clark@email.com', 'SCHEDULED', 'URGENT_CARE'),
-(1, 'Lisa Anderson', 'Dr. Taylor', 'FEMALE', CURRENT_DATE, '16:00:00', '+1-555-0108', 'Pregnancy consultation', 'lisa.anderson@email.com', 'CONFIRMED', 'CONSULTATION'),
+(6, 'Emily Davis', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE, '08:30:00', '678-901-2345', 'Anxiety therapy session', 'emily.davis@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(7, 'Robert Clark', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE, '13:45:00', '789-012-3456', 'Post-treatment checkup', 'robert.clark@email.com', 'SCHEDULED', 'FOLLOW_UP'),
+(8, 'Lisa Martinez', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE, '16:00:00', '890-123-4567', 'Chemotherapy consultation', 'lisa.martinez@email.com', 'CONFIRMED', 'CONSULTATION'),
 
 -- Past appointments (completed and cancelled)
-(1, 'Michael Taylor', 'Dr. Anderson', 'MALE', CURRENT_DATE - INTERVAL '1 day', '09:30:00', '+1-555-0109', 'Completed routine physical', 'michael.taylor@email.com', 'COMPLETED', 'ROUTINE_CHECKUP'),
-(1, 'Jennifer Wilson', 'Dr. Garcia', 'FEMALE', CURRENT_DATE - INTERVAL '2 days', '11:00:00', '+1-555-0110', 'Completed follow-up for hypertension', 'jennifer.wilson@email.com', 'COMPLETED', 'FOLLOW_UP'),
-(1, 'Christopher Lee', 'Dr. Martinez', 'MALE', CURRENT_DATE - INTERVAL '3 days', '14:30:00', '+1-555-0111', 'Patient cancelled due to scheduling conflict', 'christopher.lee@email.com', 'CANCELLED', 'NEW_PATIENT_VISIT'),
-(1, 'Amanda Rodriguez', 'Dr. Taylor', 'FEMALE', CURRENT_DATE - INTERVAL '4 days', '10:15:00', '+1-555-0112', 'Completed urgent care visit', 'amanda.rodriguez@email.com', 'COMPLETED', 'URGENT_CARE'),
+(1, 'John Doe', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE - INTERVAL '1 day', '09:30:00', '123-456-7890', 'Completed cardiac surgery follow-up', 'john.doe@email.com', 'COMPLETED', 'FOLLOW_UP'),
+(2, 'Jane Smith', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE - INTERVAL '2 days', '11:00:00', '234-567-8901', 'Completed stroke recovery session', 'jane.smith@email.com', 'COMPLETED', 'FOLLOW_UP'),
+(3, 'Mike Wilson', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE - INTERVAL '3 days', '14:30:00', '345-678-9012', 'Patient cancelled appointment', 'mike.wilson@email.com', 'CANCELLED', 'ROUTINE_CHECKUP'),
+(4, 'Sarah Johnson', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE - INTERVAL '4 days', '10:15:00', '456-789-0123', 'Completed dermatology consultation', 'sarah.johnson@email.com', 'COMPLETED', 'CONSULTATION'),
 
 -- Rescheduled appointments
-(1, 'Thomas Garcia', 'Dr. Anderson', 'MALE', CURRENT_DATE + INTERVAL '7 days', '12:00:00', '+1-555-0113', 'Rescheduled from previous week', 'thomas.garcia@email.com', 'RESCHEDULED', 'CONSULTATION'),
-(1, 'Maria Gonzalez', 'Dr. Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '8 days', '15:45:00', '+1-555-0114', 'Rescheduled consultation for migraine', 'maria.gonzalez@email.com', 'RESCHEDULED', 'FOLLOW_UP'),
+(5, 'David Brown', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '7 days', '12:00:00', '567-890-1234', 'Rescheduled orthopedic consultation', 'david.brown@email.com', 'RESCHEDULED', 'CONSULTATION'),
+(6, 'Emily Davis', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '8 days', '15:45:00', '678-901-2345', 'Rescheduled therapy session', 'emily.davis@email.com', 'RESCHEDULED', 'FOLLOW_UP'),
 
 -- Additional variety of appointments
-(1, 'James Martinez', 'Dr. Martinez', 'MALE', CURRENT_DATE + INTERVAL '6 days', '08:00:00', '+1-555-0115', 'New patient general examination', 'james.martinez@email.com', 'SCHEDULED', 'NEW_PATIENT_VISIT'),
-(1, 'Patricia Davis', 'Dr. Taylor', 'FEMALE', CURRENT_DATE + INTERVAL '9 days', '16:30:00', '+1-555-0116', 'Follow-up for surgical recovery', 'patricia.davis@email.com', 'CONFIRMED', 'FOLLOW_UP'),
-(1, 'Daniel Thompson', 'Dr. Anderson', 'MALE', CURRENT_DATE + INTERVAL '10 days', '09:45:00', '+1-555-0117', 'Consultation for joint pain', 'daniel.thompson@email.com', 'PENDING', 'CONSULTATION'),
-(1, 'Karen White', 'Dr. Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '11 days', '13:00:00', '+1-555-0118', 'Emergency consultation for allergic reaction', 'karen.white@email.com', 'SCHEDULED', 'URGENT_CARE'),
-(1, 'Richard Johnson', 'Dr. Martinez', 'MALE', CURRENT_DATE + INTERVAL '12 days', '14:15:00', '+1-555-0119', 'Annual health screening', 'richard.johnson@email.com', 'CONFIRMED', 'ROUTINE_CHECKUP'),
-(1, 'Michelle Brown', 'Dr. Taylor', 'FEMALE', CURRENT_DATE + INTERVAL '13 days', '11:30:00', '+1-555-0120', 'First visit to establish care', 'michelle.brown@email.com', 'SCHEDULED', 'NEW_PATIENT_VISIT');
+(7, 'Robert Clark', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE + INTERVAL '6 days', '08:00:00', '789-012-3456', 'New patient cardiology consultation', 'robert.clark@email.com', 'SCHEDULED', 'NEW_PATIENT_VISIT'),
+(8, 'Lisa Martinez', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE + INTERVAL '9 days', '16:30:00', '890-123-4567', 'Oncology follow-up', 'lisa.martinez@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(1, 'John Doe', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE + INTERVAL '10 days', '09:45:00', '123-456-7890', 'Neurological screening', 'john.doe@email.com', 'PENDING', 'ROUTINE_CHECKUP'),
+(2, 'Jane Smith', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE + INTERVAL '11 days', '13:00:00', '234-567-8901', 'Emergency skin consultation', 'jane.smith@email.com', 'SCHEDULED', 'URGENT_CARE'),
+(3, 'Mike Wilson', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '12 days', '14:15:00', '345-678-9012', 'Joint pain consultation', 'mike.wilson@email.com', 'CONFIRMED', 'CONSULTATION'),
+(4, 'Sarah Johnson', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '13 days', '11:30:00', '456-789-0123', 'Gynecological checkup', 'sarah.johnson@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP');
 
 -- Create indexes for better performance
 CREATE INDEX idx_appointments_patient_name ON appointments(patient_name);
 CREATE INDEX idx_appointments_patient_id ON appointments(patient_id);
+CREATE INDEX idx_appointments_doctor_id ON appointments(doctor_id);
 CREATE INDEX idx_appointments_doctor ON appointments(doctor);
 CREATE INDEX idx_appointments_date ON appointments(appointment_date);
 CREATE INDEX idx_appointments_status ON appointments(appointment_status);
 CREATE INDEX idx_appointments_visit_type ON appointments(visit_type);
 CREATE INDEX idx_appointments_date_time ON appointments(appointment_date, appointment_time);
 CREATE INDEX idx_appointments_doctor_date ON appointments(doctor, appointment_date);
+CREATE INDEX idx_appointments_doctor_id_date ON appointments(doctor_id, appointment_date);
 
 -- Create a trigger to automatically update the updated_at timestamp
 CREATE OR REPLACE FUNCTION update_appointments_updated_at()
@@ -107,11 +110,21 @@ ORDER BY visit_type;
 
 -- Show appointments by doctor
 SELECT 
+    doctor_id,
     doctor,
     COUNT(*) as appointment_count
 FROM appointments
-GROUP BY doctor
-ORDER BY doctor;
+GROUP BY doctor_id, doctor
+ORDER BY doctor_id;
+
+-- Show appointments by patient
+SELECT 
+    patient_id,
+    patient_name,
+    COUNT(*) as appointment_count
+FROM appointments
+GROUP BY patient_id, patient_name
+ORDER BY patient_id;
 
 -- Show today's appointments
 SELECT 

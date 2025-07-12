@@ -38,6 +38,13 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAppointmentsByPatientId(patientId));
     }
 
+    @GetMapping("/doctor/{doctorId}")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('DOCTOR') and @jwtUtils.getUserIdFromAuthentication(authentication) == #doctorId)")
+    public ResponseEntity<List<AppointmentDTO>> getAppointmentsByDoctorId(@PathVariable Long doctorId) {
+        List<AppointmentDTO> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
+        return ResponseEntity.ok(appointments);
+    }
+
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_PATIENT')")
     public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {

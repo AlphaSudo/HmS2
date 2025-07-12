@@ -51,10 +51,24 @@ public class InvoiceController {
         return ResponseEntity.ok(invoices);
     }
 
+    @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BILLING_CLERK','ROLE_PATIENT') or @securityService.isOwner(authentication, #userId)")
+    public ResponseEntity<List<InvoiceDTO>> getInvoicesByUserId(@PathVariable Long userId) {
+        List<InvoiceDTO> invoices = invoiceService.getInvoicesByUserId(userId);
+        return ResponseEntity.ok(invoices);
+    }
+
     @GetMapping("/stats/{patientId}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BILLING_CLERK','ROLE_PATIENT') or @securityService.isOwner(authentication, #patientId)")
     public ResponseEntity<BillingStatsDTO> getBillingStats(@PathVariable Long patientId) {
         BillingStatsDTO stats = invoiceService.getBillingStats(patientId);
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/stats/user/{userId}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BILLING_CLERK','ROLE_PATIENT') or @securityService.isOwner(authentication, #userId)")
+    public ResponseEntity<BillingStatsDTO> getBillingStatsByUserId(@PathVariable Long userId) {
+        BillingStatsDTO stats = invoiceService.getBillingStatsByUserId(userId);
         return ResponseEntity.ok(stats);
     }
 

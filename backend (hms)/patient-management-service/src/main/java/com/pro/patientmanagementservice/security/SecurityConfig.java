@@ -33,10 +33,14 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/actuator/health",
                     "/actuator/info",
-                    "/patients/stroke-assessment"
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml"
                 ).permitAll()
                 
                 // All other requests require authentication
+                // Security rules are handled by @PreAuthorize annotations on controllers
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

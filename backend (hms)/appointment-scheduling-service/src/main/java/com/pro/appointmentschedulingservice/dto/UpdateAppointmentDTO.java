@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Data
 public class UpdateAppointmentDTO {
     private String patientName;
+    private Long doctorId;
     private String doctor;
     private String gender;
     @FutureOrPresent(message = "Date must be in the present or future")

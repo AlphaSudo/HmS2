@@ -43,9 +43,9 @@ DROP TABLE IF EXISTS ehr_report_audit_logs CASCADE;
 CREATE TABLE ehr_report_audit_logs (
     id BIGSERIAL PRIMARY KEY,
     report_id VARCHAR(255) NOT NULL,
-    patient_id BIGINT NOT NULL,
-    doctor_id BIGINT,
-    accessed_by_user_id BIGINT NOT NULL,
+    patient_id BIGINT NOT NULL, -- References patient table ID (1-8)
+    doctor_id BIGINT, -- References doctor table ID (2-7)
+    accessed_by_user_id BIGINT NOT NULL, -- References auth user ID
     accessed_by_username VARCHAR(255) NOT NULL,
     access_type VARCHAR(50) NOT NULL CHECK (access_type IN ('READ', 'CREATE', 'UPDATE', 'DELETE')),
     ip_address INET,
@@ -54,13 +54,20 @@ CREATE TABLE ehr_report_audit_logs (
     additional_info JSONB
 );
 
--- Insert sample audit log data
+-- Insert sample audit log data with consistent IDs
 INSERT INTO ehr_report_audit_logs (report_id, patient_id, doctor_id, accessed_by_user_id, accessed_by_username, access_type, ip_address, user_agent) VALUES
-('507f1f77bcf86cd799439011', 1, 1, 1, 'admin', 'CREATE', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
-('507f1f77bcf86cd799439012', 2, 2, 2, 'dr.smith', 'READ', '192.168.1.101', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
-('507f1f77bcf86cd799439013', 3, 1, 1, 'admin', 'CREATE', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
-('507f1f77bcf86cd799439014', 1, 3, 3, 'dr.johnson', 'READ', '192.168.1.102', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'),
-('507f1f77bcf86cd799439015', 4, 2, 2, 'dr.smith', 'CREATE', '192.168.1.101', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
+-- Admin accessing patient records
+('507f1f77bcf86cd799439011', 1, 2, 1, 'admin', 'CREATE', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439013', 3, 4, 1, 'admin', 'CREATE', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+
+-- Doctors accessing their patients' records
+('507f1f77bcf86cd799439012', 2, 3, 3, 'dr.johnson', 'READ', '192.168.1.101', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439014', 1, 2, 2, 'dr.smith', 'READ', '192.168.1.102', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439015', 4, 5, 5, 'dr.davis', 'CREATE', '192.168.1.103', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439016', 5, 6, 6, 'dr.wilson', 'READ', '192.168.1.104', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439017', 6, 7, 7, 'dr.garcia', 'UPDATE', '192.168.1.105', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439018', 7, 2, 2, 'dr.smith', 'READ', '192.168.1.102', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
+('507f1f77bcf86cd799439019', 8, 3, 3, 'dr.johnson', 'READ', '192.168.1.101', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
 
 -- Create indexes for better performance
 CREATE INDEX idx_ehr_audit_report_id ON ehr_report_audit_logs(report_id);
@@ -83,10 +90,21 @@ FROM ehr_report_audit_logs
 GROUP BY access_type
 ORDER BY access_type;
 
+-- Show audit logs by doctor
+SELECT 
+    doctor_id,
+    accessed_by_username,
+    COUNT(*) as access_count
+FROM ehr_report_audit_logs
+WHERE doctor_id IS NOT NULL
+GROUP BY doctor_id, accessed_by_username
+ORDER BY doctor_id;
+
 -- Show recent audit logs
 SELECT 
     report_id,
     patient_id,
+    doctor_id,
     accessed_by_username,
     access_type,
     access_timestamp
