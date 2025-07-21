@@ -3,10 +3,11 @@
 services:
   # Config Server - Must start first
   config-server:
+    image: hms-config-server:latest
     build:
       context: './backend (hms)/config-server-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-config-server
     restart: unless-stopped
     ports:
@@ -20,10 +21,11 @@ services:
 
   # Discovery Server - Depends on Config Server
   discovery-server:
+    image: hms-discovery-server:latest
     build:
       context: './backend (hms)/discovery-server-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-discovery-server
     restart: unless-stopped
     ports:
@@ -37,10 +39,11 @@ services:
 
   # Authentication Service - Depends on Config and Discovery
   authentication-service:
+    image: hms-authentication-service:latest
     build:
       context: './backend (hms)/authentication-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-authentication-service
     restart: unless-stopped
     ports:
@@ -82,10 +85,11 @@ services:
 
   # API Gateway - Depends on Config and Discovery
   api-gateway:
+    image: hms-api-gateway:latest
     build:
       context: './backend (hms)/api-gateway-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-api-gateway
     restart: unless-stopped
     ports:
@@ -104,10 +108,11 @@ services:
 
 # Doctor Management Service
   doctor-management-service:
+    image: hms-doctor-management-service:latest
     build:
       context: './backend (hms)/doctor-management-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-doctor-management-service
     restart: unless-stopped
     ports:
@@ -124,10 +129,11 @@ services:
 
 # Appointment Scheduling Service
   appointment-scheduling-service:
+    image: hms-appointment-scheduling-service:latest
     build:
       context: './backend (hms)/appointment-scheduling-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-appointment-scheduling-service
     restart: unless-stopped
     ports:
@@ -145,10 +151,11 @@ services:
 # Patient Management Service
 
   patient-management-service:
+    image: hms-patient-management-service:latest
     build:
       context: './backend (hms)/patient-management-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-patient-management-service
     restart: unless-stopped
     ports:
@@ -165,10 +172,11 @@ services:
 
 # Billing Invoicing Service
   billing-invoicing-service:
+    image: hms-billing-invoicing-service:latest
     build:
       context: './backend (hms)/billing-invoicing-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-billing-invoicing-service
     restart: unless-stopped
     ports:
@@ -185,10 +193,11 @@ services:
 
 # Pharmacy Management Service
   pharmacy-management-service:
+    image: hms-pharmacy-management-service:latest
     build:
       context: './backend (hms)/pharmacy-management-service'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-pharmacy-management-service
     restart: unless-stopped
     ports:
@@ -223,10 +232,11 @@ services:
 
 # Frontend
   frontend:
+    image: hms-frontend:latest
     build:
       context: './frontend'
       dockerfile: Dockerfile
-      platform: linux/arm64
+    platform: linux/arm64
     container_name: hms-frontend
     restart: unless-stopped
     ports:
