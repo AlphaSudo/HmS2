@@ -1,0 +1,49 @@
+# syntax=docker/dockerfile:1.4
+
+### 1. Build + deps resolution
+FROM maven:3.9-eclipse-temurin-17 AS deps
+WORKDIR /app
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+
+### 2. Build Spring Boot app
+FROM maven:3.9-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package 
+
+### 3. Final runtime image with VisualVM support (minimal but not distroless)
+FROM openjdk:17-jre-slim
+WORKDIR /app
+
+# Install minimal tools for VisualVM support
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create a non-root user
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+USER appuser
+
+# Copy built JAR
+COPY --from=builder /app/target/*.jar ./app.jar
+
+# Expose ports for application and JMX monitoring
+EXPOSE 8083 9010
+
+# Start the application with JMX enabled for VisualVM monitoring
+ENTRYPOINT ["java", \
+    "-Dcom.sun.management.jmxremote", \
+    "-Dcom.sun.management.jmxremote.port=9010", \
+    "-Dcom.sun.management.jmxremote.authenticate=false", \
+    "-Dcom.sun.management.jmxremote.ssl=false", \
+    "-Djava.rmi.server.hostname=0.0.0.0", \
+    "-jar", "app.jar"] 

@@ -1,0 +1,36 @@
+# Simple Dockerfile for Config Server with layertools validation
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy Maven files
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+
+# Copy source code
+COPY src src
+
+# Build the application with layertools validation
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package \
+  && echo "=== JAR file info ===" \
+  && ls -la target/*.jar \
+  && echo "=== Attempting layertools extract ===" \
+  && java -Djarmode=layertools -jar target/config-server-*.jar extract \
+  && echo "=== Checking extracted layers ===" \
+  && ls -la target/dependencies/ || echo "dependencies folder missing" \
+  && ls -la target/spring-boot-loader/ || echo "spring-boot-loader folder missing" \
+  && ls -la target/application/ || echo "application folder missing" \
+  && echo "=== Checking for Launcher class ===" \
+  && find target/spring-boot-loader -name "*.class" | head -5 || echo "No class files found in spring-boot-loader" \
+  && echo "=== Verifying JAR is executable ===" \
+  && java -jar target/*.jar --version || echo "JAR is not executable"
+
+# Expose port
+EXPOSE 8888
+
+# Run the application (try layered first, fallback to full JAR)
+CMD ["sh", "-c", "if [ -d 'target/dependencies' ] && [ -d 'target/spring-boot-loader' ] && [ -d 'target/application' ]; then java -cp target/dependencies:target/spring-boot-loader:target/application org.springframework.boot.loader.Launcher; else java -jar target/*.jar; fi"]
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
+  CMD wget -qO- http://localhost:8888/actuator/health | grep UP || exit 1 

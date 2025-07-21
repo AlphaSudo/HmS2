@@ -1,0 +1,67 @@
+# Git files
+.git
+.gitignore
+README.md
+
+# Documentation
+*.md
+docs/
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Docker files (except the one we're building)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Test files
+**/*.test.sql
+**/*.spec.sql
+tests/
+test/
+
+# Development scripts (keep only production ones)
+dev-scripts/
+
+# Large data files
+*.csv
+*.json
+*.xml
+*.dump
+*.sql.gz
+*.sql.bz2
+
+# Configuration files that might contain secrets
+.env*
+*.key
+*.pem
+*.crt 

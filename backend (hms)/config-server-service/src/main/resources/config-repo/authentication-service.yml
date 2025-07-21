@@ -50,19 +50,6 @@ eureka:
     prefer-ip-address: true
     hostname: ${HOSTNAME:localhost}
 
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      show-details: when_authorized
-  health:
-    db:
-      enabled: true
-
 # Logging Configuration
 logging:
   level:

@@ -4,7 +4,7 @@
 // Run this script with: mongosh "mongodb://localhost:27017/hms_medical_history_db" --file 04-setup-mongodb-patient.js
 
 // Switch to medical history database
-use('hms_medical_history_db');
+db = db.getSiblingDB('hms_medical_history_db');
 
 // Drop existing collection if it exists (for clean setup)
 db.medicalHistory.drop();
@@ -66,7 +66,7 @@ db.createCollection("medicalHistory", {
 });
 
 // Create indexes for better query performance
-db.medicalHistory.createIndex({ "patient_id": 1 }, { unique: true });
+db.medicalHistory.createIndex({ "patient_id": 1 }, { unique: true, sparse: true });
 db.medicalHistory.createIndex({ "created_at": 1 });
 db.medicalHistory.createIndex({ "updated_at": 1 });
 db.medicalHistory.createIndex({ "allergies": 1 });
@@ -187,7 +187,7 @@ db.medicalHistory.insertMany([
 print("=== Medical History Database Setup Complete ===");
 print("Database: " + db.getName());
 print("Collection: medicalHistory");
-print("Total documents inserted: " + db.medicalHistory.countDocuments());
+print("Total documents inserted: " + db.medicalHistory.count());
 
 // Show sample of inserted data
 print("\n=== Sample Medical History Records ===");

@@ -78,22 +78,12 @@ app:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URI:http://discovery-server-service:8761/eureka/}
+      defaultZone: ${EUREKA_URI:http://discovery-server:8761/eureka/}
     fetch-registry: true
     register-with-eureka: true
   instance:
     prefer-ip-address: true
     hostname: ${HOSTNAME:api-gateway}
-
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus,gateway
-  endpoint:
-    health:
-      show-details: when_authorized
 
 # Logging Configuration
 logging:

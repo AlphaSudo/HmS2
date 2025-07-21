@@ -4,6 +4,15 @@
 -- This script sets up the appointments database for local development
 -- Run against PostgreSQL: psql -U postgres -d hms_appointment_db -f 02-setup-appointments-database.sql
 -- ================================================================
+-- Create appointment database
+DROP DATABASE IF EXISTS hms_appointment_db;
+CREATE DATABASE hms_appointment_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1; 
 
 -- Drop existing table if it exists (for clean setup)
 DROP TABLE IF EXISTS appointments CASCADE;

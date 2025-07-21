@@ -6,7 +6,7 @@
 // ================================================================
 
 // Connect to billing database
-use('hms_billing_db');
+db = db.getSiblingDB('hms_billing_db');
 
 // ================================================================
 // 1. Create Collections (No Validation)
@@ -652,6 +652,6 @@ db.invoices.getIndexes().forEach(function(index) {
 });
 
 print("\nSample data inserted:");
-print("- " + db.invoices.countDocuments() + " invoices");
+print("- " + db.invoices.count() + " invoices");
 
 print("\nReady for testing!"); 

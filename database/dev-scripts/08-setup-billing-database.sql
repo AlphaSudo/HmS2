@@ -4,7 +4,15 @@
 -- This script sets up the PostgreSQL database for the HMS Billing Service
 -- Run as: psql -U postgres -d hms_billing_db -f 08-setup-billing-database.sql
 -- ================================================================
-
+--create billing database
+DROP DATABASE IF EXISTS hms_billing_db;
+CREATE DATABASE hms_billing_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 -- Connect to billing database
 \c hms_billing_db;
 

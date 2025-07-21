@@ -1,25 +1,4 @@
--- Create medications table
-CREATE TABLE medications (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    generic_name VARCHAR(100),
-    manufacturer VARCHAR(100) NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    description TEXT,
-    dosage_form VARCHAR(50) NOT NULL,
-    strength VARCHAR(50) NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price > 0),
-    stock_quantity INTEGER NOT NULL CHECK (stock_quantity >= 0),
-    min_stock_level INTEGER NOT NULL CHECK (min_stock_level >= 0),
-    expiry_date DATE NOT NULL,
-    batch_number VARCHAR(50),
-    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
-    requires_prescription BOOLEAN NOT NULL DEFAULT false,
-    side_effects TEXT,
-    contraindications TEXT,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+-- Migration for pharmacy-management-service, based on central 10-setup-pharmacy-database.sql
 
 -- Create prescriptions table
 CREATE TABLE prescriptions (
@@ -38,50 +17,7 @@ CREATE TABLE prescriptions (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create prescription_items table
-CREATE TABLE prescription_items (
-    id BIGSERIAL PRIMARY KEY,
-    prescription_id BIGINT NOT NULL,
-    medication_id BIGINT NOT NULL,
-    quantity_prescribed INTEGER NOT NULL CHECK (quantity_prescribed > 0),
-    quantity_dispensed INTEGER CHECK (quantity_dispensed >= 0),
-    dosage VARCHAR(50) NOT NULL,
-    frequency VARCHAR(50) NOT NULL,
-    duration INTEGER NOT NULL CHECK (duration > 0),
-    instructions TEXT,
-    unit_price DECIMAL(10,2),
-    total_price DECIMAL(10,2),
-    status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE,
-    FOREIGN KEY (medication_id) REFERENCES medications(id)
-);
-
--- Create inventory_transactions table
-CREATE TABLE inventory_transactions (
-    id BIGSERIAL PRIMARY KEY,
-    medication_id BIGINT NOT NULL,
-    transaction_type VARCHAR(20) NOT NULL,
-    quantity INTEGER NOT NULL CHECK (quantity > 0),
-    unit_cost DECIMAL(10,2),
-    total_cost DECIMAL(10,2),
-    reference_number VARCHAR(50),
-    supplier_name VARCHAR(100),
-    notes TEXT,
-    performed_by VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (medication_id) REFERENCES medications(id)
-);
-
 -- Create indexes for better performance
-CREATE INDEX idx_medications_name ON medications(name);
-CREATE INDEX idx_medications_category ON medications(category);
-CREATE INDEX idx_medications_manufacturer ON medications(manufacturer);
-CREATE INDEX idx_medications_status ON medications(status);
-CREATE INDEX idx_medications_expiry_date ON medications(expiry_date);
-CREATE INDEX idx_medications_stock_quantity ON medications(stock_quantity);
-
 CREATE INDEX idx_prescriptions_number ON prescriptions(prescription_number);
 CREATE INDEX idx_prescriptions_patient_id ON prescriptions(patient_id);
 CREATE INDEX idx_prescriptions_doctor_id ON prescriptions(doctor_id);
@@ -89,18 +25,26 @@ CREATE INDEX idx_prescriptions_status ON prescriptions(status);
 CREATE INDEX idx_prescriptions_prescribed_date ON prescriptions(prescribed_date);
 CREATE INDEX idx_prescriptions_dispensed_date ON prescriptions(dispensed_date);
 
-CREATE INDEX idx_prescription_items_prescription_id ON prescription_items(prescription_id);
-CREATE INDEX idx_prescription_items_medication_id ON prescription_items(medication_id);
-CREATE INDEX idx_prescription_items_status ON prescription_items(status);
+-- Create trigger function to update updated_at column
+CREATE OR REPLACE FUNCTION update_modified_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
 
-CREATE INDEX idx_inventory_transactions_medication_id ON inventory_transactions(medication_id);
-CREATE INDEX idx_inventory_transactions_type ON inventory_transactions(transaction_type);
-CREATE INDEX idx_inventory_transactions_created_at ON inventory_transactions(created_at);
+-- Create trigger for updated_at column
+CREATE TRIGGER update_prescriptions_updated_at BEFORE UPDATE ON prescriptions
+    FOR EACH ROW EXECUTE FUNCTION update_modified_column();
 
--- Insert some sample data
-INSERT INTO medications (name, generic_name, manufacturer, category, description, dosage_form, strength, unit_price, stock_quantity, min_stock_level, expiry_date, batch_number, requires_prescription, side_effects, contraindications) VALUES
-('Paracetamol', 'Acetaminophen', 'PharmaCorp', 'Pain Relief', 'Effective pain reliever and fever reducer', 'Tablet', '500mg', 0.50, 1000, 100, '2025-12-31', 'PAR2024001', false, 'Nausea, skin rash in rare cases', 'Severe liver disease'),
-('Amoxicillin', 'Amoxicillin', 'BioMed Inc', 'Antibiotic', 'Broad-spectrum antibiotic for bacterial infections', 'Capsule', '250mg', 1.25, 500, 50, '2025-06-30', 'AMX2024001', true, 'Diarrhea, nausea, skin rash', 'Penicillin allergy'),
-('Ibuprofen', 'Ibuprofen', 'PharmaCorp', 'Pain Relief', 'Anti-inflammatory pain reliever', 'Tablet', '400mg', 0.75, 800, 80, '2026-01-15', 'IBU2024001', false, 'Stomach upset, dizziness', 'Peptic ulcer, severe heart failure'),
-('Metformin', 'Metformin HCl', 'DiabetesCare', 'Diabetes', 'Type 2 diabetes management', 'Tablet', '500mg', 0.85, 600, 60, '2025-09-20', 'MET2024001', true, 'Nausea, diarrhea, metallic taste', 'Severe kidney disease, metabolic acidosis'),
-('Cetirizine', 'Cetirizine HCl', 'AllergyFree', 'Antihistamine', 'Allergy and hay fever relief', 'Tablet', '10mg', 0.40, 300, 30, '2025-08-10', 'CET2024001', false, 'Drowsiness, dry mouth', 'Severe kidney disease'); 
+-- Insert sample prescription data
+INSERT INTO prescriptions (prescription_number, patient_id, patient_name, doctor_id, doctor_name, prescribed_date, status, total_amount, notes) VALUES
+('RX-1704070800000-A1B2C3D4', 1, 'John Doe', 2, 'Dr. John Smith', '2024-01-15', 'DISPENSED', 15.75, 'Take as prescribed. Complete the full course.'),
+('RX-1704157200000-E5F6G7H8', 2, 'Jane Smith', 3, 'Dr. Sarah Johnson', '2024-01-16', 'PENDING', 28.50, 'Stroke recovery medication. Monitor blood pressure.'),
+('RX-1704243600000-I9J0K1L2', 3, 'Mike Wilson', 4, 'Dr. Michael Brown', '2024-01-17', 'PARTIALLY_DISPENSED', 12.25, 'Neurological medication. Patient allergic to penicillin. Alternative prescribed.'),
+('RX-1704330000000-M3N4O5P6', 4, 'Sarah Johnson', 5, 'Dr. Emily Davis', '2024-01-18', 'DISPENSED', 6.50, 'Dermatology medication for skin condition.'),
+('RX-1704416400000-Q7R8S9T0', 5, 'David Brown', 6, 'Dr. Robert Wilson', '2024-01-19', 'PENDING', 45.20, 'Orthopedic pain management prescription.'),
+('RX-1704502800000-U1V2W3X4', 6, 'Emily Davis', 7, 'Dr. Jessica Garcia', '2024-01-20', 'DISPENSED', 18.90, 'Anxiety medication for therapy support.'),
+('RX-1704589200000-Y5Z6A7B8', 7, 'Robert Clark', 2, 'Dr. John Smith', '2024-01-21', 'DISPENSED', 22.15, 'Post-treatment cardiac medication.'),
+('RX-1704675600000-C9D0E1F2', 8, 'Lisa Martinez', 3, 'Dr. Sarah Johnson', '2024-01-22', 'PENDING', 67.30, 'Chemotherapy support medication.'); 

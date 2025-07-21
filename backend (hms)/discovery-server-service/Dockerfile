@@ -22,9 +22,7 @@ RUN chown appuser:appgroup app.jar
 USER appuser
 EXPOSE 8761
 
-# Health check for Eureka server
-HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8761/actuator/health || exit 1
+
 
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=70.0 -XX:+UseG1GC -XX:+UseStringDeduplication"
 

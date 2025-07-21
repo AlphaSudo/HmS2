@@ -1,7 +1,15 @@
 -- ================================================================
 -- Pharmacy Management Database Setup Script - Simplified
 -- ================================================================
-
+--create pharmacy database
+DROP DATABASE IF EXISTS hms_pharmacy_db;
+CREATE DATABASE hms_pharmacy_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 -- Create pharmacy database if it doesn't exist
 \c postgres;
 DROP DATABASE IF EXISTS hms_pharmacy_db;

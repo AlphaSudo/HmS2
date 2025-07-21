@@ -47,19 +47,6 @@ eureka:
     prefer-ip-address: true
     hostname: ${HOSTNAME:localhost}
 
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      show-details: when_authorized
-  health:
-    db:
-      enabled: true
-
 # Logging Configuration
 logging:
   level:
@@ -68,17 +55,4 @@ logging:
     org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
     org.flywaydb: ${LOG_LEVEL_FLYWAY:INFO}
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
-# SpringDoc OpenAPI Configuration
-springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    try-it-out-enabled: true
-    operations-sorter: method
-    tags-sorter: alpha
-  show-actuator: false 
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

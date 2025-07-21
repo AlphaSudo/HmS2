@@ -1,0 +1,24 @@
+# Simple Dockerfile for Discovery Server (skips Checkstyle)
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy Maven files
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+
+# Copy source code
+COPY src src
+
+# Build the application (skip tests and checkstyle)
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+
+# Expose port
+EXPOSE 8761
+
+# Run the application
+CMD ["java", "-jar", "target/*.jar"]
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
+  CMD wget -qO- http://localhost:8761/actuator/health | grep UP || exit 1 

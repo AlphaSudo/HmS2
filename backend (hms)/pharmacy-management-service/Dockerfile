@@ -1,40 +1,46 @@
-# Build stage
-FROM openjdk:17-jdk-slim as build
+# syntax=docker/dockerfile:1.4
 
+### 1. Build + deps resolution
+FROM maven:3.9-eclipse-temurin-17 AS deps
 WORKDIR /app
-
-# Copy Maven files
-COPY pom.xml .
-COPY mvnw .
+COPY pom.xml mvnw ./
 COPY .mvn .mvn
-
-# Download dependencies
-RUN ./mvnw dependency:go-offline -B
-
-# Copy source code
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
 COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+RUN ls -la target/ && \
+    jdeps --multi-release 17 --print-module-deps \
+    -q --recursive --class-path target/*.jar > deps.info 2>/dev/null || \
+    echo "java.base,java.logging,java.xml,java.naming,java.desktop,java.management,java.security.jgss,java.instrument" > deps.info
 
-# Build the application
-RUN ./mvnw clean package -DskipTests
+### 2. Create custom JRE with jlink
+FROM openjdk:17-jdk-slim AS jre
+RUN apt-get update && apt-get install -y binutils && rm -rf /var/lib/apt/lists/*
+COPY --from=deps /app/deps.info /deps.info
+RUN jlink \
+    --module-path /usr/lib/jvm/java-17-openjdk-amd64/jmods \
+    --add-modules "$(cat /deps.info)" \
+    --strip-debug --compress=2 --no-header-files --no-man-pages \
+    --output /opt/customjre
 
-# Runtime stage
-FROM openjdk:17-jre-slim
+### 3. Build Spring Boot app
+FROM maven:3.9-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package 
 
+### 4. Final runtime image (Distroless + non-root)
+FROM gcr.io/distroless/java17-debian12:nonroot
 WORKDIR /app
 
-# Copy the built jar from build stage
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=jre /opt/customjre /opt/customjre
+ENV JAVA_HOME=/opt/customjre PATH="$JAVA_HOME/bin:$PATH"
 
-# Create a non-root user
-RUN groupadd -r spring && useradd -r -g spring spring
-USER spring:spring
+# Copy built JAR
+COPY --from=builder /app/target/*.jar ./app.jar
+EXPOSE 8087
 
-# Expose port
-EXPOSE 8080
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:8080/actuator/health || exit 1
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"] 

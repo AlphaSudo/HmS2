@@ -1,0 +1,251 @@
+
+
+services:
+  # Config Server - Must start first
+  config-server:
+    build:
+      context: './backend (hms)/config-server-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-config-server
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    volumes:
+      - './backend (hms)/config-server-service/src/main/resources/config-repo:/app/config-repo:ro'
+    networks:
+      - hms-core-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+
+  # Discovery Server - Depends on Config Server
+  discovery-server:
+    build:
+      context: './backend (hms)/discovery-server-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-discovery-server
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # Authentication Service - Depends on Config and Discovery
+  authentication-service:
+    build:
+      context: './backend (hms)/authentication-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-authentication-service
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+  # PostgreSQL Database for Authentication Service
+  postgres:
+    image: postgres:15-alpine
+    container_name: hms-core-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_SHARED_BUFFERS: 48MB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_core_data:/var/lib/postgresql/data
+      - ./database/dev-scripts/01-setup-auth-database.sql:/docker-entrypoint-initdb.d/01-setup-auth-database.sql:ro
+      - ./database/dev-scripts/05-setup-doctor-database.sql:/docker-entrypoint-initdb.d/02-setup-doctor-database.sql:ro
+      - ./database/dev-scripts/02-setup-appointments-database.sql:/docker-entrypoint-initdb.d/03-setup-appointment-database.sql:ro
+      - ./database/dev-scripts/10-setup-pharmacy-database.sql:/docker-entrypoint-initdb.d/04-setup-pharmacy-database.sql:ro
+      - ./database/dev-scripts/08-setup-billing-database.sql:/docker-entrypoint-initdb.d/05-setup-billing-database.sql:ro
+      - ./database/dev-scripts/03-setup-patient-database.sql:/docker-entrypoint-initdb.d/06-setup-patient-database.sql:ro
+    networks:
+      - hms-core-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+
+  # API Gateway - Depends on Config and Discovery
+  api-gateway:
+    build:
+      context: './backend (hms)/api-gateway-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-api-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - hms-core-network
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+
+# Doctor Management Service
+  doctor-management-service:
+    build:
+      context: './backend (hms)/doctor-management-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-doctor-management-service
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+# Appointment Scheduling Service
+  appointment-scheduling-service:
+    build:
+      context: './backend (hms)/appointment-scheduling-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-appointment-scheduling-service
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+# Patient Management Service
+
+  patient-management-service:
+    build:
+      context: './backend (hms)/patient-management-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-patient-management-service
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+# Billing Invoicing Service
+  billing-invoicing-service:
+    build:
+      context: './backend (hms)/billing-invoicing-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-billing-invoicing-service
+    restart: unless-stopped
+    ports:
+      - "8089:8089"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+# Pharmacy Management Service
+  pharmacy-management-service:
+    build:
+      context: './backend (hms)/pharmacy-management-service'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-pharmacy-management-service
+    restart: unless-stopped
+    ports:
+      - "8087:8087"
+    networks:
+      - hms-core-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
+
+# MongoDB Database
+  mongodb:
+    image: mongo:4.4
+    container_name: hms-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    networks:
+      - hms-core-network
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/dev-scripts/09-setup-mongodb-billing-no-validation.js:/docker-entrypoint-initdb.d/09-setup-mongodb-billing-no-validation.js:ro
+      - ./database/dev-scripts/04-setup-mongodb-patient.js:/docker-entrypoint-initdb.d/04-setup-mongodb-patient.js:ro
+
+    environment:
+      - MONGO_INITDB_DATABASE=hms_core_db
+    command: mongod --noauth --wiredTigerCacheSizeGB 0.048
+
+# Frontend
+  frontend:
+    build:
+      context: './frontend'
+      dockerfile: Dockerfile
+      platform: linux/arm64
+    container_name: hms-frontend
+    restart: unless-stopped
+    ports:
+      - "5000:80"
+    networks:
+      - hms-core-network
+    depends_on:
+      - api-gateway
+
+
+volumes:
+  postgres_core_data:
+    driver: local
+  mongodb_data:
+    driver: local
+
+networks:
+  hms-core-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

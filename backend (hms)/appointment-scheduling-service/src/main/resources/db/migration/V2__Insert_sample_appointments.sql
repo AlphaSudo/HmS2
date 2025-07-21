@@ -1,38 +1,31 @@
--- V2__Insert_sample_appointments.sql
--- Insert sample appointment data for testing and development
+-- Insert comprehensive sample appointments with consistent IDs
+INSERT INTO appointments (patient_id, patient_name, doctor_id, doctor, gender, appointment_date, appointment_time, mobile, injury, email, appointment_status, visit_type) VALUES
+-- Current and upcoming appointments
+(1, 'John Doe', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE + INTERVAL '1 day', '09:00:00', '123-456-7890', 'Annual physical examination', 'john.doe@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'),
+(2, 'Jane Smith', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE + INTERVAL '2 days', '10:30:00', '234-567-8901', 'Stroke recovery follow-up', 'jane.smith@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(3, 'Mike Wilson', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE + INTERVAL '3 days', '14:00:00', '345-678-9012', 'Neurological consultation', 'mike.wilson@email.com', 'SCHEDULED', 'CONSULTATION'),
+(4, 'Sarah Johnson', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE + INTERVAL '4 days', '11:15:00', '456-789-0123', 'Fever observation follow-up', 'sarah.johnson@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(5, 'David Brown', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '5 days', '15:30:00', '567-890-1234', 'Orthopedic consultation', 'david.brown@email.com', 'PENDING', 'CONSULTATION'),
 
--- Sample appointments with various statuses and visit types
-INSERT INTO appointments (patient_name, doctor, gender, date, "time", mobile, injury, email, status, visit_type) VALUES
-
--- Scheduled appointments for today and future
-('John Doe', 'Dr. Anderson', 'Male', CURRENT_DATE + 1, '09:00:00', '+1-555-0101', 'Annual checkup', 'john.doe@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'),
-('Jane Smith', 'Dr. Garcia', 'Female', CURRENT_DATE + 1, '10:30:00', '+1-555-0102', 'Follow-up on blood pressure', 'jane.smith@email.com', 'CONFIRMED', 'FOLLOW_UP'),
-('Mike Wilson', 'Dr. Martinez', 'Male', CURRENT_DATE + 2, '14:00:00', '+1-555-0103', 'Knee pain assessment', 'mike.wilson@email.com', 'SCHEDULED', 'CONSULTATION'),
-('Sarah Johnson', 'Dr. Taylor', 'Female', CURRENT_DATE + 2, '15:30:00', '+1-555-0104', 'First pregnancy consultation', 'sarah.johnson@email.com', 'CONFIRMED', 'NEW_PATIENT_VISIT'),
-('David Brown', 'Dr. Anderson', 'Male', CURRENT_DATE + 3, '11:00:00', '+1-555-0105', 'Diabetes management', 'david.brown@email.com', 'SCHEDULED', 'FOLLOW_UP'),
-
--- Urgent care appointments
-('Emily Davis', 'Dr. Garcia', 'Female', CURRENT_DATE, '16:00:00', '+1-555-0106', 'Severe headache and fever', 'emily.davis@email.com', 'CONFIRMED', 'URGENT_CARE'),
-('Robert Clark', 'Dr. Martinez', 'Male', CURRENT_DATE, '17:30:00', '+1-555-0107', 'Chest pain', 'robert.clark@email.com', 'CONFIRMED', 'URGENT_CARE'),
+-- Today's appointments
+(6, 'Emily Davis', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE, '08:30:00', '678-901-2345', 'Anxiety therapy session', 'emily.davis@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(7, 'Robert Clark', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE, '13:45:00', '789-012-3456', 'Post-treatment checkup', 'robert.clark@email.com', 'SCHEDULED', 'FOLLOW_UP'),
+(8, 'Lisa Martinez', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE, '16:00:00', '890-123-4567', 'Chemotherapy consultation', 'lisa.martinez@email.com', 'CONFIRMED', 'CONSULTATION'),
 
 -- Past appointments (completed and cancelled)
-('Lisa Rodriguez', 'Dr. Taylor', 'Female', CURRENT_DATE - 1, '09:30:00', '+1-555-0108', 'Post-surgery follow-up', 'lisa.rodriguez@email.com', 'COMPLETED', 'FOLLOW_UP'),
-('James Miller', 'Dr. Anderson', 'Male', CURRENT_DATE - 2, '13:00:00', '+1-555-0109', 'Allergy consultation', 'james.miller@email.com', 'COMPLETED', 'CONSULTATION'),
-('Maria Garcia', 'Dr. Garcia', 'Female', CURRENT_DATE - 1, '10:00:00', '+1-555-0110', 'Routine physical exam', 'maria.garcia@email.com', 'CANCELLED', 'ROUTINE_CHECKUP'),
-
--- More future appointments
-('Thomas Anderson', 'Dr. Martinez', 'Male', CURRENT_DATE + 4, '08:30:00', '+1-555-0111', 'Back pain treatment', 'thomas.anderson@email.com', 'SCHEDULED', 'CONSULTATION'),
-('Jennifer Wilson', 'Dr. Taylor', 'Female', CURRENT_DATE + 5, '14:30:00', '+1-555-0112', 'Prenatal checkup', 'jennifer.wilson@email.com', 'SCHEDULED', 'FOLLOW_UP'),
-('Christopher Lee', 'Dr. Anderson', 'Male', CURRENT_DATE + 6, '10:00:00', '+1-555-0113', 'Initial consultation', 'christopher.lee@email.com', 'PENDING', 'NEW_PATIENT_VISIT'),
-('Amanda Taylor', 'Dr. Garcia', 'Female', CURRENT_DATE + 7, '11:30:00', '+1-555-0114', 'Skin condition evaluation', 'amanda.taylor@email.com', 'SCHEDULED', 'CONSULTATION'),
-('Daniel Moore', 'Dr. Martinez', 'Male', CURRENT_DATE + 8, '15:00:00', '+1-555-0115', 'Sports injury assessment', 'daniel.moore@email.com', 'CONFIRMED', 'CONSULTATION'),
+(1, 'John Doe', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE - INTERVAL '1 day', '09:30:00', '123-456-7890', 'Completed cardiac surgery follow-up', 'john.doe@email.com', 'COMPLETED', 'FOLLOW_UP'),
+(2, 'Jane Smith', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE - INTERVAL '2 days', '11:00:00', '234-567-8901', 'Completed stroke recovery session', 'jane.smith@email.com', 'COMPLETED', 'FOLLOW_UP'),
+(3, 'Mike Wilson', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE - INTERVAL '3 days', '14:30:00', '345-678-9012', 'Patient cancelled appointment', 'mike.wilson@email.com', 'CANCELLED', 'ROUTINE_CHECKUP'),
+(4, 'Sarah Johnson', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE - INTERVAL '4 days', '10:15:00', '456-789-0123', 'Completed dermatology consultation', 'sarah.johnson@email.com', 'COMPLETED', 'CONSULTATION'),
 
 -- Rescheduled appointments
-('Jessica Brown', 'Dr. Taylor', 'Female', CURRENT_DATE + 10, '09:00:00', '+1-555-0116', 'Migraine consultation', 'jessica.brown@email.com', 'RESCHEDULED', 'CONSULTATION'),
-('Kevin Davis', 'Dr. Anderson', 'Male', CURRENT_DATE + 12, '16:00:00', '+1-555-0117', 'Hypertension follow-up', 'kevin.davis@email.com', 'RESCHEDULED', 'FOLLOW_UP'),
+(5, 'David Brown', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '7 days', '12:00:00', '567-890-1234', 'Rescheduled orthopedic consultation', 'david.brown@email.com', 'RESCHEDULED', 'CONSULTATION'),
+(6, 'Emily Davis', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '8 days', '15:45:00', '678-901-2345', 'Rescheduled therapy session', 'emily.davis@email.com', 'RESCHEDULED', 'FOLLOW_UP'),
 
--- Various visit types examples
-('Michelle White', 'Dr. Garcia', 'Female', CURRENT_DATE + 15, '08:00:00', '+1-555-0118', 'Annual wellness exam', 'michelle.white@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'),
-('Ryan Thompson', 'Dr. Martinez', 'Male', CURRENT_DATE + 16, '12:30:00', '+1-555-0119', 'New patient intake', 'ryan.thompson@email.com', 'PENDING', 'NEW_PATIENT_VISIT'),
-('Laura Martinez', 'Dr. Taylor', 'Female', CURRENT_DATE + 18, '13:45:00', '+1-555-0120', 'Emergency consultation', 'laura.martinez@email.com', 'CONFIRMED', 'URGENT_CARE'),
-('Steven Garcia', 'Dr. Anderson', 'Male', CURRENT_DATE + 20, '10:15:00', '+1-555-0121', 'Chronic pain management', 'steven.garcia@email.com', 'SCHEDULED', 'FOLLOW_UP'); 
+-- Additional variety of appointments
+(7, 'Robert Clark', 2, 'Dr. John Smith', 'MALE', CURRENT_DATE + INTERVAL '6 days', '08:00:00', '789-012-3456', 'New patient cardiology consultation', 'robert.clark@email.com', 'SCHEDULED', 'NEW_PATIENT_VISIT'),
+(8, 'Lisa Martinez', 3, 'Dr. Sarah Johnson', 'FEMALE', CURRENT_DATE + INTERVAL '9 days', '16:30:00', '890-123-4567', 'Oncology follow-up', 'lisa.martinez@email.com', 'CONFIRMED', 'FOLLOW_UP'),
+(1, 'John Doe', 4, 'Dr. Michael Brown', 'MALE', CURRENT_DATE + INTERVAL '10 days', '09:45:00', '123-456-7890', 'Neurological screening', 'john.doe@email.com', 'PENDING', 'ROUTINE_CHECKUP'),
+(2, 'Jane Smith', 5, 'Dr. Emily Davis', 'FEMALE', CURRENT_DATE + INTERVAL '11 days', '13:00:00', '234-567-8901', 'Emergency skin consultation', 'jane.smith@email.com', 'SCHEDULED', 'URGENT_CARE'),
+(3, 'Mike Wilson', 6, 'Dr. Robert Wilson', 'MALE', CURRENT_DATE + INTERVAL '12 days', '14:15:00', '345-678-9012', 'Joint pain consultation', 'mike.wilson@email.com', 'CONFIRMED', 'CONSULTATION'),
+(4, 'Sarah Johnson', 7, 'Dr. Jessica Garcia', 'FEMALE', CURRENT_DATE + INTERVAL '13 days', '11:30:00', '456-789-0123', 'Gynecological checkup', 'sarah.johnson@email.com', 'SCHEDULED', 'ROUTINE_CHECKUP'); 

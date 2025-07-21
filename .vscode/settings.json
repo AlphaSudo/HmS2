@@ -1,3 +1,6 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "workbench.editor.centeredLayoutAutoResize": false,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.wrapTabs": true
 }

@@ -1,0 +1,9 @@
+# This bootstrap configuration is for the Docker environment.
+# It connects to the config server using the service name 'config-server-service'.
+spring:
+  application:
+    name: billing-invoicing-service
+  config:
+    import:
+      - "optional:configserver:http://config-server:8888"
+

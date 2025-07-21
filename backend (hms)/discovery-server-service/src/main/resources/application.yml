@@ -5,6 +5,12 @@ spring:
     name: discovery-server-service
   config:
     import: "optional:configserver:http://localhost:8888"
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration
+      - org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration
+      - org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration
 
 # Essential server config that must be local (discovery server is foundational)
 server:

@@ -1,37 +1,46 @@
-# Use OpenJDK 17 as base image
-FROM openjdk:17-jdk-slim
+# syntax=docker/dockerfile:1.4
 
-# Set working directory
+### 1. Build + deps resolution
+FROM maven:3.9-eclipse-temurin-17 AS deps
 WORKDIR /app
-
-# Copy Maven wrapper and pom.xml first (for better Docker layer caching)
-COPY mvnw .
+COPY pom.xml mvnw ./
 COPY .mvn .mvn
-COPY pom.xml .
-
-# Make mvnw executable
-RUN chmod +x ./mvnw
-
-# Download dependencies (this layer will be cached if pom.xml doesn't change)
-RUN ./mvnw dependency:go-offline -B
-
-# Copy source code
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
 COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+RUN ls -la target/ && \
+    jdeps --multi-release 17 --print-module-deps \
+    -q --recursive --class-path target/*.jar > deps.info 2>/dev/null || \
+    echo "java.base,java.logging,java.xml,java.naming,java.desktop,java.management,java.security.jgss,java.instrument" > deps.info
 
-# Build the application
-RUN ./mvnw clean package -DskipTests
+### 2. Create custom JRE with jlink
+FROM openjdk:17-jdk-slim AS jre
+RUN apt-get update && apt-get install -y binutils && rm -rf /var/lib/apt/lists/*
+COPY --from=deps /app/deps.info /deps.info
+RUN jlink \
+    --module-path /usr/lib/jvm/java-17-openjdk-amd64/jmods \
+    --add-modules "$(cat /deps.info)" \
+    --strip-debug --compress=2 --no-header-files --no-man-pages \
+    --output /opt/customjre
 
-# Create a new stage for runtime
-FROM openjdk:17-jdk-slim
+### 3. Build Spring Boot app
+FROM maven:3.9-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package 
 
-# Set working directory
+### 4. Final runtime image (Distroless + non-root)
+FROM gcr.io/distroless/java17-debian12:nonroot
 WORKDIR /app
 
-# Copy the built JAR from the previous stage
-COPY --from=0 /app/target/*.jar app.jar
+COPY --from=jre /opt/customjre /opt/customjre
+ENV JAVA_HOME=/opt/customjre PATH="$JAVA_HOME/bin:$PATH"
 
-# Expose port
-EXPOSE 8080
+# Copy built JAR
+COPY --from=builder /app/target/*.jar ./app.jar
+EXPOSE 8089
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"] 

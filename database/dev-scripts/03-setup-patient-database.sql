@@ -1,7 +1,15 @@
 -- ========================================
 -- HMS Patient Service Database Setup
 -- ========================================
-
+--create patient database
+DROP DATABASE IF EXISTS hms_patient_db;
+CREATE DATABASE hms_patient_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 -- Use the patient database
 \c hms_patient_db;
 

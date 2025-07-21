@@ -1,0 +1,50 @@
+# Docker-specific configuration for Discovery Server Service
+server:
+  port: 8761
+
+# Application Info
+info:
+  app:
+    name: ${spring.application.name}
+    description: Eureka Discovery Server
+    version: @project.version@
+
+# Eureka Server Configuration for Docker
+eureka:
+  instance:
+    hostname: discovery-server-service
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://discovery-server-service:8761/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
+    response-cache-update-interval-ms: 3000
+    peer-eureka-nodes-update-interval-ms: 60000
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,loggers,metrics,eureka
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+# Logging Configuration
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud: INFO
+    org.springframework.security: INFO
+    com.pro.discoveryserverservice: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

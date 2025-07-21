@@ -19,37 +19,42 @@ spring:
             allowedHeaders: "*"
             allowCredentials: true
 
-      # Route Configuration for Docker
+      # Route Configuration for Docker with Eureka Service Discovery
       routes:
         - id: authentication-service
-          uri: http://authentication-service:8081
+          uri: lb://authentication-service
           predicates:
             - Path=/auth/**
 
         - id: appointment-scheduling-service
-          uri: http://appointment-scheduling-service:8083
+          uri: lb://appointment-scheduling-service
           predicates:
             - Path=/appointments/**
 
         - id: patient-management-service
-          uri: http://patient-management-service:8084
+          uri: lb://patient-management-service
           predicates:
             - Path=/patients/**
 
         - id: doctor-management-service
-          uri: http://doctor-management-service:8082
+          uri: lb://doctor-management-service
           predicates:
             - Path=/doctors/**
 
         - id: ehr-reports-service
-          uri: http://ehr-reports-service:8088
+          uri: lb://ehr-reports-service
           predicates:
             - Path=/reports/**
 
         - id: billing-invoicing-service
-          uri: http://billing-invoicing-service:8089
+          uri: lb://billing-invoicing-service
           predicates:
             - Path=/invoices/**
+
+        - id: pharmacy-management-service
+          uri: lb://pharmacy-management-service
+          predicates:
+            - Path=/pharmacy/**
 
 # Security Configuration
 app:
@@ -60,22 +65,12 @@ app:
 eureka:
   client:
     service-url:
-      defaultZone: http://discovery-server-service:8761/eureka/
+      defaultZone: http://discovery-server:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
   instance:
     prefer-ip-address: true
     hostname: api-gateway
-
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus,gateway
-  endpoint:
-    health:
-      show-details: when_authorized
 
 # Logging Configuration
 logging:

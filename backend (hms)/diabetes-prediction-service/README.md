@@ -32,7 +32,8 @@ This is a **FastAPI-based microservice** for diabetes prediction, designed to in
 
 ```bash
 # Navigate to the service directory
-cd backend "(hms)/diabetes-prediction-service"
+cd "backend (hms)/diabetes-prediction-service"
+cd diabetes-prediction-service
 
 # Create virtual environment
 python -m venv venv

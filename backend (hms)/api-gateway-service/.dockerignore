@@ -1,0 +1,9 @@
+target/
+.git/
+.dockerignore
+README*.md
+Dockerfile*
+.idea/
+*.iml
+# Keep checkstyle files for build
+!checkstyle*.xml 

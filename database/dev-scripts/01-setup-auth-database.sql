@@ -4,7 +4,15 @@
 -- This script sets up the authentication database for local development
 -- Run against PostgreSQL: psql -U postgres -d hms_auth_db -f 01-setup-auth-database.sql
 -- ================================================================
-
+ -- Create authentication database
+DROP DATABASE IF EXISTS hms_auth_db;
+CREATE DATABASE hms_auth_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 -- Drop existing tables if they exist (for clean setup)
 DROP TABLE IF EXISTS user_roles CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
@@ -29,27 +37,27 @@ CREATE TABLE user_roles (
 
 -- Admin (ID 1)
 INSERT INTO users (username, password, email) VALUES
-('admin', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'admin@hms.com');
+('admin', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'admin@hms.com');
 
 -- Doctors (IDs 2-7)
 INSERT INTO users (username, password, email) VALUES
-('dr.smith', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.smith@hms.com'),
-('dr.johnson', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.johnson@hms.com'),
-('dr.brown', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.brown@hms.com'),
-('dr.davis', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.davis@hms.com'),
-('dr.wilson', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.wilson@hms.com'),
-('dr.garcia', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'dr.garcia@hms.com');
+('dr.smith', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.smith@hms.com'),
+('dr.johnson', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.johnson@hms.com'),
+('dr.brown', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.brown@hms.com'),
+('dr.davis', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.davis@hms.com'),
+('dr.wilson', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.wilson@hms.com'),
+('dr.garcia', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'dr.garcia@hms.com');
 
 -- Patients (IDs 8-15)
 INSERT INTO users (username, password, email) VALUES
-('john.doe', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'john.doe@email.com'),
-('jane.smith', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'jane.smith@email.com'),
-('mike.wilson', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'mike.wilson@email.com'),
-('sarah.johnson', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'sarah.johnson@email.com'),
-('david.brown', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'david.brown@email.com'),
-('emily.davis', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'emily.davis@email.com'),
-('robert.clark', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'robert.clark@email.com'),
-('lisa.martinez', '$2a$10$8.IdIok2j41gmc3kI3p7o.oPRz5v4u3dJd5SROLpB5N3o52N7.exy', 'lisa.martinez@email.com');
+('john.doe', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'john.doe@email.com'),
+('jane.smith', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'jane.smith@email.com'),
+('mike.wilson', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'mike.wilson@email.com'),
+('sarah.johnson', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'sarah.johnson@email.com'),
+('david.brown', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'david.brown@email.com'),
+('emily.davis', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'emily.davis@email.com'),
+('robert.clark', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'robert.clark@email.com'),
+('lisa.martinez', '$2a$12$N2z1FcNWGkfCwjnSv8gV6e4ai8NL1MkW3E1b6EbyastuturrAgKCK', 'lisa.martinez@email.com');
 
 -- Insert user roles
 INSERT INTO user_roles (user_id, roles) VALUES

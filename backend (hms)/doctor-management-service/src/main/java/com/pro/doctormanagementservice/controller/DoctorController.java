@@ -4,8 +4,6 @@ import com.pro.doctormanagementservice.dto.DoctorDTO;
 import com.pro.doctormanagementservice.dto.CreateDoctorDTO;
 import com.pro.doctormanagementservice.dto.UpdateDoctorDTO;
 import com.pro.doctormanagementservice.service.DoctorService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,14 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/doctors")
 @RequiredArgsConstructor
-@Tag(name = "Doctor Management", description = "APIs for managing doctors")
 public class DoctorController {
 
     private final DoctorService doctorService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Get all doctors", description = "Retrieve a list of all doctors in the system")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getAllDoctors());
     }

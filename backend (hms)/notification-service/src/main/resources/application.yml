@@ -1,8 +1,0 @@
-# Bootstrap Configuration - Only essential config needed before connecting to config server
-spring:
-  application:
-    name: notification-service
-  config:
-    import:
-      - "optional:configserver:http://localhost:8888"
-      - "optional:file:C:/Users/CM/Downloads/Compressed/Hospital Management System/backend (hms)/.env[.properties]" 

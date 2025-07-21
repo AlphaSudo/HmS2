@@ -1,31 +1,46 @@
-# Build stage
-FROM maven:3.9.9-eclipse-temurin-17-alpine AS builder
+# syntax=docker/dockerfile:1.4
 
+### 1. Build + deps resolution
+FROM maven:3.9-eclipse-temurin-17 AS deps
 WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
-COPY src ./src
-RUN mvn clean package -DskipTests -Dcheckstyle.skip=true -B
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+RUN ls -la target/ && \
+    jdeps --multi-release 17 --print-module-deps \
+    -q --recursive --class-path target/*.jar > deps.info 2>/dev/null || \
+    echo "java.base,java.logging,java.xml,java.naming,java.desktop,java.management,java.security.jgss,java.instrument" > deps.info
 
-# Runtime stage
-FROM eclipse-temurin:17-jre-alpine AS production
+### 2. Create custom JRE with jlink
+FROM openjdk:17-jdk-slim AS jre
+RUN apt-get update && apt-get install -y binutils && rm -rf /var/lib/apt/lists/*
+COPY --from=deps /app/deps.info /deps.info
+RUN jlink \
+    --module-path /usr/lib/jvm/java-17-openjdk-amd64/jmods \
+    --add-modules "$(cat /deps.info)" \
+    --strip-debug --compress=2 --no-header-files --no-man-pages \
+    --output /opt/customjre
 
-RUN apk add --no-cache curl
-
-RUN addgroup -g 1001 -S appgroup && \
-    adduser -S -D -H -u 1001 -h /app -s /sbin/nologin -G appgroup -g appgroup appuser
-
+### 3. Build Spring Boot app
+FROM maven:3.9-eclipse-temurin-17 AS builder
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
-RUN chown appuser:appgroup app.jar
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true dependency:go-offline
+COPY src src
+RUN ./mvnw -B -DskipTests -Dcheckstyle.skip=true package 
 
-USER appuser
-EXPOSE 8084
+### 4. Final runtime image (Distroless + non-root)
+FROM gcr.io/distroless/java17-debian12:nonroot
+WORKDIR /app
 
-# Health check for Doctor Management service
-HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8084/actuator/health || exit 1
+COPY --from=jre /opt/customjre /opt/customjre
+ENV JAVA_HOME=/opt/customjre PATH="$JAVA_HOME/bin:$PATH"
 
-ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=70.0 -XX:+UseG1GC -XX:+UseStringDeduplication"
+# Copy built JAR
+COPY --from=builder /app/target/*.jar ./app.jar
+EXPOSE 8082
 
-CMD ["sh", "-c", "java $JAVA_OPTS -jar app.jar"] 
+ENTRYPOINT ["java", "-jar", "app.jar"] 

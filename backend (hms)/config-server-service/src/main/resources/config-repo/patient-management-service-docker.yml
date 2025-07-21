@@ -27,9 +27,14 @@ spring:
   # MongoDB Configuration for Docker
   data:
     mongodb:
-      uri: mongodb://localhost:27017/hms_medical_history_db
+      uri: mongodb://mongodb:27017/hms_medical_history_db
       auto-index-creation: true
-  
+
+  # Mongock configuration
+  mongock:
+    enabled: true
+    migration-scan-package: com.pro.patientmanagementservice.migration
+
   # Flyway Configuration
   flyway:
     enabled: true
@@ -41,8 +46,7 @@ spring:
 app:
   jwt:
     secret: ${JWT_SECRET}
-  cors:
-    allowed-origins: http://localhost:5173,http://frontend:80
+
 
 # Stroke Prediction Service Configuration
 stroke:
@@ -56,27 +60,14 @@ stroke:
 eureka:
   client:
     service-url:
-      defaultZone: http://discovery-server-service:8761/eureka/
+      defaultZone: http://discovery-server:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
   instance:
     prefer-ip-address: true
     hostname: patient-management-service
 
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      show-details: when_authorized
-  health:
-    db:
-      enabled: true
-    mongo:
-      enabled: true
+
 
 # Logging Configuration
 logging:

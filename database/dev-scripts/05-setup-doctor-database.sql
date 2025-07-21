@@ -4,7 +4,15 @@
 -- This script sets up the doctors database for local development
 -- Run against PostgreSQL: psql -U postgres -d hms_doctor_db -f 05-setup-doctor-database.sql
 -- ================================================================
-
+-- Create doctor database
+DROP DATABASE IF EXISTS hms_doctor_db;
+CREATE DATABASE hms_doctor_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 -- Drop existing table if it exists (for clean setup)
 DROP TABLE IF EXISTS doctors CASCADE;
 
