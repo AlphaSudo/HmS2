@@ -130,7 +130,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📫 Contact
 
 For questions, support, or feedback:
-- **Email**: [ahmed.yasser.morra@gmail.com](mailto:ahmed.yasser.morra@gmail.com)
+- **Email**: [ahmedyasser@freeajent.site](mailto:ahmedyasser@freeajent.site)
 - **GitHub Issues**: [Open an issue](https://github.com/AlphaSudo/HmS2/issues)
 
 ---
