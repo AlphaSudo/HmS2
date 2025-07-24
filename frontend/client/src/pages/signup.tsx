@@ -47,8 +47,9 @@ export default function SignupPage() {
         const loginSuccess = await login(formData.username, formData.password, 'patient');
         
         if (loginSuccess) {
-          // Now redirect to profile page as an authenticated user
-          setLocation(`/patient-profile?email=${encodeURIComponent(formData.email)}`);
+          // Set a flag to indicate this login is after signup
+          localStorage.setItem('hms-just-signed-up', 'true');
+          setLocation('/patient-profile');
           toast({
             title: t('auth.success.signupSuccess'),
             description: t('auth.success.signupSuccessDesc'),

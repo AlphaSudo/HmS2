@@ -26,6 +26,12 @@ export default function LoginPage() {
   // Redirect if already authenticated
   React.useEffect(() => {
     if (isAuthenticated && user) {
+      // Check for post-signup flag
+      if (localStorage.getItem('hms-just-signed-up') === 'true') {
+        localStorage.removeItem('hms-just-signed-up');
+        setLocation('/patient-profile');
+        return;
+      }
       if (user.role === 'admin') {
         setLocation('/admin/dashboard');
       } else if (user.role === 'patient') {

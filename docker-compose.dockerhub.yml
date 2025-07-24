@@ -1,11 +1,7 @@
-
-
 services:
   # Config Server - Must start first
   config-server:
-    build:
-      context: './backend (hms)/config-server-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-config-server:latest
     container_name: hms-config-server
     restart: unless-stopped
     ports:
@@ -19,9 +15,7 @@ services:
 
   # Discovery Server - Depends on Config Server
   discovery-server:
-    build:
-      context: './backend (hms)/discovery-server-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-discovery-server:latest
     container_name: hms-discovery-server
     restart: unless-stopped
     ports:
@@ -35,9 +29,7 @@ services:
 
   # Authentication Service - Depends on Config and Discovery
   authentication-service:
-    build:
-      context: './backend (hms)/authentication-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-authentication-service:latest
     container_name: hms-authentication-service
     restart: unless-stopped
     ports:
@@ -79,9 +71,7 @@ services:
 
   # API Gateway - Depends on Config and Discovery
   api-gateway:
-    build:
-      context: './backend (hms)/api-gateway-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-api-gateway:latest
     container_name: hms-api-gateway
     restart: unless-stopped
     ports:
@@ -97,12 +87,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-
-# Doctor Management Service
+  # Doctor Management Service
   doctor-management-service:
-    build:
-      context: './backend (hms)/doctor-management-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-doctor-management-service:latest
     container_name: hms-doctor-management-service
     restart: unless-stopped
     ports:
@@ -117,11 +104,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-# Appointment Scheduling Service
+  # Appointment Scheduling Service
   appointment-scheduling-service:
-    build:
-      context: './backend (hms)/appointment-scheduling-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-appointment-scheduling-service:latest
     container_name: hms-appointment-scheduling-service
     restart: unless-stopped
     ports:
@@ -136,12 +121,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-# Patient Management Service
-
+  # Patient Management Service
   patient-management-service:
-    build:
-      context: './backend (hms)/patient-management-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-patient-management-service:latest
     container_name: hms-patient-management-service
     restart: unless-stopped
     ports:
@@ -156,11 +138,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-# Billing Invoicing Service
+  # Billing Invoicing Service
   billing-invoicing-service:
-    build:
-      context: './backend (hms)/billing-invoicing-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-billing-invoicing-service:latest
     container_name: hms-billing-invoicing-service
     restart: unless-stopped
     ports:
@@ -175,11 +155,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-# Pharmacy Management Service
+  # Pharmacy Management Service
   pharmacy-management-service:
-    build:
-      context: './backend (hms)/pharmacy-management-service'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-pharmacy-management-service:latest
     container_name: hms-pharmacy-management-service
     restart: unless-stopped
     ports:
@@ -194,7 +172,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - app.jwt.secret=c2VjcmV0a2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0
 
-# MongoDB Database
+  # MongoDB Database
   mongodb:
     image: mongo:4.4
     container_name: hms-mongodb
@@ -207,16 +185,13 @@ services:
       - mongodb_data:/data/db
       - ./database/dev-scripts/09-setup-mongodb-billing-no-validation.js:/docker-entrypoint-initdb.d/09-setup-mongodb-billing-no-validation.js:ro
       - ./database/dev-scripts/04-setup-mongodb-patient.js:/docker-entrypoint-initdb.d/04-setup-mongodb-patient.js:ro
-
     environment:
       - MONGO_INITDB_DATABASE=hms_core_db
     command: mongod --noauth --wiredTigerCacheSizeGB 0.048
 
-# Frontend
+  # Frontend
   frontend:
-    build:
-      context: './frontend'
-      dockerfile: Dockerfile
+    image: alphasudo2/hospitalmanagementsystem-frontend:latest
     container_name: hms-frontend
     restart: unless-stopped
     ports:
@@ -225,7 +200,6 @@ services:
       - hms-core-network
     depends_on:
       - api-gateway
-
 
 volumes:
   postgres_core_data:
@@ -238,4 +212,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
+        - subnet: 172.20.0.0/16 

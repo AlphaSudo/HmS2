@@ -18,7 +18,14 @@ public class GatewayCorsConfig {
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5000", "http://localhost:5000")); // Specific origins for development
+        config.setAllowedOrigins(List.of(
+            "https://freeajent.site",      // <-- THE CRUCIAL FIX
+            "http://localhost:5173",
+            "http://127.0.0.1:5000",
+            "http://localhost:5000",
+            "http://3.65.24.121:5000",
+            "https://3.65.24.121:5000"
+        )); // Specific origins for development
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
